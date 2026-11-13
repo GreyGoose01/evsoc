@@ -1,0 +1,202 @@
+{
+ "name": "abrp_mgzsev",
+ "description": "MG ZS EV",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/mg/mgzsev.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "MG",
+   "model": "ZS EV",
+   "years": [
+    2019,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22B042",
+   "at": [
+    "ATAL",
+    "ATSH781",
+    "ATFCSH781"
+   ],
+   "request": "22B042"
+  },
+  {
+   "id": "s2_22B043",
+   "at": [
+    "ATAL",
+    "ATSH781",
+    "ATFCSH781"
+   ],
+   "request": "22B043"
+  },
+  {
+   "id": "s3_22B061",
+   "at": [
+    "ATAL",
+    "ATSH781",
+    "ATFCSH781"
+   ],
+   "request": "22B061"
+  },
+  {
+   "id": "s4_22B046",
+   "at": [
+    "ATAL",
+    "ATSH781",
+    "ATFCSH781"
+   ],
+   "request": "22B046"
+  },
+  {
+   "id": "s5_22B056",
+   "at": [
+    "ATAL",
+    "ATSH781",
+    "ATFCSH781"
+   ],
+   "request": "22B056"
+  },
+  {
+   "id": "s6_22B048",
+   "at": [
+    "ATAL",
+    "ATSH781",
+    "ATFCSH781"
+   ],
+   "request": "22B048"
+  },
+  {
+   "id": "s7_22BA00",
+   "at": [
+    "ATAL",
+    "ATSH7E3",
+    "ATFCSH7E3"
+   ],
+   "request": "22BA00"
+  },
+  {
+   "id": "s8_22BB05",
+   "at": [
+    "ATAL",
+    "ATSH7E3",
+    "ATFCSH7E3"
+   ],
+   "request": "22BB05"
+  },
+  {
+   "id": "s9_22B101",
+   "at": [
+    "ATAL",
+    "ATSH760",
+    "ATFCSH760"
+   ],
+   "request": "22B101"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s2_22B043",
+   "decode": {
+    "type": "equation",
+    "expr": "((A*256+B)-40000)*0.25/10"
+   },
+   "min": -300.0,
+   "max": 1000.0,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s1_22B042",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*256+B)*0.25"
+   },
+   "min": 300.0,
+   "max": 450.0,
+   "unit": "V"
+  },
+  "soh": {
+   "step": "s3_22B061",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*256+B)/100"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "s4_22B046",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*256+B)/100"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "batt_temp": {
+   "step": "s5_22B056",
+   "decode": {
+    "type": "equation",
+    "expr": "(A/2)-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "is_charging": {
+   "step": "s6_22B048",
+   "decode": {
+    "type": "equation",
+    "expr": "(A==6)||(A==7)"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "is_dcfc": {
+   "step": "s6_22B048",
+   "decode": {
+    "type": "equation",
+    "expr": "(A==7)"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "odometer": {
+   "step": "s9_22B101",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*65536+B*256+C)"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "km"
+  },
+  "vehicle_reported_speed": {
+   "step": "s7_22BA00",
+   "decode": {
+    "type": "equation",
+    "expr": "((A*256+B)-20000)/100"
+   },
+   "min": 0.0,
+   "max": 220.0,
+   "unit": ""
+  },
+  "ext_temp": {
+   "step": "s8_22BB05",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  }
+ }
+}

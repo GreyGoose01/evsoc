@@ -1,0 +1,274 @@
+{
+ "name": "obdb_bmw_5_series",
+ "description": "BMW 5 Series",
+ "source": "https://github.com/OBDb/BMW-5-Series",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "BMW",
+   "model": "5 Series",
+   "years": [
+    1972,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "226335",
+   "years": [
+    2016,
+    null
+   ],
+   "id": "c1_226335"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD68",
+   "years": [
+    2011,
+    null
+   ],
+   "id": "c2_22DD68"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD69",
+   "years": [
+    2016,
+    null
+   ],
+   "id": "c3_22DD69"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DDBC",
+   "years": [
+    2016,
+    null
+   ],
+   "id": "c4_22DDBC"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22E5CE",
+   "years": [
+    2022,
+    null
+   ],
+   "id": "c11_22E5CE"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA612",
+    "ATCEA12",
+    "ATFCSH6F1",
+    "ATFCSD12300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22558E",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c40_22558E"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA61A",
+    "ATCEA1A",
+    "ATFCSH6F1",
+    "ATFCSD1A300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DE00",
+   "years": [
+    2011,
+    null
+   ],
+   "id": "c83_22DE00"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22420C",
+   "years": [
+    2011,
+    null
+   ],
+   "id": "c101_22420C"
+  }
+ ],
+ "fields": {
+  "soh": {
+   "step": "c1_226335",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "voltage": {
+   "step": "c2_22DD68",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c3_22DD69",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "sign": true,
+    "div": 100
+   },
+   "min": -10000,
+   "max": 10000,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc": {
+   "step": "c4_22DDBC",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10,
+    "nullmin": 0
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "soc_2": {
+   "step": "c11_22E5CE",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "odometer": {
+   "step": "c40_22558E",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer, engine computer"
+  },
+  "plugged_in": {
+   "step": "c83_22DE00",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Is charger connected"
+  },
+  "is_charging": {
+   "step": "c83_22DE00",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 8
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Is charging"
+  },
+  "range": {
+   "step": "c101_22420C",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Estimated range remaining"
+  }
+ }
+}

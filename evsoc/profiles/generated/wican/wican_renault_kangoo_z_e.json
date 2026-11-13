@@ -1,0 +1,154 @@
+{
+ "name": "wican_renault_kangoo_z_e",
+ "description": "Renault: Kangoo Z.E.",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "Kangoo Z.E.",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_222002",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "222002"
+  },
+  {
+   "id": "s2_223206",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "223206"
+  },
+  {
+   "id": "s3_222005",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "222005"
+  },
+  {
+   "id": "s5_222006",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "222006"
+  },
+  {
+   "id": "s6_223203",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "223203"
+  },
+  {
+   "id": "s7_223204",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "223204"
+  },
+  {
+   "id": "s8_222001",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "222001"
+  },
+  {
+   "id": "s10_223451",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "223451"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_222002",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]*0.02"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s2_223206",
+   "decode": {
+    "type": "wican",
+    "expr": "B4"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "aux_voltage": {
+   "step": "s3_222005",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]*0.01"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "odometer": {
+   "step": "s5_222006",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  },
+  "voltage": {
+   "step": "s6_223203",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]*0.2"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s7_223204",
+   "decode": {
+    "type": "wican",
+    "expr": "([B4:B5]-32768)*0.25"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  },
+  "batt_temp": {
+   "step": "s8_222001",
+   "decode": {
+    "type": "wican",
+    "expr": "B4-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "range": {
+   "step": "s10_223451",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]"
+   },
+   "min": null,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

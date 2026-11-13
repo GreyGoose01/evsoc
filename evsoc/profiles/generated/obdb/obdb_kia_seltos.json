@@ -1,0 +1,98 @@
+{
+ "name": "obdb_kia_seltos",
+ "description": "Kia Seltos",
+ "source": "https://github.com/OBDb/Kia-Seltos",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Kia",
+   "model": "Seltos",
+   "years": [
+    2019,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7C6",
+    "ATCRA7CE",
+    "ATCEA",
+    "ATFCSH7C6",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22B002",
+   "id": "c3_22B002"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22E001",
+   "id": "c6_22E001"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22E004",
+   "id": "c8_22E004"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c3_22B002",
+   "decode": {
+    "type": "bits",
+    "bix": 72,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "mi",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c6_22E001",
+   "decode": {
+    "type": "bits",
+    "bix": 48,
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Battery state of charge"
+  },
+  "soh": {
+   "step": "c8_22E004",
+   "decode": {
+    "type": "bits",
+    "bix": 328,
+    "len": 8,
+    "nullmin": 0
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Aux battery state of health"
+  }
+ }
+}

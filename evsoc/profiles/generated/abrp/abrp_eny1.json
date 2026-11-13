@@ -1,0 +1,167 @@
+{
+ "name": "abrp_eny1",
+ "description": "Honda e:Ny1",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/honda/eny1.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Honda",
+   "model": "e:Ny1",
+   "years": [
+    2023,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22202A",
+   "at": [
+    "ATAT1",
+    "ATAL",
+    "ATFCSH18DA01F1",
+    "ATFCSM1",
+    "ATSH18DA01F1",
+    "ATCRA18DAF101"
+   ],
+   "request": "22202A"
+  },
+  {
+   "id": "s2_227022",
+   "at": [
+    "ATAT1",
+    "ATAL",
+    "ATFCSH18DA01F1",
+    "ATFCSM1",
+    "ATSH18DA60F1",
+    "ATCRA18DAF160"
+   ],
+   "request": "227022"
+  },
+  {
+   "id": "s3_227028",
+   "at": [
+    "ATAT1",
+    "ATAL",
+    "ATFCSH18DA01F1",
+    "ATFCSM1",
+    "ATSH18DA60F1",
+    "ATCRA18DAF160"
+   ],
+   "request": "227028"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "equation",
+    "expr": "((Signed(BF)*256)+BG)/100"
+   },
+   "min": -2000.0,
+   "max": 2000.0,
+   "unit": "A"
+  },
+  "ext_temp": {
+   "step": "s3_227028",
+   "decode": {
+    "type": "equation",
+    "expr": "R"
+   },
+   "min": -40.0,
+   "max": 60.0,
+   "unit": "°C"
+  },
+  "is_charging": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "equation",
+    "expr": "ER==0"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "is_dcfc": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "equation",
+    "expr": "(ER==0)&&(FJ<252)"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "is_parked": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "equation",
+    "expr": "BB==1"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "odometer": {
+   "step": "s2_227022",
+   "decode": {
+    "type": "equation",
+    "expr": "((G<<16)+(H<<8)+I)*1.60934"
+   },
+   "min": 0.0,
+   "max": 200000.0,
+   "unit": "km"
+  },
+  "soc": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "equation",
+    "expr": "AY"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soe": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "equation",
+    "expr": "(AY/100)*62000"
+   },
+   "min": 0.0,
+   "max": 62000.0,
+   "unit": ""
+  },
+  "vehicle_reported_speed": {
+   "step": "s2_227022",
+   "decode": {
+    "type": "equation",
+    "expr": "K*1.60934"
+   },
+   "min": 0.0,
+   "max": 170.0,
+   "unit": ""
+  },
+  "soh": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "equation",
+    "expr": "(II*100)/255"
+   },
+   "min": 50.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "equation",
+    "expr": "((BD<<8)+BE)/20"
+   },
+   "min": 0.0,
+   "max": 450.0,
+   "unit": "V"
+  }
+ }
+}

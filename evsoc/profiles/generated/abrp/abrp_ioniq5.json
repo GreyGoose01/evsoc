@@ -1,0 +1,215 @@
+{
+ "name": "abrp_ioniq5",
+ "description": "Hyundai Ioniq 5, Hyundai Ioniq 6, Kia EV6, Genesis GV60",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/hkmc/Ioniq5.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Hyundai",
+   "model": "Ioniq 5",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "Hyundai",
+   "model": "Ioniq 6",
+   "years": [
+    2022,
+    null
+   ]
+  },
+  {
+   "make": "Kia",
+   "model": "EV6",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "Genesis",
+   "model": "GV60",
+   "years": [
+    2021,
+    null
+   ]
+  }
+ ],
+ "init": [
+  "ATFE"
+ ],
+ "steps": [
+  {
+   "id": "s1_220101",
+   "at": [
+    "ATSTFF",
+    "ATSP6",
+    "ATCRA7EC"
+   ],
+   "request": "220101"
+  },
+  {
+   "id": "s2_220105",
+   "at": [
+    "ATSTFF",
+    "ATSP6",
+    "ATCRA7EC"
+   ],
+   "request": "220105"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "((Signed(K)*256)+L)/10"
+   },
+   "min": -500.0,
+   "max": 500.0,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "((N<<8)+O)/10"
+   },
+   "min": 550.0,
+   "max": 950.0,
+   "unit": "V"
+  },
+  "kwh_charged": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "((an<<24)+(ao<<16)+(ap<<8)+aq)/10"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "kWh"
+  },
+  "cumulative_energy_discharged": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "((ar<<24)+(as<<16)+(at<<8)+au)/10"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": ""
+  },
+  "is_charging": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "{j:1}"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "is_dcfc": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "{j:7}&&{j:1}"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "soc_bms": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "f/2"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "bat_min_voltage": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "aa/50"
+   },
+   "min": 2.8,
+   "max": 4.2,
+   "unit": ""
+  },
+  "bat_max_voltage": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "z/50"
+   },
+   "min": 2.8,
+   "max": 4.2,
+   "unit": ""
+  },
+  "bat_min_temp": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "Signed(p)"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": ""
+  },
+  "bat_max_temp": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "Signed(o)"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": ""
+  },
+  "bat_inlet_temp": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "Signed(y)"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": ""
+  },
+  "aux_bat_voltage": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "equation",
+    "expr": "ae*0.1"
+   },
+   "min": 11.0,
+   "max": 14.6,
+   "unit": ""
+  },
+  "soc": {
+   "step": "s2_220105",
+   "decode": {
+    "type": "equation",
+    "expr": "ag/2"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s2_220105",
+   "decode": {
+    "type": "equation",
+    "expr": "((aa<<8)+ab)/10"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

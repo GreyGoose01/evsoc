@@ -1,0 +1,126 @@
+{
+ "name": "obdb_mini_cooper_se",
+ "description": "MINI Cooper SE",
+ "source": "https://github.com/OBDb/MINI-Cooper-SE",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "MINI",
+   "model": "Cooper SE",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "226335",
+   "id": "c1_226335"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DDBC",
+   "id": "c4_22DDBC"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22420C",
+   "id": "c5_22420C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D10D",
+   "id": "c7_22D10D"
+  }
+ ],
+ "fields": {
+  "soh": {
+   "step": "c1_226335",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "soc": {
+   "step": "c4_22DDBC",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10,
+    "nullmin": 0
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "range": {
+   "step": "c5_22420C",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Estimated range remaining"
+  },
+  "odometer": {
+   "step": "c7_22D10D",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer #2"
+  }
+ }
+}

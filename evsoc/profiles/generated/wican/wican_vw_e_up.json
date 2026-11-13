@@ -1,0 +1,55 @@
+{
+ "name": "wican_vw_e_up",
+ "description": "VW: e-Up",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Volkswagen",
+   "model": "e-Up",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22028C",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "22028C"
+  },
+  {
+   "id": "s2_2202BD",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH7E5"
+   ],
+   "request": "2202BD"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22028C",
+   "decode": {
+    "type": "wican",
+    "expr": "B4/2.5"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "odometer": {
+   "step": "s2_2202BD",
+   "decode": {
+    "type": "wican",
+    "expr": "((B6*65536)+(B7*256)+B9)"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

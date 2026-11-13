@@ -1,0 +1,268 @@
+{
+ "name": "evsoc_stellantis_phev",
+ "description": "Stellantis/PSA plug-in hybrids on EMP2 (Peugeot 3008 Hybrid/Hybrid4, 508 Hybrid, Citroen C5 Aircross Hybrid, DS 7 E-Tense, Opel Grandland X Hybrid): battery control unit TBMU_PHEV, 6B4 -> 694, as on the EVs, but with a different scaling: state of charge 22D810 = INT16/4 %, SoH 22D860 = INT16/4 %, voltage 22D815 = INT16/4 V, current 22D816 = INT16 (signed) x 0.4 A, cell voltage 22D86F/22D870 = A x 0.02 V, temperature 22D817 (mean) and 22D87D (min) in °C. Experimental: derived from the workshop data in PSA-RE, not checked on any car. Told apart from evsoc_stellantis_ecmp by the length of the answer to 22D860 (2 bytes here).",
+ "source": "PSA-RE diag/AEE2010.ev/TBMU/TBMU_PHEV (Apache-2.0), https://github.com/prototux/PSA-RE",
+ "license": "Apache-2.0 (facts)",
+ "verified": "no (experimental, derived from PSA-RE only)",
+ "platform": "Stellantis EMP2 Plug-in-Hybrid",
+ "vehicles": [
+  {
+   "make": "Peugeot",
+   "model": "3008 Hybrid / Hybrid4 (experimental)",
+   "years": [
+    2019,
+    2024
+   ]
+  },
+  {
+   "make": "Peugeot",
+   "model": "508 Hybrid / PSE (experimental)",
+   "years": [
+    2019,
+    null
+   ]
+  },
+  {
+   "make": "Citroen",
+   "model": "C5 Aircross Hybrid (experimental)",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "DS",
+   "model": "DS 7 E-Tense (experimental)",
+   "years": [
+    2019,
+    null
+   ]
+  },
+  {
+   "make": "Opel",
+   "model": "Grandland X Hybrid / Hybrid4 (experimental)",
+   "years": [
+    2019,
+    2024
+   ]
+  },
+  {
+   "make": "Vauxhall",
+   "model": "Grandland X Hybrid (experimental)",
+   "years": [
+    2019,
+    2024
+   ]
+  }
+ ],
+ "init": [],
+ "confirm": [
+  {
+   "step": "soh",
+   "bytes": 2
+  }
+ ],
+ "steps": [
+  {
+   "id": "soc",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D810"
+  },
+  {
+   "id": "volt",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D815"
+  },
+  {
+   "id": "curr",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D816"
+  },
+  {
+   "id": "soh",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D860"
+  },
+  {
+   "id": "cmin",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D86F"
+  },
+  {
+   "id": "cmax",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D870"
+  },
+  {
+   "id": "tavg",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D817"
+  },
+  {
+   "id": "tmin",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D87D"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "soc",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/4"
+   },
+   "min": 0,
+   "max": 105,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "volt",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/4"
+   },
+   "min": 100,
+   "max": 500,
+   "unit": "V"
+  },
+  "current": {
+   "step": "curr",
+   "decode": {
+    "type": "bits",
+    "bix": 0,
+    "len": 16,
+    "sign": true,
+    "mul": 0.4
+   },
+   "min": -600,
+   "max": 600,
+   "unit": "A"
+  },
+  "soh": {
+   "step": "soh",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/4"
+   },
+   "min": 50,
+   "max": 110,
+   "unit": "%"
+  },
+  "cell_min_voltage": {
+   "step": "cmin",
+   "decode": {
+    "type": "equation",
+    "expr": "A*0.02"
+   },
+   "min": 2,
+   "max": 4.5,
+   "unit": "V"
+  },
+  "cell_max_voltage": {
+   "step": "cmax",
+   "decode": {
+    "type": "equation",
+    "expr": "A*0.02"
+   },
+   "min": 2,
+   "max": 4.5,
+   "unit": "V"
+  },
+  "batt_temp": {
+   "step": "tavg",
+   "decode": {
+    "type": "bits",
+    "bix": 0,
+    "len": 8,
+    "sign": true
+   },
+   "min": -40,
+   "max": 80,
+   "unit": "°C"
+  },
+  "batt_temp_min": {
+   "step": "tmin",
+   "decode": {
+    "type": "bits",
+    "bix": 0,
+    "len": 8,
+    "sign": true
+   },
+   "min": -40,
+   "max": 80,
+   "unit": "°C"
+  }
+ }
+}

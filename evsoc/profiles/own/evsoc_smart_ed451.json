@@ -1,0 +1,67 @@
+{
+ "name": "evsoc_smart_ed451",
+ "description": "smart fortwo electric drive (451, 3rd generation, 2012-2016): listening on the vehicle CAN at OBD pins 6/14 (500 kbit/s). Displayed state of charge from frame 0x518, last byte / 2; BMS state of charge from 0x2D5, 10 bit (byte 5 bits 1-0 and byte 6) / 10. After OVMS vehicle_smarted (MIT), confirmed there with example frames. Experimental: not checked by evsoc on any car.",
+ "source": "OVMS vehicle_smarted (MIT), IncomingFrameCan1 0x518 and 0x2D5",
+ "license": "MIT (facts)",
+ "verified": "no (experimental; example frames from the OVMS source)",
+ "platform": "smart electric drive (451)",
+ "vehicles": [
+  {
+   "make": "smart",
+   "model": "fortwo electric drive (451, experimental)",
+   "years": [
+    2012,
+    2016
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "soc518",
+   "at": [
+    "ATSP6",
+    "ATCAF0",
+    "ATCEA"
+   ],
+   "listen": "518"
+  },
+  {
+   "id": "bms2d5",
+   "at": [
+    "ATSP6",
+    "ATCAF0",
+    "ATCEA"
+   ],
+   "listen": "2D5"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "soc518",
+   "decode": {
+    "type": "bits",
+    "bix": 56,
+    "len": 8,
+    "div": 2
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%",
+   "label": "SoC (display)"
+  },
+  "soc_bms": {
+   "step": "bms2d5",
+   "decode": {
+    "type": "bits",
+    "bix": 38,
+    "len": 10,
+    "div": 10
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%",
+   "label": "SoC (BMS)"
+  }
+ }
+}

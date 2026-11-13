@@ -1,0 +1,175 @@
+{
+ "name": "obdb_cupra_formentor",
+ "description": "Cupra Formentor",
+ "source": "https://github.com/OBDb/Cupra-Formentor",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Cupra",
+   "model": "Formentor",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB6",
+   "id": "c21_222AB6"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH714",
+    "ATCRA77E",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222203",
+   "id": "c36_222203"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "pre": [
+    "1003"
+   ],
+   "id": "c155_22028C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221E3B",
+   "pre": [
+    "1003"
+   ],
+   "id": "c157_221E3B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2251E0",
+   "id": "c159_2251E0"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c188_22028C"
+  }
+ ],
+ "fields": {
+  "range": {
+   "step": "c21_222AB6",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "mi",
+   "label": "Range remaining"
+  },
+  "odometer": {
+   "step": "c36_222203",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c155_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "voltage": {
+   "step": "c157_221E3B",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 4
+   },
+   "min": 0,
+   "max": 1000,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "soh": {
+   "step": "c159_2251E0",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.127,
+    "add": -1798.574
+   },
+   "min": -1798.574,
+   "max": 6524,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "soc_2": {
+   "step": "c188_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 250
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

@@ -1,0 +1,64 @@
+{
+ "name": "wican_nissan_ariya",
+ "description": "Nissan : Ariya",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Nissan",
+   "model": "Ariya",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_229002",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSHDADBF1",
+    "ATFCSH18DADBF1",
+    "ATCRA18DAF1DB"
+   ],
+   "request": "229002"
+  },
+  {
+   "id": "s2_229003",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSHDADBF1",
+    "ATFCSH18DADBF1",
+    "ATCRA18DAF1DB"
+   ],
+   "request": "229003"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_229002",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/100"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s2_229003",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/100"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  }
+ }
+}

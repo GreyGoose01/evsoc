@@ -1,0 +1,170 @@
+{
+ "name": "obdb_renault",
+ "description": "Renault all models",
+ "source": "https://github.com/OBDb/Renault",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH740",
+    "ATCRA760",
+    "ATCEA",
+    "ATFCSH740",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224B06",
+   "id": "c9_224B06"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADAF1",
+    "ATCRA18DAF1DA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222B85",
+   "id": "c200_222B85"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "229002",
+   "id": "c209_229002"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "229003",
+   "id": "c210_229003"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "229005",
+   "id": "c211_229005"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22925D",
+   "id": "c327_22925D"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c9_224B06",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "plugged_in": {
+   "step": "c200_222B85",
+   "decode": {
+    "type": "bits",
+    "bix": 4,
+    "len": 4
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Charge plug present"
+  },
+  "soc": {
+   "step": "c209_229002",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c210_229003",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "%",
+   "label": "State of health"
+  },
+  "voltage": {
+   "step": "c211_229005",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553.5,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  },
+  "current": {
+   "step": "c327_22925D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": -1,
+    "div": 32,
+    "add": 1020
+   },
+   "min": -1027.97,
+   "max": 1020,
+   "unit": "A",
+   "label": "High voltage battery current"
+  }
+ }
+}

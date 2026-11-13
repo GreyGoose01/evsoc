@@ -1,0 +1,166 @@
+{
+ "name": "obdb_kia_ev3",
+ "description": "Kia EV3",
+ "source": "https://github.com/OBDb/Kia-EV3",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Kia",
+   "model": "EV3",
+   "years": [
+    2024,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH744",
+    "ATCRA74C",
+    "ATCEA",
+    "ATFCSH744",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22E003",
+   "id": "c4_22E003"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7C6",
+    "ATCRA7CE",
+    "ATCEA",
+    "ATFCSH7C6",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22B002",
+   "id": "c24_22B002"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220101",
+   "id": "c32_220101"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220105",
+   "id": "c36_220105"
+  }
+ ],
+ "fields": {
+  "voltage": {
+   "step": "c4_22E003",
+   "decode": {
+    "type": "bits",
+    "bix": 104,
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553.5,
+   "unit": "V",
+   "label": "High voltage battery, voltage"
+  },
+  "soc": {
+   "step": "c4_22E003",
+   "decode": {
+    "type": "bits",
+    "bix": 120,
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "odometer": {
+   "step": "c24_22B002",
+   "decode": {
+    "type": "bits",
+    "bix": 72,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "mi",
+   "label": "Odometer, imperial"
+  },
+  "soc_2": {
+   "step": "c32_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 8,
+    "mul": 0.5
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge (dash)"
+  },
+  "is_charging": {
+   "step": "c32_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 72,
+    "len": 1
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Charging?"
+  },
+  "soh": {
+   "step": "c36_220105",
+   "decode": {
+    "type": "bits",
+    "bix": 200,
+    "len": 16,
+    "div": 10
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of health"
+  },
+  "soc_display": {
+   "step": "c36_220105",
+   "decode": {
+    "type": "bits",
+    "bix": 248,
+    "len": 8,
+    "mul": 0.5
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  }
+ }
+}

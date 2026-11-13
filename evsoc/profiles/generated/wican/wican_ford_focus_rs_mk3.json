@@ -1,0 +1,82 @@
+{
+ "name": "wican_ford_focus_rs_mk3",
+ "description": "Ford: Focus RS (MK3)",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "Focus RS (MK3)",
+   "years": null
+  }
+ ],
+ "init": [
+  "ATR1",
+  "STCAFCP726,72E",
+  "STCAFCP7E0,7E8"
+ ],
+ "steps": [
+  {
+   "id": "s1_224028",
+   "at": [
+    "ATST32",
+    "ATSP6",
+    "ATCAF1",
+    "ATSH000726"
+   ],
+   "request": "224028"
+  },
+  {
+   "id": "s9_22DD01",
+   "at": [
+    "ATST32",
+    "ATSP6",
+    "ATCAF1",
+    "ATSH000726"
+   ],
+   "request": "22DD01"
+  },
+  {
+   "id": "s11_224029",
+   "at": [
+    "ATST32",
+    "ATSP6",
+    "ATCAF1",
+    "ATSH000726"
+   ],
+   "request": "224029"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_224028",
+   "decode": {
+    "type": "wican",
+    "expr": "B4"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "odometer": {
+   "step": "s9_22DD01",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  },
+  "batt_temp": {
+   "step": "s11_224029",
+   "decode": {
+    "type": "wican",
+    "expr": "B4-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  }
+ }
+}

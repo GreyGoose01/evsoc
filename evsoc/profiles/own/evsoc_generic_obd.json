@@ -1,0 +1,235 @@
+{
+ "name": "evsoc_generic_obd",
+ "generic": true,
+ "description": "Manufacturer independent. SAE J1979: PID 5B hybrid/EV battery remaining charge, 9A voltage/current, B2 battery health, D2 certified energy level. Also the same values over UDS (OBDonUDS/ZEVonUDS, DIDs F4xx), mandatory for new EVs in the US from MY 2026/2027. In addition the same PIDs with 29-bit addresses (18DB33F1), for cars that only answer that way, e.g. Renault Megane E-Tech.",
+ "source": "SAE J1979 / J1979-2 / J1979-3, OBDb SAEJ1979",
+ "license": "Standard",
+ "verified": "standard; 29 bit: Renault Megane E-Tech 2025 (OBDb captures 015B, 019A, 01B2)",
+ "vehicles": [
+  {
+   "make": "alle",
+   "model": "Hybride, Plug-in-Hybride, neuere E-Autos"
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "5b",
+   "at": [
+    "ATSP0",
+    "ATSH7DF",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "015B"
+  },
+  {
+   "id": "9a",
+   "at": [
+    "ATSP0",
+    "ATSH7DF",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "019A"
+  },
+  {
+   "id": "b2",
+   "at": [
+    "ATSP0",
+    "ATSH7DF",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "01B2"
+  },
+  {
+   "id": "d2",
+   "at": [
+    "ATSP0",
+    "ATSH7DF",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "01D2"
+  },
+  {
+   "id": "u5b",
+   "at": [
+    "ATSP0",
+    "ATSH7DF",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "22F45B"
+  },
+  {
+   "id": "ub2",
+   "at": [
+    "ATSP0",
+    "ATSH7DF",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "22F4B2"
+  },
+  {
+   "id": "5b_29",
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDB33F1",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "015B"
+  },
+  {
+   "id": "9a_29",
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDB33F1",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "019A"
+  },
+  {
+   "id": "b2_29",
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDB33F1",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0"
+   ],
+   "request": "01B2"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "5b",
+   "decode": {
+    "type": "equation",
+    "expr": "A*100/255"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "soc_uds": {
+   "step": "u5b",
+   "decode": {
+    "type": "equation",
+    "expr": "A*100/255"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "9a",
+   "decode": {
+    "type": "bits",
+    "bix": 16,
+    "len": 16,
+    "div": 64
+   },
+   "min": 0,
+   "max": 1024,
+   "unit": "V"
+  },
+  "current": {
+   "step": "9a",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16,
+    "div": 10,
+    "sign": true
+   },
+   "min": -3276.8,
+   "max": 3276.7,
+   "unit": "A"
+  },
+  "soh": {
+   "step": "b2",
+   "decode": {
+    "type": "equation",
+    "expr": "A*100/255"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "soh_uds": {
+   "step": "ub2",
+   "decode": {
+    "type": "equation",
+    "expr": "A*100/255"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "soce": {
+   "step": "d2",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%",
+   "label": "State of certified energy"
+  },
+  "soc_29bit": {
+   "step": "5b_29",
+   "decode": {
+    "type": "equation",
+    "expr": "A*100/255"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%",
+   "label": "OBD 29 bit"
+  },
+  "voltage_29bit": {
+   "step": "9a_29",
+   "decode": {
+    "type": "bits",
+    "bix": 16,
+    "len": 16,
+    "div": 64
+   },
+   "min": 0,
+   "max": 1024,
+   "unit": "V",
+   "label": "Voltage (OBD 29 bit)"
+  },
+  "soh_29bit": {
+   "step": "b2_29",
+   "decode": {
+    "type": "equation",
+    "expr": "A*100/255"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%",
+   "label": "SoH (OBD 29 bit)"
+  }
+ }
+}

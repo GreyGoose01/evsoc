@@ -1,0 +1,202 @@
+{
+ "name": "abrp_mache",
+ "description": "Ford Mustang Mach-E",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/ford/MachE.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "Mustang Mach-E",
+   "years": [
+    2021,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_221505",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E0"
+   ],
+   "request": "221505"
+  },
+  {
+   "id": "s2_22480D",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E2"
+   ],
+   "request": "22480D"
+  },
+  {
+   "id": "s3_224851",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E2"
+   ],
+   "request": "224851"
+  },
+  {
+   "id": "s4_22DD05",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E2"
+   ],
+   "request": "22DD05"
+  },
+  {
+   "id": "s5_224800",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E4"
+   ],
+   "request": "224800"
+  },
+  {
+   "id": "s6_2248F9",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E4"
+   ],
+   "request": "2248F9"
+  },
+  {
+   "id": "s7_22490C",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E4"
+   ],
+   "request": "22490C"
+  },
+  {
+   "id": "s8_224845",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E4"
+   ],
+   "request": "224845"
+  },
+  {
+   "id": "s9_221E12",
+   "at": [
+    "ATAL",
+    "ATSP6",
+    "ATSH7E6"
+   ],
+   "request": "221E12"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s6_2248F9",
+   "decode": {
+    "type": "equation",
+    "expr": "((signed(A)*256)+B)*0.1"
+   },
+   "min": -500.0,
+   "max": 300.0,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s2_22480D",
+   "decode": {
+    "type": "equation",
+    "expr": "((A<<8)+B)*0.01"
+   },
+   "min": 300.0,
+   "max": 500.0,
+   "unit": "V"
+  },
+  "ext_temp": {
+   "step": "s4_22DD05",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "batt_temp": {
+   "step": "s5_224800",
+   "decode": {
+    "type": "equation",
+    "expr": "A-50"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "is_charging": {
+   "step": "s3_224851",
+   "decode": {
+    "type": "equation",
+    "expr": "(A==6)||(A==8)"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "is_dcfc": {
+   "step": "s3_224851",
+   "decode": {
+    "type": "equation",
+    "expr": "A==8"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "soh": {
+   "step": "s7_22490C",
+   "decode": {
+    "type": "equation",
+    "expr": "A*0.5"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "s8_224845",
+   "decode": {
+    "type": "equation",
+    "expr": "A*0.5"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "is_parked": {
+   "step": "s9_221E12",
+   "decode": {
+    "type": "equation",
+    "expr": "A==70"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "vehicle_reported_speed": {
+   "step": "s1_221505",
+   "decode": {
+    "type": "equation",
+    "expr": "((A<<8)+B)/128"
+   },
+   "min": 0.0,
+   "max": 200.0,
+   "unit": ""
+  }
+ }
+}

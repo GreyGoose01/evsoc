@@ -1,0 +1,235 @@
+{
+ "name": "obdb_volvo",
+ "description": "Volvo all models",
+ "source": "https://github.com/OBDb/Volvo",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Volvo",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH720",
+    "ATCRA728",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c16_22DD01"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2107",
+   "id": "c202_2107"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2108",
+   "id": "c203_2108"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2161",
+   "id": "c207_2161"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22339D",
+   "id": "c346_22339D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "226050",
+   "id": "c352_226050"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "226502",
+   "id": "c356_226502"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c439_224801"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c16_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "voltage": {
+   "step": "c202_2107",
+   "decode": {
+    "type": "bits",
+    "bix": 64,
+    "len": 16,
+    "div": 64
+   },
+   "min": 0,
+   "max": 1023.9843,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c202_2107",
+   "decode": {
+    "type": "bits",
+    "bix": 80,
+    "len": 16,
+    "sign": true,
+    "mul": -1,
+    "div": 32
+   },
+   "min": -1023.9687,
+   "max": 1024,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc": {
+   "step": "c203_2108",
+   "decode": {
+    "type": "bits",
+    "bix": 48,
+    "len": 16,
+    "div": 16
+   },
+   "min": 0,
+   "max": 4095.9375,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c207_2161",
+   "decode": {
+    "type": "bits",
+    "bix": 64,
+    "len": 8,
+    "div": 2
+   },
+   "min": 0,
+   "max": 127.5,
+   "unit": "%",
+   "label": "State of health"
+  },
+  "plugged_in": {
+   "step": "c346_22339D",
+   "decode": {
+    "type": "bits",
+    "bix": 4,
+    "len": 4
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "yesno",
+   "label": "Charging plug detected"
+  },
+  "soc_2": {
+   "step": "c352_226050",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge"
+  },
+  "range": {
+   "step": "c356_226502",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 1000,
+   "unit": "km",
+   "label": "HV battery remaining distance"
+  },
+  "soc_3": {
+   "step": "c439_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": 0,
+   "max": 131,
+   "unit": "%",
+   "label": "High voltage battery state of charge"
+  }
+ }
+}

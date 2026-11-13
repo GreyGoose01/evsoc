@@ -1,0 +1,83 @@
+{
+ "name": "evsoc_stellantis_smartcar",
+ "description": "Stellantis Smart Car (CC21): Citroën ë-C3 and ë-C3 Aircross; Fiat Grande Panda and Opel Frontera Electric use the same platform (derived). Displayed state of charge 222002 at 7E0 (A/2.55), BMS state of charge 224801 at 7E7 (INT16/100). Experimental: comes from a single user report (Car Scanner) in the ABRP forum.",
+ "source": "ABRP feature request \"Incorrect SoC (Fixed at 3%) for New Citroën ë-C3\" (user report, Car Scanner Pro)",
+ "license": "facts",
+ "verified": "unverified (one user report, ë-C3)",
+ "platform": "Stellantis Smart Car",
+ "vehicles": [
+  {
+   "make": "Citroen",
+   "model": "ë-C3 / e-C3 / ë-C3 Aircross (experimental)",
+   "years": [
+    2024,
+    null
+   ]
+  },
+  {
+   "make": "Fiat",
+   "model": "Grande Panda Elettrica (derived, experimental)",
+   "years": [
+    2025,
+    null
+   ]
+  },
+  {
+   "make": "Opel",
+   "model": "Frontera Electric (derived, experimental)",
+   "years": [
+    2025,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "display",
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222002"
+  },
+  {
+   "id": "bms",
+   "at": [
+    "ATSP6",
+    "ATSH7E7",
+    "ATCRA7EF",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224801"
+  }
+ ],
+ "fields": {
+  "soc_display": {
+   "step": "display",
+   "decode": {
+    "type": "equation",
+    "expr": "A/2.55"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "soc_bms": {
+   "step": "bms",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/100"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  }
+ }
+}

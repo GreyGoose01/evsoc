@@ -1,0 +1,169 @@
+{
+ "name": "obdb_chevrolet_volt",
+ "description": "Chevrolet Volt",
+ "source": "https://github.com/OBDb/Chevrolet-Volt",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Chevrolet",
+   "model": "Volt",
+   "years": [
+    2011,
+    2019
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2241A6",
+   "id": "c145_2241A6"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22432D",
+   "id": "c151_22432D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224373",
+   "id": "c158_224373"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2243AF",
+   "id": "c163_2243AF"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "228334",
+   "id": "c169_228334"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E7",
+    "ATCRA7EF",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2240D4",
+   "id": "c171_2240D4"
+  }
+ ],
+ "fields": {
+  "range": {
+   "step": "c145_2241A6",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 64
+   },
+   "min": 0,
+   "max": 1023.9843,
+   "unit": "km",
+   "label": "Electric range remaining"
+  },
+  "voltage": {
+   "step": "c151_22432D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.52
+   },
+   "min": 0,
+   "max": 34078.2,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "is_charging": {
+   "step": "c158_224373",
+   "decode": {
+    "type": "bits",
+    "bix": 15,
+    "len": 1
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging mode"
+  },
+  "soc_bms": {
+   "step": "c163_2243AF",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 100,
+    "div": 65535
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, raw"
+  },
+  "soc_display": {
+   "step": "c169_228334",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "current": {
+   "step": "c171_2240D4",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "mul": -1,
+    "div": 20
+   },
+   "min": -1638.35,
+   "max": 1638.4,
+   "unit": "A",
+   "label": "HV battery current"
+  }
+ }
+}

@@ -1,0 +1,233 @@
+{
+ "name": "wican_hyundai_ioniq5_ioniq6_77kwh_2021_2024",
+ "description": "Hyundai: Ioniq5/Ioniq6 77kWh (2021-2024)",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Hyundai",
+   "model": "Ioniq5/Ioniq6 77kWh (2021-2024)",
+   "years": [
+    2021,
+    2024
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_220100",
+   "at": [
+    "ATST96",
+    "ATSH7B3"
+   ],
+   "request": "220100"
+  },
+  {
+   "id": "s2_220105",
+   "at": [
+    "ATST96",
+    "ATSH7E4"
+   ],
+   "request": "220105"
+  },
+  {
+   "id": "s3_220101",
+   "at": [
+    "ATST96",
+    "ATSH7E4"
+   ],
+   "request": "220101"
+  },
+  {
+   "id": "s6_22B002",
+   "at": [
+    "ATST96",
+    "ATSH7C6"
+   ],
+   "request": "22B002"
+  }
+ ],
+ "fields": {
+  "ext_temp": {
+   "step": "s1_220100",
+   "decode": {
+    "type": "wican",
+    "expr": "(B12/2)-40"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "energy_remaining": {
+   "step": "s2_220105",
+   "decode": {
+    "type": "wican",
+    "expr": "((B37 << 8) + B38) *2"
+   },
+   "min": 0.0,
+   "max": 77000.0,
+   "unit": "Wh"
+  },
+  "soh": {
+   "step": "s2_220105",
+   "decode": {
+    "type": "wican",
+    "expr": "[B34:B35]/10"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc_display": {
+   "step": "s2_220105",
+   "decode": {
+    "type": "wican",
+    "expr": "B41/2"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "aux_voltage": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B38*0.1"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "batt_temp_max": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "(S21)"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "batt_temp_min": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "(S22)"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "kwh_charged": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "((B49<<24)+(B50<<16)+(B51<<8)+B52)/10"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "kWh"
+  },
+  "kwh_discharged": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "((B53<<24)+(B54<<16)+(B55<<8)+B57)/10"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "kWh"
+  },
+  "is_charging": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B15:7"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "cell_max_voltage": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B31/50"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "cell_min_voltage": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B34/50"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "is_dcfc": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B15:6"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "soc": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B10/2"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "current": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "((S17*256)+B18)/10"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "[B19:B20]/10"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "power": {
+   "step": "s3_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "([B19:B20]/10)*((S17*256)+B18)/10"
+   },
+   "min": null,
+   "max": null,
+   "unit": "W"
+  },
+  "odometer": {
+   "step": "s6_22B002",
+   "decode": {
+    "type": "wican",
+    "expr": "[B12:B14]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

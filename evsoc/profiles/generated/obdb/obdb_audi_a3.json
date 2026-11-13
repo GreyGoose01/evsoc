@@ -1,0 +1,180 @@
+{
+ "name": "obdb_audi_a3",
+ "description": "Audi A3",
+ "source": "https://github.com/OBDb/Audi-A3",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Audi",
+   "model": "A3",
+   "years": [
+    1996,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222A0A",
+   "id": "c19_222A0A"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB6",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c34_222AB6"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "pre": [
+    "1003"
+   ],
+   "id": "c542_22028C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221E3B",
+   "pre": [
+    "1003"
+   ],
+   "id": "c554_221E3B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2251E0",
+   "id": "c557_2251E0"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c561_22028C"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c19_222A0A",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777175,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "range": {
+   "step": "c34_222AB6",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "mi",
+   "label": "Range remaining"
+  },
+  "soc": {
+   "step": "c542_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "voltage": {
+   "step": "c554_221E3B",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 4
+   },
+   "min": 0,
+   "max": 1000,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "soh": {
+   "step": "c557_2251E0",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.127,
+    "add": -1798.574
+   },
+   "min": -1798.574,
+   "max": 6524,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "soc_2": {
+   "step": "c561_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 250
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

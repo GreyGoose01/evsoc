@@ -1,0 +1,37 @@
+{
+ "name": "wican_chevrolet_bolt",
+ "description": "Chevrolet: Bolt",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Chevrolet",
+   "model": "Bolt",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_228334",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH7E4"
+   ],
+   "request": "228334"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_228334",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4*100)/255"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

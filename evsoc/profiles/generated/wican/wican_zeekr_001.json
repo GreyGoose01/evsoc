@@ -1,0 +1,42 @@
+{
+ "name": "wican_zeekr_001",
+ "description": "Zeekr: 001",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Zeekr",
+   "model": "001",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_224801",
+   "at": [
+    "ATST64",
+    "ATSP7",
+    "ATSHD01635",
+    "ATCP1D",
+    "ATCRA1EC6AE80",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "224801"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_224801",
+   "decode": {
+    "type": "wican",
+    "expr": "([B4:B5]/470)-(150/47)"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

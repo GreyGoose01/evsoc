@@ -1,0 +1,226 @@
+{
+ "name": "wican_audi_ev_meb_id_3_id_4_id_5_id_6_id_7_id_buzz_enyaq_elroq_q4_e_tron_q6_e_tron_cupra_born_cupra_tavascan_porsche_macan_ev_ford_explorer_ev_capri_ev",
+ "description": "Audi: EV MEB: ID.3, ID.4, ID.5, ID.6, ID.7, ID.Buzz, Enyaq, Elroq, Q4 E-tron, Q6 e-tron, Cupra Born, Cupra Tavascan, Porsche Macan EV, Ford Explorer EV, Capri EV",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Volkswagen",
+   "model": "EV MEB: ID.3, ID.4, ID.5, ID.6, ID.7, ID.Buzz, Enyaq, Elroq, Q4 E-tron, Q6 e-tron, Cupra Born, Cupra Tavascan, Porsche Macan EV, Ford Explorer EV, Capri EV",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22028C",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATFCSH17FC007B",
+    "ATCRA17FE007B"
+   ],
+   "request": "22028C"
+  },
+  {
+   "id": "s2_222AB6",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATCP17",
+    "ATSP6",
+    "ATSH710",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATCRA77A"
+   ],
+   "request": "222AB6"
+  },
+  {
+   "id": "s3_22295A",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC0076",
+    "ATCRA17FE0076",
+    "ATFCSH17FC0076",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22295A"
+  },
+  {
+   "id": "s4_222AB2",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATCP17",
+    "ATSP6",
+    "ATSH710",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATCRA77A"
+   ],
+   "request": "222AB2"
+  },
+  {
+   "id": "s7_222A0B",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATFCSH17FC007B",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "222A0B"
+  },
+  {
+   "id": "s10_227448",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATFCSH17FC007B",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "227448"
+  },
+  {
+   "id": "s12_221E3B",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATFCSH17FC007B",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "221E3B"
+  },
+  {
+   "id": "s13_221E3D",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATFCSH17FC007B",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "221E3D"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22028C",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4/2.5)"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soc_display": {
+   "step": "s1_22028C",
+   "decode": {
+    "type": "wican",
+    "expr": "(((B4*20.4)/46)-6.4)"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "range": {
+   "step": "s2_222AB6",
+   "decode": {
+    "type": "wican",
+    "expr": "(B5*256)+B6"
+   },
+   "min": null,
+   "max": null,
+   "unit": "km"
+  },
+  "odometer": {
+   "step": "s3_22295A",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  },
+  "capacity": {
+   "step": "s4_222AB2",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]*50"
+   },
+   "min": null,
+   "max": null,
+   "unit": "kWh"
+  },
+  "batt_temp": {
+   "step": "s7_222A0B",
+   "decode": {
+    "type": "wican",
+    "expr": "((B4/2)-40)"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "is_charging": {
+   "step": "s10_227448",
+   "decode": {
+    "type": "wican",
+    "expr": "B4:2"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "voltage": {
+   "step": "s12_221E3B",
+   "decode": {
+    "type": "wican",
+    "expr": "(((B4*256)+B5)/4)"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s13_221E3D",
+   "decode": {
+    "type": "wican",
+    "expr": "(150000-[B5:B9])/100"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  }
+ }
+}

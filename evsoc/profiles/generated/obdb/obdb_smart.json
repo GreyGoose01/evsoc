@@ -1,0 +1,185 @@
+{
+ "name": "obdb_smart",
+ "description": "smart all models",
+ "source": "https://github.com/OBDb/smart",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "smart",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2107",
+   "id": "c33_2107"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2108",
+   "id": "c34_2108"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2161",
+   "id": "c38_2161"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22339D",
+   "id": "c45_22339D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "226050",
+   "id": "c51_226050"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "226502",
+   "id": "c55_226502"
+  }
+ ],
+ "fields": {
+  "voltage": {
+   "step": "c33_2107",
+   "decode": {
+    "type": "bits",
+    "bix": 64,
+    "len": 16,
+    "div": 64
+   },
+   "min": 0,
+   "max": 1023.9843,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c33_2107",
+   "decode": {
+    "type": "bits",
+    "bix": 80,
+    "len": 16,
+    "sign": true,
+    "mul": -1,
+    "div": 32
+   },
+   "min": -1023.9687,
+   "max": 1024,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc": {
+   "step": "c34_2108",
+   "decode": {
+    "type": "bits",
+    "bix": 48,
+    "len": 16,
+    "div": 16
+   },
+   "min": 0,
+   "max": 4095.9375,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c38_2161",
+   "decode": {
+    "type": "bits",
+    "bix": 64,
+    "len": 8,
+    "div": 2
+   },
+   "min": 0,
+   "max": 127.5,
+   "unit": "%",
+   "label": "State of health"
+  },
+  "plugged_in": {
+   "step": "c45_22339D",
+   "decode": {
+    "type": "bits",
+    "bix": 4,
+    "len": 4
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "yesno",
+   "label": "Charging plug detected"
+  },
+  "soc_2": {
+   "step": "c51_226050",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge"
+  },
+  "range": {
+   "step": "c55_226502",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 1000,
+   "unit": "km",
+   "label": "HV battery remaining distance"
+  }
+ }
+}

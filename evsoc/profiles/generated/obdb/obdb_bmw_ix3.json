@@ -1,0 +1,73 @@
+{
+ "name": "obdb_bmw_ix3",
+ "description": "BMW iX3",
+ "source": "https://github.com/OBDb/BMW-iX3",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "BMW",
+   "model": "iX3",
+   "years": [
+    2020,
+    2024
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22E5CE",
+   "id": "c2_22E5CE"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D10D",
+   "id": "c5_22D10D"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c2_22E5CE",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "odometer": {
+   "step": "c5_22D10D",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer #2"
+  }
+ }
+}

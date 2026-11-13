@@ -1,0 +1,158 @@
+{
+ "name": "abrp_minicooperse",
+ "description": "Mini Cooper SE",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/Mini/MiniCooperSE.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Mini",
+   "model": "Cooper SE",
+   "years": [
+    2020,
+    2024
+   ]
+  }
+ ],
+ "init": [
+  "ATBI"
+ ],
+ "steps": [
+  {
+   "id": "s1_22DDBC",
+   "at": [
+    "ATAL",
+    "ATPBE101",
+    "ATSPB",
+    "ATSH6F1",
+    "ATAT0",
+    "ATST0F",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300800",
+    "ATFCSM1"
+   ],
+   "request": "22DDBC"
+  },
+  {
+   "id": "s2_22DD68",
+   "at": [
+    "ATAL",
+    "ATPBE101",
+    "ATSPB",
+    "ATSH6F1",
+    "ATAT0",
+    "ATST0F",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300800",
+    "ATFCSM1"
+   ],
+   "request": "22DD68"
+  },
+  {
+   "id": "s3_22DD69",
+   "at": [
+    "ATAL",
+    "ATPBE101",
+    "ATSPB",
+    "ATSH6F1",
+    "ATAT0",
+    "ATST0F",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300800",
+    "ATFCSM1"
+   ],
+   "request": "22DD69"
+  },
+  {
+   "id": "s4_226335",
+   "at": [
+    "ATAL",
+    "ATPBE101",
+    "ATSPB",
+    "ATSH6F1",
+    "ATAT0",
+    "ATST0F",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300800",
+    "ATFCSM1"
+   ],
+   "request": "226335"
+  },
+  {
+   "id": "s5_22DDC0",
+   "at": [
+    "ATAL",
+    "ATPBE101",
+    "ATSPB",
+    "ATSH6F1",
+    "ATAT0",
+    "ATST0F",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300800",
+    "ATFCSM1"
+   ],
+   "request": "22DDC0"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22DDBC",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A:B)*0.1"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "s2_22DD68",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A:B)*0.01"
+   },
+   "min": 300.0,
+   "max": 450.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s3_22DD69",
+   "decode": {
+    "type": "equation",
+    "expr": "-0.01*((signed(C)*256)+D)"
+   },
+   "min": -300.0,
+   "max": 300.0,
+   "unit": "A"
+  },
+  "soh": {
+   "step": "s4_226335",
+   "decode": {
+    "type": "equation",
+    "expr": "D"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "batt_temp": {
+   "step": "s5_22DDC0",
+   "decode": {
+    "type": "equation",
+    "expr": "(signed(E)*256+F)/100"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  }
+ }
+}

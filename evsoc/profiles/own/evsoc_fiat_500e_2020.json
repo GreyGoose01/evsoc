@@ -1,0 +1,61 @@
+{
+ "name": "evsoc_fiat_500e_2020",
+ "description": "Fiat 500e (new, type 332, from 2020): listening to the EVCU frame 0x0C10A040 (29 bit) with displayed SoC and range, after OVMS vehicle_fiat500 (MIT). Experimental: whether the frame is present at the OBD socket is not confirmed.",
+ "source": "OVMS vehicle_fiat500 (MIT)",
+ "license": "MIT (facts)",
+ "verified": "experimental",
+ "vehicles": [
+  {
+   "make": "Fiat",
+   "model": "500e (332)",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Abarth",
+   "model": "500e",
+   "years": [
+    2023,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "evcu",
+   "at": [
+    "ATSP7",
+    "ATCAF0",
+    "ATCEA"
+   ],
+   "listen": "0C10A040"
+  }
+ ],
+ "fields": {
+  "soc_display": {
+   "step": "evcu",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 7
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "range": {
+   "step": "evcu",
+   "decode": {
+    "type": "bits",
+    "bix": 0,
+    "len": 8
+   },
+   "min": 0,
+   "max": 400,
+   "unit": "km"
+  }
+ }
+}

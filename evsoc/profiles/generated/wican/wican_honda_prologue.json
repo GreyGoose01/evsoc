@@ -1,0 +1,41 @@
+{
+ "name": "wican_honda_prologue",
+ "description": "Honda: Prologue",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Honda",
+   "model": "Prologue",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_222B43",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATSHDACBF1",
+    "ATCRA142AF1CB",
+    "ATFCSH14DACBF1",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "222B43"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_222B43",
+   "decode": {
+    "type": "wican",
+    "expr": "B5/255"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

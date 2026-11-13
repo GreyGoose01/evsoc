@@ -1,0 +1,219 @@
+{
+ "name": "obdb_kia_niro_ev",
+ "description": "Kia Niro EV",
+ "source": "https://github.com/OBDb/Kia-Niro-EV",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Kia",
+   "model": "Niro EV",
+   "years": [
+    2018,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH744",
+    "ATCRA74C",
+    "ATCEA",
+    "ATFCSH744",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22E003",
+   "id": "c6_22E003"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7C6",
+    "ATCRA7CE",
+    "ATCEA",
+    "ATFCSH7C6",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22B002",
+   "id": "c24_22B002"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2105",
+   "id": "c44_2105"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220101",
+   "id": "c45_220101"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220105",
+   "id": "c49_220105"
+  }
+ ],
+ "fields": {
+  "voltage": {
+   "step": "c6_22E003",
+   "decode": {
+    "type": "bits",
+    "bix": 104,
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553.5,
+   "unit": "V",
+   "label": "High voltage battery, voltage"
+  },
+  "soc": {
+   "step": "c6_22E003",
+   "decode": {
+    "type": "bits",
+    "bix": 120,
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery, state of charge"
+  },
+  "odometer": {
+   "step": "c24_22B002",
+   "decode": {
+    "type": "bits",
+    "bix": 72,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "mi",
+   "label": "Odometer, miles"
+  },
+  "soh": {
+   "step": "c44_2105",
+   "decode": {
+    "type": "bits",
+    "bix": 200,
+    "len": 16,
+    "div": 10
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "soc_display": {
+   "step": "c44_2105",
+   "decode": {
+    "type": "bits",
+    "bix": 248,
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "soc_2": {
+   "step": "c45_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "is_charging": {
+   "step": "c45_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 72,
+    "len": 1
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "offon",
+   "label": "HV battery charging"
+  },
+  "plugged_in": {
+   "step": "c45_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 74,
+    "len": 1
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "offon",
+   "label": "Normal charge port state"
+  },
+  "current": {
+   "step": "c45_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 80,
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -3276.8,
+   "max": 3276.7,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc_display_3": {
+   "step": "c49_220105",
+   "decode": {
+    "type": "bits",
+    "bix": 248,
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  }
+ }
+}

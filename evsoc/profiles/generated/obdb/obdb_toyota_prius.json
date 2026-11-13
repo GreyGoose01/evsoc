@@ -1,0 +1,118 @@
+{
+ "name": "obdb_toyota_prius",
+ "description": "Toyota Prius",
+ "source": "https://github.com/OBDb/Toyota-Prius",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Toyota",
+   "model": "Prius",
+   "years": [
+    1997,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH700",
+    "ATCRA708",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "220103",
+   "id": "c1_220103"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "years": [
+    2016,
+    null
+   ],
+   "id": "c205_221F5B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E3",
+    "ATCRA7EB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "21CE",
+   "years": [
+    2004,
+    2009
+   ],
+   "id": "c266_21CE"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c1_220103",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c205_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soc_2": {
+   "step": "c266_21CE",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": 0,
+   "max": 127.5,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "current": {
+   "step": "c266_21CE",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 16,
+    "div": 100,
+    "add": -327.68
+   },
+   "min": -327.68,
+   "max": 327.67,
+   "unit": "A",
+   "label": "HV battery current"
+  }
+ }
+}

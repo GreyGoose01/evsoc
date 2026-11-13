@@ -1,0 +1,211 @@
+{
+ "name": "evsoc_geely_becm",
+ "description": "Volvo/Polestar/Geely group: battery control unit (BECM) at 1DD01635 -> 1EC6AE80, DID 4801. Confirmed for Polestar 2, Volvo XC40/C40 (CMA), XC60/XC90/S60 Recharge (SPA) per OBDb and for Zeekr 001, Geely EX5 and Volvo XC60 PHEV per WiCAN. Derived for EX30, EX90, Polestar 3/4, Lotus, Lynk & Co and smart #3 (same group diagnostics), unverified there. soc_bms = raw/500 (OBDb), soc_display = (raw-1500)/470 (WiCAN, display with buffer).",
+ "source": "OBDb Polestar-2/Volvo-XC40/XC60/XC90/S60 (CC-BY-SA), WiCAN zeekr/001, geely/ex5, volvo/xc60_phev (GPL)",
+ "license": "facts from CC-BY-SA/GPL sources",
+ "verified": "Polestar 2, Volvo CMA/SPA, Zeekr 001 (sources); the rest derived",
+ "platform": "Volvo/Geely (CMA, SPA, SEA)",
+ "vehicles": [
+  {
+   "make": "Volvo",
+   "model": "EX30 / EC40 / EX40 / C40 / XC40 Recharge",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Volvo",
+   "model": "EX90 / ES90 (derived)",
+   "years": [
+    2024,
+    null
+   ]
+  },
+  {
+   "make": "Volvo",
+   "model": "XC60 / XC90 / S60 / V60 / S90 / V90 Recharge (PHEV)",
+   "years": [
+    2016,
+    null
+   ]
+  },
+  {
+   "make": "Polestar",
+   "model": "Polestar 2",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Polestar",
+   "model": "Polestar 3 / 4 (derived)",
+   "years": [
+    2024,
+    null
+   ]
+  },
+  {
+   "make": "Zeekr",
+   "model": "001 / 7X / X (7X/X derived)",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "Geely",
+   "model": "EX5",
+   "years": [
+    2024,
+    null
+   ]
+  },
+  {
+   "make": "Lotus",
+   "model": "Eletre / Emeya (derived)",
+   "years": [
+    2023,
+    null
+   ]
+  },
+  {
+   "make": "Lynk & Co",
+   "model": "01 / 08 PHEV (derived)",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "smart",
+   "model": "#3 (derived)",
+   "years": [
+    2023,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "soc",
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801"
+  },
+  {
+   "id": "curr",
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224802"
+  },
+  {
+   "id": "volt",
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224803"
+  },
+  {
+   "id": "soh",
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22496D"
+  }
+ ],
+ "fields": {
+  "soc_bms": {
+   "step": "soc",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "BMS (raw/500)"
+  },
+  "soc_display": {
+   "step": "soc",
+   "decode": {
+    "type": "equation",
+    "expr": "(INT16(A,B)-1500)/470"
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Display (WiCAN scaling)"
+  },
+  "current": {
+   "step": "curr",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -1000,
+   "max": 1000,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "volt",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 100,
+   "max": 1000,
+   "unit": "V"
+  },
+  "soh": {
+   "step": "soh",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "div": 100
+   },
+   "min": 50,
+   "max": 110,
+   "unit": "%"
+  }
+ }
+}

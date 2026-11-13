@@ -1,0 +1,212 @@
+{
+ "name": "obdb_ford_mustang_mach_e",
+ "description": "Ford Mustang Mach E",
+ "source": "https://github.com/OBDb/Ford-Mustang-Mach-E",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "Mustang Mach E",
+   "years": [
+    2021,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH760",
+    "ATCRA768",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c14_22DD01"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c42_224801"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22480D",
+   "id": "c50_22480D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224845",
+   "id": "c58_224845"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224848",
+   "id": "c60_224848"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22484F",
+   "id": "c62_22484F"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2248F9",
+   "id": "c64_2248F9"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22490C",
+   "id": "c66_22490C"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c14_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer, battery control module"
+  },
+  "soc": {
+   "step": "c42_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "voltage": {
+   "step": "c50_22480D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "soc_display": {
+   "step": "c58_224845",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "capacity": {
+   "step": "c60_224848",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": 0,
+   "max": 131.07,
+   "unit": "kWh",
+   "label": "HV battery energy"
+  },
+  "is_charging": {
+   "step": "c62_22484F",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging state"
+  },
+  "current": {
+   "step": "c64_2248F9",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -600,
+   "max": 600,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soh": {
+   "step": "c66_22490C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of health"
+  }
+ }
+}

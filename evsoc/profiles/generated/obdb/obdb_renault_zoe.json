@@ -1,0 +1,171 @@
+{
+ "name": "obdb_renault_zoe",
+ "description": "Renault ZOE",
+ "source": "https://github.com/OBDb/Renault-ZOE",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "ZOE",
+   "years": [
+    2012,
+    2024
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH743",
+    "ATCRA74B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "220207",
+   "id": "c1_220207"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADAF1",
+    "ATCRA18DAF1DA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222B85",
+   "id": "c53_222B85"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "229002",
+   "id": "c62_229002"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "229003",
+   "id": "c63_229003"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "229005",
+   "id": "c64_229005"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22925D",
+   "id": "c180_22925D"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c1_220207",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "plugged_in": {
+   "step": "c53_222B85",
+   "decode": {
+    "type": "bits",
+    "bix": 4,
+    "len": 4
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Charge plug present"
+  },
+  "soc": {
+   "step": "c62_229002",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c63_229003",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "%",
+   "label": "State of health"
+  },
+  "voltage": {
+   "step": "c64_229005",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553.5,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  },
+  "current": {
+   "step": "c180_22925D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": -1,
+    "div": 32,
+    "add": 1020
+   },
+   "min": -1027.97,
+   "max": 1020,
+   "unit": "A",
+   "label": "High voltage battery current"
+  }
+ }
+}

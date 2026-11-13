@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evsoc"
+version = "0.1.0"
+description = "Read the state of charge (SoC) and battery values of EVs and plug-in hybrids through the OBD socket (read only)"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+keywords = ["obd", "ev", "soc", "uds", "can", "battery"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = ["pyserial>=3.5"]
+
+[project.optional-dependencies]
+ble = ["bleak>=0.22"]
+can = ["python-can>=4.3"]
+mqtt = ["paho-mqtt>=1.6"]
+all = ["bleak>=0.22", "python-can>=4.3", "paho-mqtt>=1.6"]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6"]
+
+[project.urls]
+Repository = "https://github.com/GreyGoose01/evsoc"
+Issues = "https://github.com/GreyGoose01/evsoc/issues"
+
+[project.scripts]
+evsoc = "evsoc.cli:main"
+
+[tool.setuptools]
+packages = ["evsoc"]
+
+[tool.setuptools.package-data]
+evsoc = ["profiles/**/*.json", "profiles/**/SOURCE.md", "web/*", "lang/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "I", "UP"]
+# E501: tables of vehicle data and captures stay on one line; E701/E741: deliberately compact spots
+ignore = ["E501", "E701", "E741"]

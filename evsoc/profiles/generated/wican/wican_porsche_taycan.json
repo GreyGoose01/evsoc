@@ -1,0 +1,114 @@
+{
+ "name": "wican_porsche_taycan",
+ "description": "Porsche: Taycan",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Porsche",
+   "model": "Taycan",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22028C",
+   "at": [
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATFCSH17FC007B",
+    "ATCRA17FE007B"
+   ],
+   "request": "22028C"
+  },
+  {
+   "id": "s2_222AB6",
+   "at": [
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP6",
+    "ATCP18",
+    "ATSH710",
+    "ATFCSH710",
+    "ATCRA77A"
+   ],
+   "request": "222AB6"
+  },
+  {
+   "id": "s3_222AB2",
+   "at": [
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP6",
+    "ATCP18",
+    "ATSH710",
+    "ATFCSH710",
+    "ATCRA77A"
+   ],
+   "request": "222AB2"
+  },
+  {
+   "id": "s4_221DD0",
+   "at": [
+    "ATST96",
+    "ATSP6",
+    "ATCP18",
+    "ATSH744",
+    "ATFCSH744",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATCRA7AE"
+   ],
+   "request": "221DD0"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22028C",
+   "decode": {
+    "type": "wican",
+    "expr": "B4-3"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "range": {
+   "step": "s2_222AB6",
+   "decode": {
+    "type": "wican",
+    "expr": "[B5:B6]"
+   },
+   "min": null,
+   "max": null,
+   "unit": "km"
+  },
+  "kwh_charged": {
+   "step": "s3_222AB2",
+   "decode": {
+    "type": "wican",
+    "expr": "B5"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "kWh"
+  },
+  "soc_display": {
+   "step": "s4_221DD0",
+   "decode": {
+    "type": "wican",
+    "expr": "B4/2"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  }
+ }
+}

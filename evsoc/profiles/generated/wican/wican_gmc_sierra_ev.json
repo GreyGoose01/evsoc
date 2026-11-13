@@ -1,0 +1,81 @@
+{
+ "name": "wican_gmc_sierra_ev",
+ "description": "GMC: Sierra EV",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "GMC",
+   "model": "Sierra EV",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2227C6",
+   "at": [
+    "ATSP7",
+    "ATCP14",
+    "ATST64",
+    "ATSHDACBF1",
+    "ATCRA142AF1CB"
+   ],
+   "request": "2227C6"
+  },
+  {
+   "id": "s3_220046",
+   "at": [
+    "ATSP7",
+    "ATCP14",
+    "ATST64",
+    "ATSHDACBF1",
+    "ATCRA142AF1CB"
+   ],
+   "request": "220046"
+  },
+  {
+   "id": "s4_2227C7",
+   "at": [
+    "ATSP7",
+    "ATCP14",
+    "ATST64",
+    "ATSHDACBF1",
+    "ATCRA142AF1CB"
+   ],
+   "request": "2227C7"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_2227C6",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/655.35"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "ext_temp": {
+   "step": "s3_220046",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4-40)*1.8+32"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "range": {
+   "step": "s4_2227C7",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]/103"
+   },
+   "min": null,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>evsoc</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%2310231c'/%3E%3Crect x='26' y='40' width='68' height='48' rx='10' fill='none' stroke='%234cc596' stroke-width='8'/%3E%3Crect x='98' y='54' width='8' height='20' rx='3' fill='%234cc596'/%3E%3Cpath d='M64 46 48 68h13l-5 16 18-24H60z' fill='%234cc596'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #f3f5f4; --side: #ffffff; --card: #ffffff; --text: #14181a; --muted: #5f6b6a; --line: #e1e6e4; --field: #f6f8f7;
+  --accent: #17795a; --accent-ink: #ffffff; --accent-soft: #e2f3ec; --warn: #9a5b00; --warn-soft: #fff1d9;
+  --bad: #b3261e; --bad-soft: #fdebe9; --ring: #e4e9e7; --shadow: 0 1px 2px rgba(16,24,40,.05), 0 2px 8px rgba(16,24,40,.05);
+  --mono: ui-monospace, "JetBrains Mono", "DejaVu Sans Mono", Menlo, monospace;
+}
+:root[data-theme="dark"] {
+  --bg: #0e1211; --side: #131817; --card: #171d1c; --text: #e7ecea; --muted: #94a09d; --line: #252d2b; --field: #111615;
+  --accent: #4cc596; --accent-ink: #06150f; --accent-soft: #14291f; --warn: #f0b04a; --warn-soft: #2b2212;
+  --bad: #f2867d; --bad-soft: #2d1513; --ring: #252d2b; --shadow: none;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Cantarell, sans-serif; }
+.app { display: grid; grid-template-columns: 232px 1fr; min-height: 100%; }
+aside { background: var(--side); border-right: 1px solid var(--line); padding: 18px 12px; position: sticky; top: 0;
+  height: 100vh; display: flex; flex-direction: column; gap: 4px; overflow: auto; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 2px 8px 16px; }
+.brand svg { width: 30px; height: 30px; flex: none; }
+.brand b { font-size: 18px; letter-spacing: .2px; }
+.brand small { display: block; color: var(--muted); font-size: 11.5px; line-height: 1.2; }
+nav { display: flex; flex-direction: column; gap: 2px; }
+nav button { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 10px;
+  border-radius: 9px; cursor: pointer; color: var(--muted); font-weight: 550; }
+nav button svg { width: 18px; height: 18px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round; }
+nav button:hover { background: var(--field); color: var(--text); }
+nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+nav button.on { background: var(--accent-soft); color: var(--accent); }
+nav button .dot { margin-left: auto; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: none; }
+nav button.busy .dot { display: block; animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+.side-foot { margin-top: auto; padding: 10px 8px 0; color: var(--muted); font-size: 12px; display: grid; gap: 8px; }
+.side-foot button { justify-self: start; }
+main { padding: 22px 26px 40px; min-width: 0; }
+.top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.top h1 { font-size: 22px; margin: 0 auto 0 0; }
+.pill { font-size: 12.5px; padding: 4px 11px; border-radius: 999px; background: var(--card); color: var(--muted);
+  border: 1px solid var(--line); white-space: nowrap; }
+.pill.ok { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.pill.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.page { display: none; }
+.page.on { display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); align-items: start; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; box-shadow: var(--shadow);
+  min-width: 0; grid-column: span 12; }
+.c4 { grid-column: span 4; } .c5 { grid-column: span 5; } .c6 { grid-column: span 6; } .c7 { grid-column: span 7; }
+.c8 { grid-column: span 8; }
+h2 { font-size: 15px; margin: 0 0 4px; }
+.sub { color: var(--muted); font-size: 13.5px; margin: 0 0 12px; }
+label { display: block; font-size: 12.5px; color: var(--muted); margin: 12px 0 4px; }
+input, select, textarea { width: 100%; font: inherit; color: var(--text); background: var(--field); border: 1px solid var(--line);
+  border-radius: 9px; padding: 8px 11px; }
+textarea { font-family: var(--mono); font-size: 13px; min-height: 68px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 12px; }
+button.btn { font: inherit; font-weight: 600; border: 1px solid var(--line); background: var(--card); color: var(--text);
+  border-radius: 9px; padding: 8px 15px; cursor: pointer; }
+button.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+button.btn:disabled { opacity: .45; cursor: default; }
+button.btn:not(:disabled):hover { filter: brightness(1.07); }
+button.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.btn.small { padding: 4px 10px; font-size: 13px; font-weight: 550; }
+.check { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--text); margin: 0; }
+.check input { width: auto; accent-color: var(--accent); }
+.muted { color: var(--muted); font-size: 13px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.chip { font-size: 12px; padding: 2px 9px; border-radius: 7px; background: var(--field); border: 1px solid var(--line); }
+.list { max-height: 340px; overflow: auto; margin-top: 10px; border: 1px solid var(--line); border-radius: 10px; }
+.list:empty { display: none; }
+.list > div { padding: 8px 12px; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; justify-content: space-between;
+  gap: 12px; }
+.list > div:last-child { border-bottom: 0; }
+.list > div:hover, .list > div.sel { background: var(--accent-soft); }
+.list small { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%; }
+.bus { font-family: var(--mono); font-size: 13px; padding: 5px 9px; background: var(--field); border-radius: 7px; margin: 3px 0; }
+.ad { display: flex; gap: 8px; font-size: 13.5px; padding: 2px 0; }
+.ad .ic { width: 16px; text-align: center; }
+.ad.ok .ic { color: var(--accent); } .ad.no { color: var(--muted); } .ad.no .ic { color: var(--bad); }
+.notice { margin-top: 12px; padding: 9px 12px; border-radius: 9px; font-size: 13.5px; }
+.notice.ok { background: var(--accent-soft); color: var(--accent); }
+.notice.bad { background: var(--bad-soft); color: var(--bad); }
+.notice.warn { background: var(--warn-soft); color: var(--warn); }
+.hero { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+.gauge { width: 190px; height: 190px; flex: none; }
+.gauge .val { font-size: 46px; font-weight: 700; fill: var(--text); }
+.gauge .unit { font-size: 14px; fill: var(--muted); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+td, th { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.err td { color: var(--muted); }
+.tag { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 6px; white-space: nowrap; }
+.tag.ok { background: var(--accent-soft); color: var(--accent); }
+.tag.bad { background: var(--bad-soft); color: var(--bad); }
+.tag.warn { background: var(--warn-soft); color: var(--warn); }
+.tag.plain { background: var(--field); color: var(--muted); border: 1px solid var(--line); }
+.spark { width: 100%; height: 130px; display: block; }
+.spark .line { fill: none; stroke: var(--accent); stroke-width: 2; }
+.spark .area { fill: var(--accent); opacity: .12; }
+.spark text { font-size: 10px; fill: var(--muted); }
+pre.log { margin: 0; font: 12.5px/1.5 var(--mono); max-height: 300px; overflow: auto; white-space: pre-wrap; color: var(--muted);
+  background: var(--field); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+pre.log.tall { max-height: 520px; color: var(--text); }
+pre.log:empty { display: none; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 5px 14px; font-size: 14px; margin-top: 12px; }
+.kv span:nth-child(odd) { color: var(--muted); }
+.masonry { grid-column: span 12; column-count: 2; column-gap: 16px; }
+.masonry .card { break-inside: avoid; margin: 0 0 16px; display: inline-block; width: 100%; }
+.kv span, .muted, td { overflow-wrap: anywhere; }
+.profile-head { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.profile-head b { font-family: var(--mono); font-size: 14px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.step { border: 1px solid var(--line); border-radius: 12px; padding: 14px; cursor: pointer; background: var(--field); }
+.step:hover { border-color: var(--accent); }
+.step i { font-style: normal; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--accent-soft); color: var(--accent); font-weight: 700; font-size: 13px; margin-right: 8px; }
+.step.done i { background: var(--accent); color: var(--accent-ink); }
+.step p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+details { margin-top: 12px; }
+summary { cursor: pointer; color: var(--muted); font-size: 13.5px; }
+.toast { position: fixed; right: 18px; bottom: 18px; max-width: 460px; background: var(--bad-soft); color: var(--bad);
+  border: 1px solid var(--bad); border-radius: 12px; padding: 11px 15px; display: none; z-index: 9; }
+.toast.info { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+@media (max-width: 1100px) { .c4, .c5, .c6, .c7, .c8 { grid-column: span 12; } .steps { grid-template-columns: 1fr; }
+  .masonry { column-count: 1; } }
+@media (max-width: 760px) {
+  .app { grid-template-columns: 1fr; }
+  aside { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; border-right: 0;
+    border-bottom: 1px solid var(--line); padding: 10px; }
+  .brand { padding: 0 8px 0 4px; } .brand small { display: none; }
+  nav { flex-direction: row; flex-wrap: wrap; } nav button { width: auto; padding: 7px 10px; }
+  .side-foot { display: none; }
+  main { padding: 16px 14px 32px; }
+  .grid4 { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand">
+    <svg viewBox="0 0 128 128" aria-hidden="true"><rect width="128" height="128" rx="28" fill="#10231c"/><rect x="26" y="40" width="68" height="48" rx="10" fill="none" stroke="#4cc596" stroke-width="8"/><rect x="98" y="54" width="8" height="20" rx="3" fill="#4cc596"/><path d="M64 46 48 68h13l-5 16 18-24H60z" fill="#4cc596"/></svg>
+    <div><b>evsoc</b><small>read only</small></div>
+  </div>
+  <nav id="nav">
+    <button data-page="start"><svg viewBox="0 0 24 24"><path d="M9 7V3M15 7V3M7 7h10v5a5 5 0 0 1-10 0zM12 17v4"/></svg>Connection</button>
+    <button data-page="car"><svg viewBox="0 0 24 24"><path d="M5 16V11l2-5h10l2 5v5M3 16h18v3H3zM7 11h10"/></svg>Vehicle</button>
+    <button data-page="soc"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="15" height="9" rx="2"/><path d="M21 11v3M7 11v3M10.5 11v3"/></svg>State of charge</button>
+    <button data-page="probe"><svg viewBox="0 0 24 24"><path d="M9 4h6l1 3h3v13H5V7h3zM9 12l2 2 4-4"/></svg>Test drive<span class="dot"></span></button>
+    <button data-page="diag"><svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19zM12 10v4.5M12 17.2v.3"/></svg>Control units &amp; faults</button>
+    <button data-page="tools"><svg viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5 5L3 18l3 3 6.500-6.5a4 4 0 0 0 5-5l-2.500 2.500-2.500-.5-.5-2.500z"/></svg>Tools<span class="dot"></span></button>
+    <button data-page="monitor"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M12 7.500V12l3 2"/></svg>Continuous operation<span class="dot"></span></button>
+    <button data-page="log"><svg viewBox="0 0 24 24"><path d="M5 5h14M5 10h14M5 15h9M5 20h6"/></svg>Log</button>
+  </nav>
+  <div class="side-foot">
+    <span id="pInfo"></span>
+    <div class="row" id="langSlot" style="margin-top:0;gap:6px">
+      <button class="btn small" id="btnTheme" title="Toggle light/dark">Dark</button>
+    </div>
+  </div>
+</aside>
+
+<main>
+  <div class="top">
+    <h1 id="title">Connection</h1>
+    <span class="pill" id="pAdapter">no adapter</span>
+    <span class="pill" id="pProfile">no profile</span>
+    <span class="pill" id="pJob" hidden></span>
+  </div>
+
+  <!-- ============================== Verbindung ============================== -->
+  <div class="page" id="page-start">
+    <section class="card">
+      <div class="steps">
+        <div class="step" id="st1" data-go="start"><b><i>1</i>Connect the adapter</b><p>USB, Bluetooth, WiFi, ENET cable or a test vehicle without a car.</p></div>
+        <div class="step" id="st2" data-go="car"><b><i>2</i>Choose the vehicle</b><p>Optional. Without a choice evsoc detects the car by its VIN.</p></div>
+        <div class="step" id="st3" data-go="probe"><b><i>3</i>Read or test drive</b><p>Read the state of charge, or test everything and write a report.</p></div>
+      </div>
+    </section>
+    <section class="card c7">
+      <h2>Adapter</h2>
+      <p class="sub">Ignition on, plug the adapter into the OBD socket, then connect.</p>
+      <label for="adapterSel">Adapters found and examples</label>
+      <select id="adapterSel"></select>
+      <label for="adapterUrl">Address</label>
+      <input id="adapterUrl" placeholder="/dev/ttyUSB0, can://socketcan/can0, tcp://…, ble://…, enet://auto, box:…">
+      <div class="row">
+        <button class="btn primary" id="btnConnect">Connect</button>
+        <button class="btn" id="btnDisconnect">Disconnect</button>
+        <button class="btn" id="btnRescan" title="Reload the list of adapters">Search again</button>
+        <button class="btn" id="btnBle" title="Search 5 seconds for Bluetooth LE adapters">Search Bluetooth LE</button>
+      </div>
+      <div id="connNotice"></div>
+    </section>
+    <section class="card c5">
+      <h2>What the adapter can do</h2>
+      <div id="capsBox"><p class="sub">Not connected yet.</p></div>
+      <div class="row"><button class="btn" id="btnBusScan" title="evsoc box: search active buses on all pins">Search buses</button></div>
+      <div id="busBox"></div>
+    </section>
+  </div>
+
+  <!-- ============================== Vehicle ============================== -->
+  <div class="page" id="page-car">
+    <section class="card c5">
+      <h2>Search model</h2>
+      <p class="sub">Leave empty for evsoc to detect the car itself.</p>
+      <input id="carQ" placeholder="e.g. e-208, Ioniq 5, Leaf, ID.4, i4" autocomplete="off">
+      <div class="list" id="results"></div>
+    </section>
+    <section class="card c7">
+      <h2>Profile and OBD type</h2>
+      <div id="plan"><p class="sub">Click a model: evsoc shows bus, pins, bitrate and which adapters fit.</p></div>
+    </section>
+  </div>
+
+  <!-- ============================== State of charge ============================== -->
+  <div class="page" id="page-soc">
+    <section class="card c7">
+      <div class="hero">
+        <svg class="gauge" viewBox="0 0 200 200" aria-label="State of charge">
+          <circle cx="100" cy="100" r="82" fill="none" stroke="var(--ring)" stroke-width="16"/>
+          <circle id="arc" cx="100" cy="100" r="82" fill="none" stroke="var(--accent)" stroke-width="16"
+            stroke-linecap="round" stroke-dasharray="0 515" transform="rotate(-90 100 100)"/>
+          <text id="socText" class="val" x="100" y="110" text-anchor="middle">–</text>
+          <text class="unit" x="100" y="134" text-anchor="middle">percent</text>
+        </svg>
+        <div style="flex:1; min-width:250px">
+          <div id="readMeta" class="muted">Not read yet.</div>
+          <div class="row">
+            <button class="btn primary" id="btnRead">Read</button>
+            <button class="btn" id="btnAuto" title="Determine the profile by VIN or by trying">Detect automatically</button>
+          </div>
+          <div class="row">
+            <label class="check"><input type="checkbox" id="allVals" checked> all values</label>
+            <label class="check"><input type="checkbox" id="live"> read again every 10 s</label>
+          </div>
+          <label for="batteryKwh" title="Only for SoH from the energy content, e.g. VW ID., Enyaq, Born, Q4">Nominal battery capacity in kWh (optional)</label>
+          <input id="batteryKwh" type="number" min="5" max="250" step="0.1" placeholder="e.g. 77" style="max-width:160px">
+          <div id="readNotice"></div>
+        </div>
+      </div>
+    </section>
+    <section class="card c5">
+      <h2>History</h2>
+      <svg class="spark" id="spark" viewBox="0 0 400 120" preserveAspectRatio="none"></svg>
+      <div class="muted" id="sparkInfo">No values yet.</div>
+    </section>
+    <section class="card">
+      <h2>Values</h2>
+      <table id="values"></table>
+      <p class="sub" id="valuesEmpty">"Read" uses the chosen profile, "Detect automatically" finds one itself.</p>
+    </section>
+  </div>
+
+  <!-- ============================== Probelauf ============================== -->
+  <div class="page" id="page-probe">
+    <section class="card c7">
+      <h2>Test drive at the car</h2>
+      <p class="sub">Tests all fitting profiles completely, reads control units and fault memory and writes a report with all raw answers. What is right is decided by comparing with the values you read off the car.</p>
+      <div class="grid4">
+        <div><label for="nSoc">State of charge %</label><input id="nSoc" type="number" step="0.1" placeholder="54"></div>
+        <div><label for="nSoh">SoH %</label><input id="nSoh" type="number" step="0.1" placeholder="if known"></div>
+        <div><label for="nKm">Odometer</label><input id="nKm" type="number" placeholder="23150"></div>
+        <div><label for="nRange">Range km</label><input id="nRange" type="number" placeholder="212"></div>
+      </div>
+      <label for="nMore">More values read off the car (name=value, separated by spaces)</label>
+      <input id="nMore" placeholder="batt_temp=21 voltage=398">
+      <label for="pCar">Model (optional, default: by VIN)</label>
+      <input id="pCar" placeholder="e.g. i4">
+      <div class="row">
+        <label class="check"><input type="checkbox" id="pDiag" checked> Read control units and fault memory</label>
+        <label class="check" title="For cars evsoc does not know. Takes a few minutes."><input type="checkbox" id="pAll"> test all profiles</label>
+      </div>
+      <details>
+        <summary>Append additional read commands</summary>
+        <textarea id="pRaw" placeholder="ATSH6F1 ATCEA07 22E500-22E5FF"></textarea>
+        <div class="muted">As under Tools: adapter and read commands, ranges too. Everything else is blocked.</div>
+      </details>
+      <div class="row">
+        <button class="btn primary" id="btnProbe">Start test drive</button>
+        <button class="btn" id="btnReportDl" disabled>Save report</button>
+        <button class="btn" id="btnReportUp" title="Re-evaluate a report with the current profiles, without the car">Open report …</button>
+        <input type="file" id="reportFile" accept=".json,application/json" hidden>
+      </div>
+      <pre class="log" id="probeLog" style="margin-top:12px"></pre>
+    </section>
+    <section class="card c5">
+      <h2>Saved reports</h2>
+      <p class="sub" id="reportsFolder"></p>
+      <div class="list" id="reports"></div>
+      <p class="sub" id="reportsEmpty">No reports yet.</p>
+    </section>
+    <section class="card" id="probeSummary" hidden></section>
+    <div id="probeProfiles" class="masonry"></div>
+  </div>
+
+  <!-- ============================== Control units ============================== -->
+  <div class="page" id="page-diag">
+    <section class="card">
+      <h2>Control units and fault memory</h2>
+      <p class="sub">From the last test drive. evsoc only reads the fault memory, clearing is blocked.</p>
+      <div id="diagBox"><p class="sub">No test drive yet. Start one under "Test drive" or open a report.</p></div>
+    </section>
+  </div>
+
+  <!-- ============================== Werkzeuge ============================== -->
+  <div class="page" id="page-tools">
+    <section class="card c6">
+      <h2>Single read commands</h2>
+      <p class="sub">Adapter commands (AT…) and read commands, ranges too, like <code>22DD00-22DDFF</code>. Writing commands are blocked.</p>
+      <textarea id="rawCmd" placeholder="ATSH6B4 ATCRA694 22D810"></textarea>
+      <div class="row">
+        <button class="btn primary" id="btnRaw">Send</button>
+        <label class="check"><input type="checkbox" id="rawHits"> show answers only</label>
+      </div>
+      <pre class="log tall" id="rawOut" style="margin-top:12px"></pre>
+    </section>
+    <section class="card c6">
+      <h2>Listen in on other apps</h2>
+      <p class="sub">Listen through a Y cable to what Car Scanner, BimmerLink &amp; co. ask. evsoc sends nothing. Or evaluate an existing capture (candump, ATMA text, CL2000 text).</p>
+      <div class="grid2">
+        <div><label for="snUrl">Adapter (empty = the connected one)</label><input id="snUrl" placeholder="can://slcan//dev/ttyACM0"></div>
+        <div><label for="snSec">Duration in seconds</label><input id="snSec" type="number" value="60" min="5" max="3600"></div>
+      </div>
+      <label for="snRef" title="evsoc reads the car meanwhile through this adapter and uses the values as yardstick to find the matching signal in the broadcast frames">Reference adapter (optional, e.g. enet://auto, while the first one only listens)</label>
+      <input id="snRef" placeholder="enet://auto">
+      <label for="snVals">Values read off for the formula search (e.g. soc=80.5)</label>
+      <input id="snVals" placeholder="soc=80.5 voltage=398">
+      <div class="row">
+        <button class="btn primary" id="btnSniff">Start listening</button>
+        <button class="btn" id="btnSniffMark" disabled title="Note the value with the time now, while listening">Note value now</button>
+        <button class="btn" id="btnSniffFile">Open capture …</button>
+        <input type="file" id="sniffFile" hidden>
+      </div>
+      <pre class="log tall" id="sniffOut" style="margin-top:12px"></pre>
+    </section>
+  </div>
+
+  <!-- ============================== Continuous operation ============================== -->
+  <div class="page" id="page-monitor">
+    <section class="card c7">
+      <h2>Continuous operation</h2>
+      <p class="sub">The adapter stays in the car. evsoc only asks while the car is awake (12 V voltage) and otherwise keeps the last value.</p>
+      <div class="grid2">
+        <div><label for="mInterval">Interval awake (s)</label><input id="mInterval" type="number" value="60" min="10"></div>
+        <div><label for="mSleep">Interval asleep (s)</label><input id="mSleep" type="number" value="300" min="30"></div>
+        <div><label for="mVolt">awake from 12 V voltage (V)</label><input id="mVolt" type="number" value="13.0" step="0.1"></div>
+        <div><label for="mWake">wake when the value is older than (h)</label><input id="mWake" type="number" placeholder="off, e.g. 24" min="1"></div>
+        <div><label for="mWakeAt">also wake at</label><input id="mWakeAt" type="time"></div>
+      </div>
+      <div class="row">
+        <button class="btn primary" id="btnMonStart">Start</button>
+        <button class="btn" id="btnMonStop">Stop</button>
+        <button class="btn" id="btnMonWake" title="Reads at once. If the car is asleep, it is woken for it: not below 12.2 V and at most every 10 minutes.">Read now (wakes the car)</button>
+      </div>
+      <p class="sub" style="margin-top:12px">From outside the same works over MQTT: send <code>wake</code> to the topic <code>…/cmd</code>. Home Assistant gets a button for it automatically.</p>
+    </section>
+    <section class="card c5">
+      <h2>State</h2>
+      <div class="kv" id="monState"></div>
+    </section>
+    <section class="card">
+      <h2>Wake test</h2>
+      <p class="sub">Measures whether the parked car can be woken through the OBD socket and whether it falls asleep again afterwards. Lock it and wait 15 to 30 minutes first so that it really sleeps. It is never woken below 12.2 V.</p>
+      <div class="grid4">
+        <div><label for="wtMin">Watch (minutes)</label><input id="wtMin" type="number" value="20" min="1" max="240"></div>
+      </div>
+      <div class="row"><button class="btn primary" id="btnWakeTest">Start wake test</button>
+        <span class="muted">uses the address from "Connection" and the chosen vehicle</span></div>
+      <pre class="log tall" id="wakeOut" style="margin-top:12px"></pre>
+    </section>
+  </div>
+
+  <!-- ============================== Protokoll ============================== -->
+  <div class="page" id="page-log">
+    <section class="card">
+      <h2>Log</h2>
+      <p class="sub">What evsoc is doing right now, including error messages.</p>
+      <pre class="log tall" id="log"></pre>
+    </section>
+  </div>
+</main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const TOKEN = "__EVSOC_TOKEN__";
+const $ = (id) => document.getElementById(id);
+const TITLES = { start: "Connection", car: "Vehicle", soc: "State of charge", probe: "Test drive", diag: "Control units & faults",
+  tools: "Tools", monitor: "Continuous operation", log: "Log" };
+let selectedProfile = null, liveTimer = null, busy = false, lastStatus = null, jobSeen = null, report = null;
+
+async function api(path, body) {
+  const opt = { headers: { "X-Evsoc-Token": TOKEN } };
+  if (body !== undefined) {
+    opt.method = "POST";
+    opt.headers["Content-Type"] = "application/json";
+    opt.body = JSON.stringify(body);
+  }
+  const r = await fetch(path, opt);
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || r.statusText);
+  return data;
+}
+
+function toast(msg, info) {
+  const t = $("toast");
+  t.textContent = msg; t.className = "toast" + (info ? " info" : ""); t.style.display = "block";
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => t.style.display = "none", info ? 4000 : 8000);
+}
+function esc(s) { return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function when_(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? iso : d.toLocaleString((window.EVSOC_LOCALE || "de-DE"), { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+}
+function fmt(v, unit, name) {
+  if (v === null || v === undefined) return "–";
+  if (name && (name.startsWith("is_") || name === "plugged_in")) return v ? "yes" : "no";
+  const a = Math.abs(v);
+  const digits = Number.isInteger(v) ? 0 : (unit === "V" && a < 10 ? 3 : a < 10 ? 2 : 1);
+  return `${Number(v).toLocaleString((window.EVSOC_LOCALE || "de-DE"), { minimumFractionDigits: digits, maximumFractionDigits: digits })} ${unit || ""}`.trim();
+}
+async function withBusy(btn, fn) {
+  if (busy) return;
+  busy = true; const old = btn.textContent; btn.disabled = true; btn.textContent = "…";
+  try { await fn(); } catch (e) { toast(e.message); } finally { busy = false; btn.disabled = false; btn.textContent = old; refresh(); }
+}
+
+// -- navigation and theme --------------------------------------------------------------
+function show(page) {
+  if (!TITLES[page]) page = "start";
+  document.querySelectorAll(".page").forEach(p => p.classList.toggle("on", p.id === "page-" + page));
+  document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.page === page));
+  $("title").textContent = TITLES[page];
+  if (location.hash !== "#" + page) history.replaceState(null, "", "#" + page);
+  if (page === "probe") loadReports();
+}
+document.querySelectorAll("#nav button").forEach(b => b.onclick = () => show(b.dataset.page));
+document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => show(b.dataset.go));
+window.onhashchange = () => show(location.hash.slice(1));
+function setTheme(t) {
+  document.documentElement.dataset.theme = t;
+  $("btnTheme").textContent = t === "dark" ? "Light" : "Dark";
+  try { localStorage.setItem("evsoc-theme", t); } catch (e) { /* private mode */ }
+}
+$("btnTheme").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+(() => {
+  let t = null;
+  try { t = localStorage.getItem("evsoc-theme"); } catch (e) { /* private mode */ }
+  setTheme(t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+})();
+
+// -- adapter -----------------------------------------------------------------------------
+async function loadDevices(ble) {
+  const d = await api(ble ? "/api/devices/ble" : "/api/devices");
+  const sel = $("adapterSel"); const keep = sel.value; sel.innerHTML = "";
+  const groups = [["Found", d.serial], ["Bluetooth LE", d.ble], ["Examples and tests", d.examples]];
+  for (const [title, items] of groups) {
+    if (!items || !items.length) continue;
+    const g = document.createElement("optgroup"); g.label = title;
+    for (const it of items) { const o = document.createElement("option"); o.value = it.url; o.textContent = it.label; g.appendChild(o); }
+    sel.appendChild(g);
+  }
+  if (keep) sel.value = keep;
+  if (!$("adapterUrl").value) $("adapterUrl").value = sel.value;
+  if (d.ble_error) toast(d.ble_error);
+}
+$("adapterSel").onchange = () => $("adapterUrl").value = $("adapterSel").value;
+$("btnBle").onclick = () => withBusy($("btnBle"), () => loadDevices(true));
+$("btnRescan").onclick = () => withBusy($("btnRescan"), () => loadDevices(false));
+$("btnConnect").onclick = () => withBusy($("btnConnect"), async () => {
+  await api("/api/connect", { url: $("adapterUrl").value });
+  $("busBox").innerHTML = "";
+  if (selectedProfile) showPlan(selectedProfile);
+});
+$("btnDisconnect").onclick = () => withBusy($("btnDisconnect"), () => api("/api/disconnect", {}));
+$("btnBusScan").onclick = () => withBusy($("btnBusScan"), async () => {
+  const r = await api("/api/busscan", {});
+  if (r.buses) {
+    $("busBox").innerHTML = r.buses.length ? `<table style="margin-top:10px"><tr><th>Bus</th><th>Pins</th><th>Bitrate</th><th>Frames</th><th>IDs</th></tr>` +
+      r.buses.map(b => `<tr><td>${esc(b.kind.toUpperCase())}</td><td>${esc(b.pins)}</td><td class="num">${b.bitrate / 1000} kbit/s</td>
+        <td class="num">${b.frames}</td><td class="muted">${esc(b.ids.slice(0, 8).join(", "))}${b.ids.length > 8 ? " …" : ""}</td></tr>`).join("") + "</table>"
+      : `<div class="notice warn">No active buses found. Ignition on?</div>`;
+  } else {
+    $("busBox").innerHTML = `<div class="notice ${r.active ? "ok" : "warn"}">${r.active ? "traffic on the bus" : "No traffic on the bus"}</div>`;
+  }
+});
+
+// -- vehicle search + plan -----------------------------------------------------------------
+let searchTimer = null;
+$("carQ").oninput = () => { clearTimeout(searchTimer); searchTimer = setTimeout(search, 200); };
+async function search() {
+  const q = $("carQ").value.trim(); const box = $("results");
+  if (!$("pCar").dataset.touched) $("pCar").value = q;
+  if (!q) { box.innerHTML = ""; selectedProfile = null; $("plan").innerHTML = `<p class="sub">Click a model: evsoc shows bus, pins, bitrate and which adapters fit.</p>`; return; }
+  const rows = await api("/api/models?q=" + encodeURIComponent(q));
+  box.innerHTML = rows.length ? "" : `<div class="muted">Nothing found. "Detect automatically" still tries all profiles.</div>`;
+  for (const r of rows.slice(0, 80)) {
+    const el = document.createElement("div");
+    el.innerHTML = `<span>${esc(r.label)}</span><small>${esc(r.profile)}</small>`;
+    el.onclick = () => { [...box.children].forEach(c => c.classList.remove("sel")); el.classList.add("sel"); showPlan(r.profile); };
+    box.appendChild(el);
+  }
+}
+$("pCar").oninput = () => $("pCar").dataset.touched = "1";
+async function showPlan(profile) {
+  selectedProfile = profile;
+  const [p] = await api("/api/plan?profile=" + encodeURIComponent(profile));
+  if (!p) return;
+  let html = `<div class="profile-head"><b>${esc(p.profile.name)}</b>${p.profile.verified ? `<span class="tag plain">verified: ${esc(p.profile.verified)}</span>` : ""}</div>
+    <div class="muted">${esc(p.profile.description)}</div>
+    <label>OBD type</label>${p.buses.map(b => `<div class="bus">${esc(b)}</div>`).join("")}`;
+  if (p.alternatives.length) html += `<label>or</label>${p.alternatives.map(b => `<div class="bus">${esc(b)}</div>`).join("")}`;
+  html += `<label>Suitable adapters</label>` + p.adapters.map(a =>
+    `<div class="ad ${a.ok ? "ok" : "no"}"><span class="ic">${a.ok ? "✓" : "✕"}</span><span>${esc(a.name)}${a.ok ? "" : ": " + esc(a.problems[0].replace(a.name + " ", ""))}</span></div>`).join("");
+  if (p.adapter_check) {
+    const ok = !p.adapter_check.problems.length;
+    html += `<div class="notice ${ok ? "ok" : "bad"}">Dein Adapter (${esc(p.adapter_check.name)}): ${ok ? "passt" : esc(p.adapter_check.problems.join("; "))}</div>`;
+  }
+  html += `<div class="row"><button class="btn primary" id="btnPlanRead">Read with this profile</button></div>`;
+  $("plan").innerHTML = html;
+  $("btnPlanRead").onclick = () => { show("soc"); $("btnRead").click(); };
+}
+
+// -- reading ---------------------------------------------------------------------------------
+async function doRead(auto) {
+  const body = { all: $("allVals").checked, battery_kwh: $("batteryKwh").value || null };
+  if (auto) body.car = $("carQ").value.trim() || null; else if (selectedProfile) body.profile = selectedProfile;
+  const r = await api("/api/read", body);
+  if (r.detection) $("readNotice").innerHTML = `<div class="notice ok">Erkannt: ${esc(r.profile.name)} nach ${r.detection.seconds} s` +
+    (r.detection.also.length ? ` · also plausible: ${esc(r.detection.also.join(", "))}` : "") + `</div>`;
+  else $("readNotice").innerHTML = "";
+}
+$("btnRead").onclick = () => withBusy($("btnRead"), () => doRead(false));
+$("btnAuto").onclick = () => withBusy($("btnAuto"), () => doRead(true));
+$("live").onchange = () => {
+  clearInterval(liveTimer);
+  if ($("live").checked) liveTimer = setInterval(() => { if (!busy) withBusy($("btnRead"), () => doRead(false)); }, 10000);
+};
+
+function renderReading(last, monitorState) {
+  let soc = null, when = "", values = [];
+  if (monitorState && monitorState.soc !== null && monitorState.soc !== undefined) {
+    soc = monitorState.soc; when = monitorState.soc_updated ? "As of " + when_(monitorState.soc_updated) + " (continuous operation)" : "";
+    const units = { voltage: "V", current: "A", power: "kW", energy_available: "kWh", capacity: "kWh", range: "km",
+      batt_temp: "°C", cell_min_voltage: "V", cell_max_voltage: "V", odometer: "km" };
+    values = Object.entries(monitorState.values || {}).map(([k, v]) => ({ name: k, label: (monitorState.labels || {})[k] || k,
+      value: v, unit: k.startsWith("soc") || k === "soh" ? "%" : (units[k] || ""), plausible: true }));
+  } else if (last) {
+    soc = last.soc; when = `${last.profile.name} · ${last.time.slice(11)}`; values = last.values;
+  }
+  const pct = soc === null ? 0 : Math.max(0, Math.min(100, soc));
+  const len = 2 * Math.PI * 82;
+  $("arc").setAttribute("stroke-dasharray", `${(pct / 100) * len} ${len}`);
+  $("arc").style.opacity = soc === null ? 0 : 1;
+  $("arc").setAttribute("stroke", pct < 15 ? "var(--bad)" : pct < 25 ? "var(--warn)" : "var(--accent)");
+  $("socText").textContent = soc === null ? "–" : soc.toFixed(1).replace(".", ",");
+  $("readMeta").textContent = when || "Not read yet.";
+  $("valuesEmpty").hidden = values.length > 0;
+  $("values").innerHTML = values.map(v => `<tr class="${v.error ? "err" : ""}"><td>${esc(v.label)}</td><td class="num">${
+    v.error ? "–" : esc(fmt(v.value, v.unit, v.name))}</td><td>${v.error ? esc(v.error) : (v.plausible ? "" : '<span class="tag warn">implausible</span>')}</td></tr>`).join("");
+}
+
+function renderSpark(history) {
+  const svg = $("spark");
+  if (!history.length) { svg.innerHTML = ""; $("sparkInfo").textContent = "No values yet."; return; }
+  const W = 400, H = 120, pad = 14;
+  const t0 = history[0][0], t1 = history[history.length - 1][0] || t0 + 1;
+  const vals = history.map(h => h[1]);
+  const lo = Math.max(0, Math.min(...vals) - 2), hi = Math.min(100, Math.max(...vals) + 2);
+  const x = t => pad + (t1 === t0 ? 0.5 : (t - t0) / (t1 - t0)) * (W - 2 * pad);
+  const y = v => H - pad - (hi === lo ? 0.5 : (v - lo) / (hi - lo)) * (H - 2 * pad);
+  const pts = history.map(h => `${x(h[0]).toFixed(1)},${y(h[1]).toFixed(1)}`);
+  const line = "M" + pts.join(" L");
+  svg.innerHTML = `<path class="area" d="${line} L${x(t1).toFixed(1)},${H - pad} L${x(t0).toFixed(1)},${H - pad} Z"/>
+    <path class="line" d="${line}"/>${history.length === 1 ? `<circle cx="${x(t0)}" cy="${y(vals[0])}" r="4" fill="var(--accent)"/>` : ""}<text x="${pad}" y="11">${hi.toFixed(0)} %</text><text x="${pad}" y="${H - 2}">${lo.toFixed(0)} %</text>`;
+  const fmtT = s => new Date(s * 1000).toLocaleTimeString((window.EVSOC_LOCALE || "de-DE"), { hour: "2-digit", minute: "2-digit" });
+  $("sparkInfo").textContent = `${history.length} ${history.length === 1 ? "value" : "values"}, ${fmtT(t0)} – ${fmtT(t1)}, last ${vals[vals.length - 1].toFixed(1)} %`;
+}
+
+// -- test drive ------------------------------------------------------------------------------
+function probeNotes() {
+  const parts = [];
+  for (const [id, name] of [["nSoc", "soc"], ["nSoh", "soh"], ["nKm", "odometer"], ["nRange", "range"]])
+    if ($(id).value !== "") parts.push(`${name}=${$(id).value}`);
+  return parts.concat($("nMore").value.trim().split(/\s+/).filter(Boolean));
+}
+$("btnProbe").onclick = () => withBusy($("btnProbe"), async () => {
+  await api("/api/probe/start", { car: $("pCar").value.trim() || null, notes: probeNotes(), all: $("pAll").checked,
+    diagnose: $("pDiag").checked, raw: $("pRaw").value.trim() || null, battery_kwh: $("batteryKwh").value || null });
+  $("probeSummary").hidden = true; $("probeProfiles").innerHTML = "";  // the old result would look like the new one
+  $("probeLog").textContent = "Test drive running …"; jobSeen = "Test drive";  // a short run may end before the next poll
+});
+$("btnReportDl").onclick = async () => {
+  try {
+    const full = await api("/api/probe/report");
+    const name = (full.file || "evsoc-probe.json").split("/").pop();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(full, null, 1)], { type: "application/json" }));
+    a.download = name; a.click(); URL.revokeObjectURL(a.href);
+  } catch (e) { toast(e.message); }
+};
+$("btnReportUp").onclick = () => $("reportFile").click();
+$("reportFile").onchange = async (ev) => {
+  const file = ev.target.files[0]; ev.target.value = "";
+  if (!file) return;
+  try {
+    const r = await api("/api/probe/load", { report: JSON.parse(await file.text()), notes: probeNotes() });
+    renderReport(r.report); toast("Report evaluated with the current profiles", true);
+  } catch (e) { toast("Report not readable: " + e.message); }
+};
+async function loadReports() {
+  try {
+    const r = await api("/api/reports");
+    $("reportsFolder").textContent = "Folder: " + r.folder;
+    $("reportsEmpty").hidden = r.reports.length > 0;
+    const box = $("reports"); box.innerHTML = "";
+    for (const it of r.reports) {
+      const el = document.createElement("div");
+      el.innerHTML = `<span>${esc(it.name.replace(/^evsoc-probe-/, "").replace(/\.json$/, ""))}</span><small>${esc(it.time)} · ${it.kb} kB</small>`;
+      el.title = "Open and re-evaluate with the current profiles";
+      el.onclick = async () => {
+        try { const x = await api("/api/probe/load", { name: it.name, notes: probeNotes() }); renderReport(x.report); }
+        catch (e) { toast(e.message); }
+      };
+      box.appendChild(el);
+    }
+  } catch (e) { /* not critical */ }
+}
+function noteTag(n) {
+  if (!n) return "";
+  const v = String(n.value).replace(".", ",");
+  return n.match ? `<span class="tag ok">passt zu ${esc(n.name)} = ${esc(v)}</span>` : `<span class="tag bad">weicht ab von ${esc(n.name)} = ${esc(v)}</span>`;
+}
+function renderReport(r) {
+  report = r;
+  $("btnReportDl").disabled = !r;
+  if (!r) return;
+  const car = r.vin || r.car || "unknown";
+  const notes = Object.entries(r.notes || {}).map(([k, v]) => `${k} = ${String(v).replace(".", ",")}`).join(", ");
+  const s = $("probeSummary"); s.hidden = false;
+  s.innerHTML = `<h2>Result</h2>
+    <div class="kv">
+      <span>Vehicle</span><span>${esc(car)}${r.year ? ", model year " + r.year : ""}</span>
+      <span>Adapter</span><span>${esc(r.adapter?.name || "")}${r.adapter?.voltage ? ", " + fmt(r.adapter.voltage, "V") : ""}</span>
+      <span>Scope</span><span>${r.requests} requests, ${r.answers} answers${r.seconds ? ", " + fmt(r.seconds, "s") : ""}${r.time ? " · " + esc(when_(r.time)) : ""}</span>
+      <span>Noted</span><span>${notes ? esc(notes) : "nothing. Without values read off the car, it can only be said whether a value is plausible."}</span>
+      <span>Choice</span><span>${r.autodetect ? "\"Read\" would choose " + esc(r.autodetect) : "no profile with a plausible state of charge"}</span>
+      ${r.file ? `<span>File</span><span style="font-family:var(--mono);font-size:13px">${esc(r.file)}</span>` : ""}
+    </div>
+    ${r.profiles.length ? "" : `<div class="notice warn">No profile returned a plausible value. Ignition on? Right adapter? "test all profiles" tries more.</div>`}
+    ${r.quiet.length ? `<details><summary>${r.quiet.length} profiles with an answer but no plausible value</summary><div class="muted" style="margin-top:6px">${esc(r.quiet.join(", "))}</div></details>` : ""}
+    ${Object.keys(r.skipped).length ? `<details><summary>${Object.keys(r.skipped).length} profiles do not fit the adapter</summary><div class="muted" style="margin-top:6px">${Object.entries(r.skipped).map(([k, v]) => esc(k + ": " + v)).join("<br>")}</div></details>` : ""}
+    ${r.raw.length ? `<details><summary>${r.raw.length} answers to additional read commands</summary><pre class="log tall" style="margin-top:8px">${esc(r.raw.map(x => `${x.cmd}: ${x.ecu}  ${x.payload}`).join("\n"))}</pre></details>` : ""}`;
+  // profiles that read exactly the same values are shown once
+  const groups = new Map();
+  for (const p of r.profiles) {
+    const key = JSON.stringify(p.values.filter(v => v.value !== null).map(v => [v.name, v.value])) + (p.other_unit || "");
+    if (groups.has(key) && !p.chosen) groups.get(key).same.push(p.name); else if (groups.has(key)) {
+      const g = groups.get(key); p.same = [g.name, ...g.same]; groups.set(key, p);
+    } else { p.same = []; groups.set(key, p); }
+  }
+  $("probeProfiles").innerHTML = [...groups.values()].map(p => `<section class="card">
+    <div class="profile-head"><b>${esc(p.name)}</b>
+      ${p.chosen ? '<span class="tag ok">chosen by "Read"</span>' : ""}
+      ${p.other_unit ? `<span class="tag warn">different control unit: ${esc(p.other_unit)}</span>` : ""}
+      <span class="tag plain">${p.plausible}/${p.total} plausible</span></div>
+    <table>${p.values.filter(v => v.value !== null).concat(p.values.filter(v => v.value === null)).map(v => `<tr class="${v.value === null ? "err" : ""}"><td>${esc(v.label)}<div class="muted" style="font-size:11.5px">${esc(v.name)}</div></td>
+      <td class="num">${v.value === null ? "–" : esc(fmt(v.value, v.unit, v.name))}</td>
+      <td>${v.value === null ? `<span class="muted">${esc(v.error || "no value")}</span>` : (v.plausible ? "" : '<span class="tag warn">implausible</span> ') + noteTag(v.note)}</td></tr>`).join("")}</table>
+    ${p.verified ? `<div class="muted" style="margin-top:8px">Profile status: ${esc(p.verified)}</div>` : ""}
+    ${p.same.length ? `<details><summary>${p.same.length} more profiles read the same values</summary><div class="muted" style="margin-top:6px">${esc(p.same.join(", "))}</div></details>` : ""}</section>`).join("");
+  renderUnits(r.units || []);
+}
+function renderUnits(units) {
+  if (!units.length) { $("diagBox").innerHTML = `<p class="sub">The last test drive read no control units (switched off or no answer).</p>`; return; }
+  const faults = units.reduce((n, u) => n + u.dtcs.length, 0);
+  $("diagBox").innerHTML = `<div class="notice ${faults ? "warn" : "ok"}">${units.length} control units, ${faults} fault entries</div>` + units.map(u => `
+    <div style="margin-top:18px"><div class="profile-head"><b>${esc(u.unit)}</b>${u.name ? `<span>${esc(u.name)}</span>` : ""}
+      ${u.dtc_error ? '<span class="tag plain">Fault memory not readable</span>' : u.dtcs.length ? `<span class="tag warn">${u.dtcs.length} fault entries</span>` : '<span class="tag ok">no faults</span>'}</div>
+      ${Object.keys(u.ident).length ? `<div class="kv" style="margin:0 0 8px">${Object.entries(u.ident).map(([k, v]) => `<span>${esc(k)}</span><span style="font-family:var(--mono);font-size:13px">${esc(v)}</span>`).join("")}</div>` : ""}
+      ${u.dtc_error ? `<div class="muted">${esc(u.dtc_error)}</div>` : ""}
+      ${u.dtcs.length ? `<table><tr><th>Code</th><th>hex</th><th>Status</th></tr>${u.dtcs.map(d => `<tr><td><b>${esc(d.code)}</b></td><td style="font-family:var(--mono)">${esc(d.hex)}</td><td>${esc(d.text)}</td></tr>`).join("")}</table>
+        <div class="muted" style="margin-top:6px">Plain texts are maker-specific and not stored in evsoc. The code can be looked up.</div>` : ""}</div>`).join("");
+}
+
+// -- tools -------------------------------------------------------------------------------------
+$("btnRaw").onclick = () => withBusy($("btnRaw"), async () => {
+  const r = await api("/api/raw", { commands: $("rawCmd").value, hits_only: $("rawHits").checked });
+  $("rawOut").textContent = r.results.map(x => `${x.cmd}: ${x.error ? x.error : x.ok ? "OK" : x.ecu + "  " + x.payload}`).join("\n") || "No answers.";
+});
+$("btnSniff").onclick = () => withBusy($("btnSniff"), async () => {
+  await api("/api/sniff/start", { url: $("snUrl").value.trim() || $("adapterUrl").value.trim(), seconds: $("snSec").value, values: [],
+    reference: $("snRef").value.trim() || null, car: $("carQ").value.trim() || null });
+  $("sniffOut").textContent = "Listening …"; jobSeen = "Listening";
+});
+$("btnSniffMark").onclick = async () => {
+  const items = $("snVals").value.trim().split(/\s+/).filter(Boolean);
+  if (!items.length) { toast("Enter a value first, e.g. soc=80.5"); return; }
+  try { for (const it of items) await api("/api/sniff/mark", { text: it.replace("=", " ") }); toast("Noted: " + items.join(", "), true); }
+  catch (e) { toast(e.message); }
+};
+$("btnSniffFile").onclick = () => $("sniffFile").click();
+$("sniffFile").onchange = async (ev) => {
+  const file = ev.target.files[0]; ev.target.value = "";
+  if (!file) return;
+  try {
+    const r = await api("/api/sniff/analyze", { text: await file.text(), values: $("snVals").value.trim().split(/\s+/).filter(Boolean).map(v => v.replace("=", " ")) });
+    $("sniffOut").textContent = r.text;
+  } catch (e) { toast(e.message); }
+};
+
+// -- monitor -----------------------------------------------------------------------------------
+$("btnMonStart").onclick = () => withBusy($("btnMonStart"), () => api("/api/monitor/start", {
+  url: $("adapterUrl").value, profile: selectedProfile, car: $("carQ").value.trim() || null,
+  interval: $("mInterval").value, sleep_interval: $("mSleep").value, awake_voltage: $("mVolt").value,
+  wake_every: $("mWake").value || null, wake_at: $("mWakeAt").value || null,
+  battery_kwh: $("batteryKwh").value || null,
+}));
+$("btnMonStop").onclick = () => withBusy($("btnMonStop"), () => api("/api/monitor/stop", {}));
+$("btnWakeTest").onclick = () => withBusy($("btnWakeTest"), async () => {
+  await api("/api/waketest/start", { url: $("adapterUrl").value.trim(), profile: selectedProfile, car: $("carQ").value.trim() || null,
+    minutes: $("wtMin").value });
+  $("wakeOut").textContent = "Wake test running …"; jobSeen = "Wake test";
+});
+$("btnMonWake").onclick = () => withBusy($("btnMonWake"), async () => { await api("/api/monitor/wake", {}); toast("Reading requested", true); });
+function renderMonitor(m) {
+  const s = m.state || {};
+  const rows = m.running ? [
+    ["Status", s.status || "starting …"], ["12 V battery", s.voltage_12v ? fmt(s.voltage_12v, "V") : "–"],
+    ["last state of charge", s.soc !== null && s.soc !== undefined ? fmt(s.soc, "%") : "–"],
+    ["State", s.soc_updated ? when_(s.soc_updated) : "–"], ["Profile", s.profile || "being detected"],
+    ["last wake-up", s.last_wake_result || "–"],
+  ] : [["Status", "off"]];
+  if (s.note) rows.push(["Note", s.note]);
+  $("monState").innerHTML = rows.map(([k, v]) => `<span>${esc(k)}</span><span>${esc(v)}</span>`).join("");
+}
+
+// -- background job and status polling ---------------------------------------------------------
+async function pollJob(s) {
+  const running = s.job.running;
+  if (!running && jobSeen === null) return;
+  const j = await api("/api/job");
+  const out = j.kind === "Test drive" ? $("probeLog") : j.kind === "Wake test" ? $("wakeOut") : $("sniffOut");
+  if (j.running || jobSeen) {
+    out.textContent = j.lines.join("\n") + (j.error ? "\nFehler: " + j.error : "");
+    out.scrollTop = out.scrollHeight;
+  }
+  if (j.running) { jobSeen = j.kind; return; }
+  if (jobSeen) {
+    jobSeen = null;
+    if (j.error) { toast(j.error); return; }
+    if (j.kind === "Test drive") { const p = await api("/api/probe"); renderReport(p.report); loadReports(); toast("Test drive finished", true); }
+    if (j.kind === "Wake test" && j.result) { $("wakeOut").textContent = j.lines.join("\n") + "\n\n" + j.result.text; toast("Wake test finished", true); }
+    if (j.kind === "Listening" && j.result) { $("sniffOut").textContent = j.lines.join("\n") + "\n\n" + j.result.text; toast("Listening finished", true); }
+  }
+}
+async function refresh() {
+  try {
+    const s = await api("/api/status"); lastStatus = s;
+    const idle = !s.monitor.running && !s.job.running;
+    $("pAdapter").textContent = s.connected ? "Adapter: " + (s.caps ? s.caps.name : s.version) : (s.monitor.running ? "Adapter: in continuous operation" : "no adapter");
+    $("pAdapter").className = "pill" + (s.connected || s.monitor.running ? " ok" : "");
+    const prof = s.profile ? s.profile.name : (s.monitor.state && s.monitor.state.profile);
+    $("pProfile").textContent = prof ? "Profile: " + prof : "no profile";
+    $("pProfile").className = "pill" + (prof ? " ok" : "");
+    const ms = s.monitor.state && s.monitor.state.status;
+    $("pJob").hidden = idle;
+    $("pJob").textContent = s.job.running ? s.job.kind + " running …" : "Continuous operation: " + (ms || "starting");
+    $("pJob").className = "pill warn";
+    document.querySelector('#nav [data-page="probe"]').classList.toggle("busy", s.job.running && s.job.kind === "Test drive");
+    document.querySelector('#nav [data-page="tools"]').classList.toggle("busy", s.job.running && s.job.kind === "Listening");
+    document.querySelector('#nav [data-page="monitor"]').classList.toggle("busy", s.monitor.running || (s.job.running && s.job.kind === "Wake test"));
+    $("st1").classList.toggle("done", s.connected); $("st2").classList.toggle("done", !!selectedProfile || !!prof);
+    $("st3").classList.toggle("done", !!s.last || s.has_report);
+    $("capsBox").innerHTML = s.caps ? `<div><b>${esc(s.caps.name)}</b></div><div class="chips">${s.caps.kinds.map(k => `<span class="chip">${esc(k.toUpperCase())}</span>`).join("")}
+      <span class="chip">Pins ${esc(s.caps.pins ? s.caps.pins.join(", ") : "alle")}</span>${s.caps.listen ? '<span class="chip">listen</span>' : ""}</div>
+      <div class="muted" style="margin-top:8px">${esc(s.version || "")}<br>${esc(s.url || "")}</div>` : `<p class="sub">Not connected yet.</p>`;
+    $("connNotice").innerHTML = s.connected ? `<div class="notice ok">Connected to ${esc(s.url)}</div>` : "";
+    for (const id of ["btnRead", "btnAuto", "btnProbe", "btnRaw", "btnBusScan"]) $(id).disabled = !s.connected || !idle;
+    $("btnMonStart").disabled = !idle; $("btnMonStop").disabled = !s.monitor.running; $("btnMonWake").disabled = !s.monitor.running;
+    $("btnConnect").disabled = !idle; $("btnSniff").disabled = !idle; $("btnWakeTest").disabled = !idle;
+    $("btnSniffMark").disabled = !(s.job.running && s.job.kind === "Listening");
+    renderReading(s.last, s.monitor.running ? s.monitor.state : null);
+    renderSpark(s.history);
+    renderMonitor(s.monitor);
+    $("log").textContent = s.log.join("\n");
+    await pollJob(s);
+  } catch (e) { /* server gone? keep trying */ }
+}
+
+(async () => {
+  show(location.hash.slice(1) || "start");
+  try {
+    const i = await api("/api/info");
+    $("pInfo").textContent = `${i.profiles} profiles · ${i.makes} makes · version ${i.version}`;
+    if (i.wired_only) {
+      $("btnBle").hidden = true;
+      $("adapterUrl").placeholder = "/dev/ttyUSB0, can://socketcan/can0, enet://auto, box:/dev/ttyACM0";
+      const pill = document.createElement("span"); pill.className = "pill ok"; pill.textContent = "wired only";
+      $("pProfile").after(pill);
+    }
+    await loadDevices(false);
+    const p = await api("/api/probe"); if (p.report) renderReport(p.report);
+  } catch (e) { toast(e.message); }
+  refresh(); setInterval(refresh, 2000);
+})();
+</script>
+</body>
+</html>

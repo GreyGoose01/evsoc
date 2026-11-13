@@ -1,0 +1,190 @@
+{
+ "name": "obdb_mini_hardtop",
+ "description": "MINI Hardtop",
+ "source": "https://github.com/OBDb/MINI-Hardtop",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "MINI",
+   "model": "Hardtop",
+   "years": [
+    2001,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "226335",
+   "id": "c2_226335"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DDBC",
+   "id": "c5_22DDBC"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22E5CE",
+   "id": "c10_22E5CE"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA618",
+    "ATCEA18",
+    "ATFCSH6F1",
+    "ATFCSD18300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DA23",
+   "id": "c65_22DA23"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA61A",
+    "ATCEA1A",
+    "ATFCSH6F1",
+    "ATFCSD1A300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DE00",
+   "id": "c72_22DE00"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22420C",
+   "id": "c88_22420C"
+  }
+ ],
+ "fields": {
+  "soh": {
+   "step": "c2_226335",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "soc": {
+   "step": "c5_22DDBC",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10,
+    "nullmin": 0
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "soc_2": {
+   "step": "c10_22E5CE",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "odometer": {
+   "step": "c65_22DA23",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "mul": 8
+   },
+   "min": 0,
+   "max": 1000000,
+   "unit": "km",
+   "label": "Odometer, low resolution"
+  },
+  "plugged_in": {
+   "step": "c72_22DE00",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Is charger connected"
+  },
+  "is_charging": {
+   "step": "c72_22DE00",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 8
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Is charging"
+  },
+  "range": {
+   "step": "c88_22420C",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Estimated range remaining"
+  }
+ }
+}

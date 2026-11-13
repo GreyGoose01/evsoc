@@ -1,0 +1,64 @@
+{
+ "name": "wican_mazda_ez_6_6e",
+ "description": "Mazda: EZ-6/6e",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Mazda",
+   "model": "EZ-6/6e",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22F1AF",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATST96",
+    "ATFCSH7A1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH7E2"
+   ],
+   "request": "22F1AF"
+  },
+  {
+   "id": "s2_22F1AE",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATST96",
+    "ATFCSH7A1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH7E2"
+   ],
+   "request": "22F1AE"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22F1AF",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/10"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "odometer": {
+   "step": "s2_22F1AE",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B7]/10"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

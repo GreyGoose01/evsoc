@@ -1,0 +1,155 @@
+{
+ "name": "obdb_polestar_2",
+ "description": "Polestar 2",
+ "source": "https://github.com/OBDb/Polestar-2",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Polestar",
+   "model": "2",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c32_224801"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224802",
+   "id": "c33_224802"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224803",
+   "id": "c34_224803"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22496D",
+   "id": "c50_22496D"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01638",
+    "ATCRA1EC70E80",
+    "ATCEA",
+    "ATFCSH1DD01638",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c71_22DD01"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c32_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": 0,
+   "max": 131,
+   "unit": "%",
+   "label": "High voltage battery state of charge"
+  },
+  "current": {
+   "step": "c33_224802",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -3276,
+   "max": 3276,
+   "unit": "A",
+   "label": "High voltage battery current"
+  },
+  "voltage": {
+   "step": "c34_224803",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  },
+  "soh": {
+   "step": "c50_22496D",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "div": 100
+   },
+   "min": 0,
+   "max": 42949672,
+   "unit": "%",
+   "label": "High voltage battery state of health"
+  },
+  "odometer": {
+   "step": "c71_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Total distance"
+  }
+ }
+}

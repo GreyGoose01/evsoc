@@ -1,0 +1,134 @@
+{
+ "name": "obdb_vauxhallopel_corsa_e",
+ "description": "Vauxhall Corsa e / Opel Corsa e",
+ "source": "https://github.com/OBDb/VauxhallOpel-Corsa-e",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Vauxhall",
+   "model": "Corsa e",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Opel",
+   "model": "Corsa e",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D410",
+   "id": "c2_22D410"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D49C",
+   "id": "c3_22D49C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D810",
+   "id": "c4_22D810"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D860",
+   "id": "c6_22D860"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c2_22D410",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 512
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge (calibrated)"
+  },
+  "odometer": {
+   "step": "c3_22D49C",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "div": 1000
+   },
+   "min": 0,
+   "max": 429496729,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc_bms": {
+   "step": "c4_22D810",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 512
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge"
+  },
+  "soh": {
+   "step": "c6_22D860",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 16,
+    "div": 16
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery health"
+  }
+ }
+}

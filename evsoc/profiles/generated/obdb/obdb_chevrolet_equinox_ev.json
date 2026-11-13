@@ -1,0 +1,73 @@
+{
+ "name": "obdb_chevrolet_equinox_ev",
+ "description": "Chevrolet Equinox EV",
+ "source": "https://github.com/OBDb/Chevrolet-Equinox-EV",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Chevrolet",
+   "model": "Equinox EV",
+   "years": [
+    2024,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDACBF1",
+    "ATCRA18DAF1CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2227C6",
+   "id": "c2_2227C6"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDACBF1",
+    "ATCRA18DAF1CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222B43",
+   "id": "c4_222B43"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c2_2227C6",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 100,
+    "div": 65535
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "SoC (high res)"
+  },
+  "soc_2": {
+   "step": "c4_222B43",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "SoC"
+  }
+ }
+}

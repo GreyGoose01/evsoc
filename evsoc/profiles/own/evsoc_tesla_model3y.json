@@ -1,0 +1,97 @@
+{
+ "name": "evsoc_tesla_model3y",
+ "description": "Tesla Model 3 / Model Y: no diagnostic answers at the OBD connector. Needs an adapter cable from the diagnostic connector (X427 or vehicle CAN in the centre console) to an OBD socket. evsoc then listens to the battery frame 0x292 (sends nothing).",
+ "source": "https://github.com/joshwardell/model3dbc (MIT), ID292BMS_SOC",
+ "license": "MIT",
+ "verified": "Community-DBC",
+ "platform": "Tesla Model 3/Y",
+ "vehicles": [
+  {
+   "make": "Tesla",
+   "model": "Model 3",
+   "years": [
+    2017,
+    null
+   ]
+  },
+  {
+   "make": "Tesla",
+   "model": "Model Y",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "bms292",
+   "at": [
+    "ATSP6",
+    "ATCAF0",
+    "ATCEA"
+   ],
+   "listen": "292"
+  }
+ ],
+ "fields": {
+  "soc_display": {
+   "step": "bms292",
+   "decode": {
+    "type": "dbc",
+    "start": 10,
+    "len": 10,
+    "little": true,
+    "factor": 0.1
+   },
+   "min": 0,
+   "max": 102.3,
+   "unit": "%",
+   "label": "SOCUI"
+  },
+  "soc": {
+   "step": "bms292",
+   "decode": {
+    "type": "dbc",
+    "start": 30,
+    "len": 10,
+    "little": true,
+    "factor": 0.1
+   },
+   "min": 0,
+   "max": 102.3,
+   "unit": "%",
+   "label": "SOCave"
+  },
+  "soc_min": {
+   "step": "bms292",
+   "decode": {
+    "type": "dbc",
+    "start": 0,
+    "len": 10,
+    "little": true,
+    "factor": 0.1
+   },
+   "min": 0,
+   "max": 102.3,
+   "unit": "%"
+  },
+  "soc_max": {
+   "step": "bms292",
+   "decode": {
+    "type": "dbc",
+    "start": 20,
+    "len": 10,
+    "little": true,
+    "factor": 0.1
+   },
+   "min": 0,
+   "max": 102.3,
+   "unit": "%"
+  }
+ },
+ "connection": {
+  "cable": "Tesla diagnostic cable (Model 3/Y, vehicle CAN to OBD socket)"
+ }
+}

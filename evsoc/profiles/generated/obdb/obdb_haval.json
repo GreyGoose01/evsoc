@@ -1,0 +1,136 @@
+{
+ "name": "obdb_haval",
+ "description": "Haval all models",
+ "source": "https://github.com/OBDb/Haval",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Haval",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH78B",
+    "ATCRA7CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22E006",
+   "id": "c13_22E006"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH78B",
+    "ATCRA7CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22E0F4",
+   "id": "c29_22E0F4"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH78B",
+    "ATCRA7CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22E0F5",
+   "id": "c30_22E0F5"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH78B",
+    "ATCRA7CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22E0F6",
+   "id": "c31_22E0F6"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2200A6",
+   "id": "c39_2200A6"
+  }
+ ],
+ "fields": {
+  "voltage": {
+   "step": "c13_22E006",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553.5,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "soc_bms": {
+   "step": "c29_22E0F4",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c30_22E0F5",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of health"
+  },
+  "capacity": {
+   "step": "c31_22E0F6",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553.5,
+   "unit": "kWh",
+   "label": "State of energy"
+  },
+  "odometer": {
+   "step": "c39_2200A6",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Vehicle odometer"
+  }
+ }
+}

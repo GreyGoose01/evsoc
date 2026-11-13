@@ -1,0 +1,120 @@
+{
+ "name": "obdb_toyota_yaris_cross",
+ "description": "Toyota Yaris Cross",
+ "source": "https://github.com/OBDb/Toyota-Yaris-Cross",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Toyota",
+   "model": "Yaris Cross",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH700",
+    "ATCRA708",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "220103",
+   "id": "c1_220103"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "years": [
+    2022,
+    null
+   ],
+   "id": "c199_221F5B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221F9A",
+   "years": [
+    2022,
+    null
+   ],
+   "id": "c200_221F9A"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c1_220103",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c199_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "voltage": {
+   "step": "c200_221F9A",
+   "decode": {
+    "type": "bits",
+    "bix": 16,
+    "len": 16,
+    "mul": 156.25,
+    "div": 10000
+   },
+   "min": 0,
+   "max": 1023,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c200_221F9A",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -3276.8,
+   "max": 3276.7,
+   "unit": "A",
+   "label": "HV battery current"
+  }
+ }
+}

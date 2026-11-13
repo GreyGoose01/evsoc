@@ -1,0 +1,144 @@
+{
+ "name": "obdb_mg_zs_ev",
+ "description": "MG ZS EV",
+ "source": "https://github.com/OBDb/MG-ZS-EV",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "MG",
+   "model": "ZS EV",
+   "years": [
+    2019,
+    2021
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA718",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22B921",
+   "id": "c1_22B921"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH781",
+    "ATCRA789",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22B046",
+   "id": "c17_22B046"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH781",
+    "ATCRA789",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22B048",
+   "id": "c19_22B048"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH781",
+    "ATCRA789",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22B061",
+   "years": [
+    null,
+    2021
+   ],
+   "id": "c27_22B061"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E3",
+    "ATCRA7EB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22B71B",
+   "id": "c48_22B71B"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c1_22B921",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c17_22B046",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "is_charging": {
+   "step": "c19_22B048",
+   "decode": {
+    "type": "bits",
+    "bix": 6,
+    "len": 1
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "yesno",
+   "label": "Is charging"
+  },
+  "soh": {
+   "step": "c27_22B061",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of health"
+  },
+  "plugged_in": {
+   "step": "c48_22B71B",
+   "decode": {
+    "type": "bits",
+    "bix": 7,
+    "len": 1
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "yesno",
+   "label": "Charger connected"
+  }
+ }
+}

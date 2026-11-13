@@ -1,0 +1,66 @@
+{
+ "name": "wican_kia_niro_phev",
+ "description": "Kia: Niro PHEV",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Kia",
+   "model": "Niro PHEV",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2105",
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATST96"
+   ],
+   "request": "2105"
+  },
+  {
+   "id": "s2_2101",
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATST96"
+   ],
+   "request": "2101"
+  }
+ ],
+ "fields": {
+  "soc_display": {
+   "step": "s1_2105",
+   "decode": {
+    "type": "wican",
+    "expr": "B47/2"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s1_2105",
+   "decode": {
+    "type": "wican",
+    "expr": "[B44:B45]/10"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "s2_2101",
+   "decode": {
+    "type": "wican",
+    "expr": "B09/2"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

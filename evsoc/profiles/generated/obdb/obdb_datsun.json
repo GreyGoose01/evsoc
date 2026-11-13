@@ -1,0 +1,268 @@
+{
+ "name": "obdb_datsun",
+ "description": "Datsun all models",
+ "source": "https://github.com/OBDb/Datsun",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Datsun",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH743",
+    "ATCRA763",
+    "ATCEA",
+    "ATFCSH743",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2101",
+   "id": "c9_2101"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH743",
+    "ATCRA763",
+    "ATCEA",
+    "ATFCSH743",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220E2D",
+   "id": "c15_220E2D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH743",
+    "ATCRA763",
+    "ATCEA",
+    "ATFCSH743",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220E2E",
+   "id": "c16_220E2E"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH797",
+    "ATCRA79A",
+    "ATCEA",
+    "ATFCSH797",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22114E",
+   "id": "c49_22114E"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH797",
+    "ATCRA79A",
+    "ATCEA",
+    "ATFCSH797",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221234",
+   "id": "c58_221234"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH797",
+    "ATCRA79A",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221248",
+   "id": "c60_221248"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2101",
+   "id": "c68_2101"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2161",
+   "id": "c73_2161"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSH18DADBF1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "229001",
+   "id": "c177_229001"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c9_2101",
+   "decode": {
+    "type": "bits",
+    "bix": 64,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Odometer, meter group 1"
+  },
+  "soc_display": {
+   "step": "c15_220E2D",
+   "decode": {
+    "type": "bits",
+    "bix": 112,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge, as the dash shows it"
+  },
+  "range": {
+   "step": "c16_220E2E",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "nullmin": 0,
+    "nullmax": 2047
+   },
+   "min": 0,
+   "max": 2047,
+   "unit": "km",
+   "label": "Range remaining"
+  },
+  "is_charging": {
+   "step": "c49_22114E",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging mode"
+  },
+  "plugged_in": {
+   "step": "c58_221234",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "L1/L2 charge port plug state"
+  },
+  "current": {
+   "step": "c60_221248",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 2
+   },
+   "min": -16384,
+   "max": 16383.5,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "voltage": {
+   "step": "c68_2101",
+   "decode": {
+    "type": "bits",
+    "bix": 144,
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  },
+  "soc": {
+   "step": "c68_2101",
+   "decode": {
+    "type": "bits",
+    "bix": 248,
+    "len": 24,
+    "div": 8190,
+    "add": -17
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge"
+  },
+  "soh": {
+   "step": "c73_2161",
+   "decode": {
+    "type": "bits",
+    "bix": 16,
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery health"
+  },
+  "soc_2": {
+   "step": "c177_229001",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100,
+    "add": -3
+   },
+   "min": -3,
+   "max": 652,
+   "unit": "%",
+   "label": "Traction battery state of charge"
+  }
+ }
+}

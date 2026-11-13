@@ -1,0 +1,51 @@
+{
+ "name": "wican_nissan_leaf_ze1",
+ "description": "Nissan : leaf-ze1",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Nissan",
+   "model": "leaf-ze1",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2101",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH79B",
+    "ATFCSH79B",
+    "ATCRA7BB"
+   ],
+   "request": "2101"
+  }
+ ],
+ "fields": {
+  "soh": {
+   "step": "s1_2101",
+   "decode": {
+    "type": "wican",
+    "expr": "[B36:B37]/102.4"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "s1_2101",
+   "decode": {
+    "type": "wican",
+    "expr": "((B39*65536)+[B41:B42])/10000"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

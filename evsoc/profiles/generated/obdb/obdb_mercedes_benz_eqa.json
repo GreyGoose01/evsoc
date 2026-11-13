@@ -1,0 +1,68 @@
+{
+ "name": "obdb_mercedes_benz_eqa",
+ "description": "Mercedes Benz EQA",
+ "source": "https://github.com/OBDb/Mercedes-Benz-EQA",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Mercedes Benz",
+   "model": "EQA",
+   "years": [
+    2021,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "226050",
+   "id": "c6_226050"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "226502",
+   "id": "c10_226502"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c6_226050",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge"
+  },
+  "range": {
+   "step": "c10_226502",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 1000,
+   "unit": "km",
+   "label": "HV battery remaining distance"
+  }
+ }
+}

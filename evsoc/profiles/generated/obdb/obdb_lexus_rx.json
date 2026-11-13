@@ -1,0 +1,149 @@
+{
+ "name": "obdb_lexus_rx",
+ "description": "Lexus RX",
+ "source": "https://github.com/OBDb/Lexus-RX",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Lexus",
+   "model": "RX",
+   "years": [
+    1999,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH701",
+    "ATCRA709",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "220103",
+   "years": [
+    2016,
+    null
+   ],
+   "id": "c46_220103"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "years": [
+    2023,
+    null
+   ],
+   "id": "c78_221F5B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221F9A",
+   "years": [
+    2023,
+    null
+   ],
+   "id": "c93_221F9A"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E2",
+    "ATCRA7EA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "21C3",
+   "id": "c108_21C3"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c46_220103",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c78_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "voltage": {
+   "step": "c93_221F9A",
+   "decode": {
+    "type": "bits",
+    "bix": 16,
+    "len": 16,
+    "mul": 156.25,
+    "div": 10000
+   },
+   "min": 0,
+   "max": 1023,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c93_221F9A",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -3276.8,
+   "max": 3276.7,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc_2": {
+   "step": "c108_21C3",
+   "decode": {
+    "type": "bits",
+    "bix": 112,
+    "len": 8,
+    "mul": 0.392
+   },
+   "min": 0,
+   "max": 99.96,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "name": "obdb_tata",
+ "description": "Tata all models",
+ "source": "https://github.com/OBDb/Tata",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Tata",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224910",
+   "id": "c64_224910"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224918",
+   "id": "c65_224918"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c66_22DD01"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c64_224910",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c65_224918",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Battery state of health, average"
+  },
+  "odometer": {
+   "step": "c66_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 1000000,
+   "unit": "km",
+   "label": "Odometer"
+  }
+ }
+}

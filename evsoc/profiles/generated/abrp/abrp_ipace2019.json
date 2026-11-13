@@ -1,0 +1,221 @@
+{
+ "name": "abrp_ipace2019",
+ "description": "Jaguar I-Pace",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/jaguar/ipace2019.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Jaguar",
+   "model": "I-Pace",
+   "years": [
+    2018,
+    2020
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22490C",
+   "at": [
+    "ATAL",
+    "ATSH7E4",
+    "ATFCSH7E4"
+   ],
+   "request": "22490C"
+  },
+  {
+   "id": "s2_22490F",
+   "at": [
+    "ATAL",
+    "ATSH7E4",
+    "ATFCSH7E4"
+   ],
+   "request": "22490F"
+  },
+  {
+   "id": "s3_224918",
+   "at": [
+    "ATAL",
+    "ATSH7E4",
+    "ATFCSH7E4"
+   ],
+   "request": "224918"
+  },
+  {
+   "id": "s4_224910",
+   "at": [
+    "ATAL",
+    "ATSH7E4",
+    "ATFCSH7E4"
+   ],
+   "request": "224910"
+  },
+  {
+   "id": "s5_224907",
+   "at": [
+    "ATAL",
+    "ATSH7E4",
+    "ATFCSH7E4"
+   ],
+   "request": "224907"
+  },
+  {
+   "id": "s6_22DD01",
+   "at": [
+    "ATAL",
+    "ATSH7E4",
+    "ATFCSH7E4"
+   ],
+   "request": "22DD01"
+  },
+  {
+   "id": "s7_22DD09",
+   "at": [
+    "ATAL",
+    "ATSH7E4",
+    "ATFCSH7E4"
+   ],
+   "request": "22DD09"
+  },
+  {
+   "id": "s8_22FE0C",
+   "at": [
+    "ATAL",
+    "ATSH7E5",
+    "ATFCSH7E5"
+   ],
+   "request": "22FE0C"
+  },
+  {
+   "id": "s9_22D928",
+   "at": [
+    "ATAL",
+    "ATSH732",
+    "ATFCSH732"
+   ],
+   "request": "22D928"
+  },
+  {
+   "id": "s10_229924",
+   "at": [
+    "ATAL",
+    "ATSH733",
+    "ATFCSH733"
+   ],
+   "request": "229924"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s1_22490C",
+   "decode": {
+    "type": "equation",
+    "expr": "((A*256+B)-32768)/40"
+   },
+   "min": -300.0,
+   "max": 1000.0,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s2_22490F",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*256+B)/100"
+   },
+   "min": 300.0,
+   "max": 450.0,
+   "unit": "V"
+  },
+  "soh": {
+   "step": "s3_224918",
+   "decode": {
+    "type": "equation",
+    "expr": "A/2"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "s4_224910",
+   "decode": {
+    "type": "equation",
+    "expr": "(((A*256+B)/100)-2.35)/93.9*100"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "batt_temp": {
+   "step": "s5_224907",
+   "decode": {
+    "type": "equation",
+    "expr": "(A/2)-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "odometer": {
+   "step": "s6_22DD01",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*65536+B*256+C)"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "km"
+  },
+  "vehicle_reported_speed": {
+   "step": "s7_22DD09",
+   "decode": {
+    "type": "equation",
+    "expr": "A"
+   },
+   "min": 0.0,
+   "max": 220.0,
+   "unit": ""
+  },
+  "is_charging": {
+   "step": "s8_22FE0C",
+   "decode": {
+    "type": "equation",
+    "expr": "(A==6)&&((B==133)||(B==32)||(B==11)||(B==12))"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "is_dcfc": {
+   "step": "s8_22FE0C",
+   "decode": {
+    "type": "equation",
+    "expr": "(A==6)&&((B==11)||(B==12))"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "ext_temp": {
+   "step": "s10_229924",
+   "decode": {
+    "type": "equation",
+    "expr": "(A/2)-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "is_parked": {
+   "step": "s9_22D928",
+   "decode": {
+    "type": "equation",
+    "expr": "{A:0}"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  }
+ }
+}

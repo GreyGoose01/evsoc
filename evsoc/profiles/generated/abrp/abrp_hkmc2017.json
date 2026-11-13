@@ -1,0 +1,150 @@
+{
+ "name": "abrp_hkmc2017",
+ "description": "Hyundai Ioniq Electric",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/hkmc/hkmc2017.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Hyundai",
+   "model": "Ioniq Electric",
+   "years": [
+    2016,
+    2018
+   ]
+  }
+ ],
+ "init": [
+  "ATFE"
+ ],
+ "steps": [
+  {
+   "id": "s1_2180",
+   "at": [
+    "ATSTFF",
+    "ATSP6",
+    "ATCRA7EE"
+   ],
+   "request": "2180"
+  },
+  {
+   "id": "s2_2101",
+   "at": [
+    "ATSTFF",
+    "ATSP6",
+    "ATCRA7EC"
+   ],
+   "request": "2101"
+  },
+  {
+   "id": "s3_2105",
+   "at": [
+    "ATSTFF",
+    "ATSP6",
+    "ATCRA7EC"
+   ],
+   "request": "2105"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s2_2101",
+   "decode": {
+    "type": "equation",
+    "expr": "((Signed(K)*256)+L)/10"
+   },
+   "min": -230.0,
+   "max": 230.0,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s2_2101",
+   "decode": {
+    "type": "equation",
+    "expr": "((m<<8)+n)/10"
+   },
+   "min": 268.8,
+   "max": 403.2,
+   "unit": "V"
+  },
+  "kwh_charged": {
+   "step": "s2_2101",
+   "decode": {
+    "type": "equation",
+    "expr": "((am<<24)+(an<<16)+(ao<<8)+ap)/10"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "kWh"
+  },
+  "is_charging": {
+   "step": "s2_2101",
+   "decode": {
+    "type": "equation",
+    "expr": "{j:7}"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "normal_charging": {
+   "step": "s2_2101",
+   "decode": {
+    "type": "equation",
+    "expr": "{j:5}"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "fast_charging": {
+   "step": "s2_2101",
+   "decode": {
+    "type": "equation",
+    "expr": "{j:6}"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "batt_temp": {
+   "step": "s2_2101",
+   "decode": {
+    "type": "equation",
+    "expr": "Signed(O)"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "soc": {
+   "step": "s3_2105",
+   "decode": {
+    "type": "equation",
+    "expr": "af/2"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s3_2105",
+   "decode": {
+    "type": "equation",
+    "expr": "((z<<8)+aa)/10"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "ext_temp": {
+   "step": "s1_2180",
+   "decode": {
+    "type": "equation",
+    "expr": "(signed(m)-80)/2"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  }
+ }
+}

@@ -1,0 +1,209 @@
+{
+ "name": "abrp_bolt17",
+ "description": "Chevrolet Bolt EV, Chevrolet Spark EV, Opel Ampera-e",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/gmc/bolt17.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Chevrolet",
+   "model": "Bolt EV",
+   "years": [
+    2017,
+    2018
+   ]
+  },
+  {
+   "make": "Chevrolet",
+   "model": "Spark EV",
+   "years": [
+    2014,
+    2016
+   ]
+  },
+  {
+   "make": "Opel",
+   "model": "Ampera-e",
+   "years": [
+    2017,
+    2019
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22000D",
+   "at": [
+    "ATAL",
+    "ATSH7E0"
+   ],
+   "request": "22000D"
+  },
+  {
+   "id": "s2_222414",
+   "at": [
+    "ATAL",
+    "ATSH7E1"
+   ],
+   "request": "222414"
+  },
+  {
+   "id": "s3_222885",
+   "at": [
+    "ATAL",
+    "ATSH7E1"
+   ],
+   "request": "222885"
+  },
+  {
+   "id": "s4_222889",
+   "at": [
+    "ATAL",
+    "ATSH7E1"
+   ],
+   "request": "222889"
+  },
+  {
+   "id": "s5_22801F",
+   "at": [
+    "ATAL",
+    "ATSH7E4"
+   ],
+   "request": "22801F"
+  },
+  {
+   "id": "s6_22434F",
+   "at": [
+    "ATAL",
+    "ATSH7E4"
+   ],
+   "request": "22434F"
+  },
+  {
+   "id": "s7_224531",
+   "at": [
+    "ATAL",
+    "ATSH7E4"
+   ],
+   "request": "224531"
+  },
+  {
+   "id": "s8_2241A3",
+   "at": [
+    "ATAL",
+    "ATSH7E4"
+   ],
+   "request": "2241A3"
+  },
+  {
+   "id": "s9_228334",
+   "at": [
+    "ATAL",
+    "ATSH7E4"
+   ],
+   "request": "228334"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s2_222414",
+   "decode": {
+    "type": "equation",
+    "expr": "(Signed(A)*256+B)/20"
+   },
+   "min": -500.0,
+   "max": 500.0,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s3_222885",
+   "decode": {
+    "type": "equation",
+    "expr": "((A*256)+B)/100"
+   },
+   "min": 300.0,
+   "max": 500.0,
+   "unit": "V"
+  },
+  "ext_temp": {
+   "step": "s5_22801F",
+   "decode": {
+    "type": "equation",
+    "expr": "(A/2)-40"
+   },
+   "min": -40.0,
+   "max": 100.0,
+   "unit": "°C"
+  },
+  "batt_temp": {
+   "step": "s6_22434F",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "is_charging": {
+   "step": "s7_224531",
+   "decode": {
+    "type": "equation",
+    "expr": "(A==1)||(A==2)||(A==3)"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "is_dcfc": {
+   "step": "s7_224531",
+   "decode": {
+    "type": "equation",
+    "expr": "(A==3)"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "capacity": {
+   "step": "s8_2241A3",
+   "decode": {
+    "type": "equation",
+    "expr": "((A*256)+B)*0.032"
+   },
+   "min": 30.0,
+   "max": 70.0,
+   "unit": "kWh"
+  },
+  "soc": {
+   "step": "s9_228334",
+   "decode": {
+    "type": "equation",
+    "expr": "A*100/255"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "is_parked": {
+   "step": "s4_222889",
+   "decode": {
+    "type": "equation",
+    "expr": "A==8"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "speed": {
+   "step": "s1_22000D",
+   "decode": {
+    "type": "equation",
+    "expr": "A"
+   },
+   "min": 0.0,
+   "max": 200.0,
+   "unit": "km/h"
+  }
+ }
+}

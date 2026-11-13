@@ -1,0 +1,38 @@
+{
+ "name": "wican_mitsubishi_outlander_phev_2023",
+ "description": "Mitsubishi: Outlander-PHEV 2023",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Mitsubishi",
+   "model": "Outlander-PHEV 2023",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2201D1",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATSH18DB33F1",
+    "ATCRA18DAF1DB"
+   ],
+   "request": "2201D1"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_2201D1",
+   "decode": {
+    "type": "wican",
+    "expr": "(B5*0.64)-19.2"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

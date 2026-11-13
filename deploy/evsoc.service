@@ -1,0 +1,33 @@
+# evsoc as an installed device: continuous operation, outputs, display and setup in one service.
+# Install (instructions: docs/raspberry-pi.md):
+#   sudo cp deploy/evsoc.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now evsoc
+#   journalctl -u evsoc        # shows the setup code on first start
+[Unit]
+Description=evsoc (state of charge)
+After=network-online.target sys-subsystem-net-devices-can0.device
+Wants=network-online.target
+
+[Service]
+User=evsoc
+Group=evsoc
+# access to USB adapters (/dev/ttyACM*, /dev/ttyUSB*)
+SupplementaryGroups=dialout
+WorkingDirectory=/opt/evsoc
+Environment=PYTHONUNBUFFERED=1
+Environment=EVSOC_CONFIG=/var/lib/evsoc/config.json
+# display and setup reachable over the Ethernet cable only:
+ExecStart=/opt/evsoc/.venv/bin/evsoc run --host eth0
+Restart=always
+RestartSec=10
+# hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+# creates /var/lib/evsoc for the user evsoc (configuration and state)
+StateDirectory=evsoc
+StateDirectoryMode=0700
+
+[Install]
+WantedBy=multi-user.target

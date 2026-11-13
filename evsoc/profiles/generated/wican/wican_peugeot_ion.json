@@ -1,0 +1,40 @@
+{
+ "name": "wican_peugeot_ion",
+ "description": "Peugeot: iON",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Peugeot",
+   "model": "iON",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2101",
+   "at": [
+    "ATSP6",
+    "ATFCSH761",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH761",
+    "ATCRA762"
+   ],
+   "request": "2101"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_2101",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4/2)-5"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

@@ -1,0 +1,246 @@
+{
+ "name": "obdb_buick",
+ "description": "Buick all models",
+ "source": "https://github.com/OBDb/Buick",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Buick",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2241A6",
+   "id": "c254_2241A6"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22432D",
+   "id": "c274_22432D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224373",
+   "id": "c295_224373"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2243AF",
+   "id": "c304_2243AF"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "228334",
+   "id": "c338_228334"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E7",
+    "ATCRA7EF",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2240D4",
+   "id": "c345_2240D4"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP14",
+    "ATSHDA1AF1",
+    "ATCRA142AF11A",
+    "ATCEA",
+    "ATFCSH14DA1AF1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22448F",
+   "id": "c589_22448F"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDACBF1",
+    "ATCRA18DAF1CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2227C6",
+   "id": "c614_2227C6"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDACBF1",
+    "ATCRA18DAF1CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222B43",
+   "id": "c616_222B43"
+  }
+ ],
+ "fields": {
+  "range": {
+   "step": "c254_2241A6",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 64
+   },
+   "min": 0,
+   "max": 1023.9843,
+   "unit": "km",
+   "label": "Electric range remaining"
+  },
+  "voltage": {
+   "step": "c274_22432D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.52
+   },
+   "min": 0,
+   "max": 34078.2,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "is_charging": {
+   "step": "c295_224373",
+   "decode": {
+    "type": "bits",
+    "bix": 15,
+    "len": 1
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging mode"
+  },
+  "soc_bms": {
+   "step": "c304_2243AF",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 100,
+    "div": 65535
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge (raw)"
+  },
+  "soc_display": {
+   "step": "c338_228334",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "current": {
+   "step": "c345_2240D4",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "mul": -1,
+    "div": 20
+   },
+   "min": -1638.35,
+   "max": 1638.4,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "odometer": {
+   "step": "c589_22448F",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "mul": 156.25,
+    "div": 10000
+   },
+   "min": 0,
+   "max": 1000000,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c614_2227C6",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 100,
+    "div": 65535
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge, high resolution"
+  },
+  "soc_2": {
+   "step": "c616_222B43",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

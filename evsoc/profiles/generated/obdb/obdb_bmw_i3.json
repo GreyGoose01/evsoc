@@ -1,0 +1,164 @@
+{
+ "name": "obdb_bmw_i3",
+ "description": "BMW i3",
+ "source": "https://github.com/OBDb/BMW-i3",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "BMW",
+   "model": "i3",
+   "years": [
+    2013,
+    2022
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "226335",
+   "id": "c1_226335"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DDBC",
+   "id": "c4_22DDBC"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA61A",
+    "ATCEA1A",
+    "ATFCSH6F1",
+    "ATFCSD1A300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DE00",
+   "id": "c17_22DE00"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22420C",
+   "id": "c30_22420C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D10D",
+   "id": "c32_22D10D"
+  }
+ ],
+ "fields": {
+  "soh": {
+   "step": "c1_226335",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "soc": {
+   "step": "c4_22DDBC",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10,
+    "nullmin": 0
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "plugged_in": {
+   "step": "c17_22DE00",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Is charger connected"
+  },
+  "is_charging": {
+   "step": "c17_22DE00",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 8
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Is charging"
+  },
+  "range": {
+   "step": "c30_22420C",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Estimated range remaining"
+  },
+  "odometer": {
+   "step": "c32_22D10D",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer #2"
+  }
+ }
+}

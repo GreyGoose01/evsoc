@@ -1,0 +1,117 @@
+{
+ "name": "abrp_zoe",
+ "description": "Renault Zoe Ph1",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/renault/zoe.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "Zoe Ph1",
+   "years": [
+    2012,
+    2019
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s2_222003",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATFCSH7E4"
+   ],
+   "request": "222003"
+  },
+  {
+   "id": "s3_222004",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATFCSH7E4"
+   ],
+   "request": "222004"
+  },
+  {
+   "id": "s4_223042",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATFCSH7E4"
+   ],
+   "request": "223042"
+  },
+  {
+   "id": "s5_222002",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATFCSH7E4"
+   ],
+   "request": "222002"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s5_222002",
+   "decode": {
+    "type": "equation",
+    "expr": "0.02*(A*256+B)"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "vehicle_reported_speed": {
+   "step": "s2_222003",
+   "decode": {
+    "type": "equation",
+    "expr": "0.01*(A*256+B)"
+   },
+   "min": 0.0,
+   "max": 180.0,
+   "unit": ""
+  },
+  "voltage": {
+   "step": "s3_222004",
+   "decode": {
+    "type": "equation",
+    "expr": "0.5*(A*256+B)"
+   },
+   "min": 300.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s4_223042",
+   "decode": {
+    "type": "equation",
+    "expr": "0.5*(A*256+B)-16383.75"
+   },
+   "min": -400.0,
+   "max": 400.0,
+   "unit": "A"
+  }
+ }
+}

@@ -1,0 +1,99 @@
+{
+ "name": "obdb_toyota_bz4x",
+ "description": "Toyota bZ4X",
+ "source": "https://github.com/OBDb/Toyota-bZ4X",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Toyota",
+   "model": "bZ4X",
+   "years": [
+    2022,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH745",
+    "ATCRA74D",
+    "ATCEA",
+    "ATFCSH745",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221739",
+   "id": "c24_221739"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH747",
+    "ATCRA74F",
+    "ATCEA",
+    "ATFCSH747",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220103",
+   "id": "c25_220103"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "id": "c67_221F5B"
+  }
+ ],
+ "fields": {
+  "soc_display": {
+   "step": "c24_221739",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge (displayed)"
+  },
+  "odometer": {
+   "step": "c25_220103",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c67_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  }
+ }
+}

@@ -1,0 +1,168 @@
+{
+ "name": "evsoc_bmw_gen5",
+ "description": "BMW Gen5 eDrive: battery control unit SME (6F1 -> 607, extended addressing 07; over ENET control unit 0x07). State of charge from 22E5CE (INT16/100), cell temperature min/max from 22DDC0 (INT16 signed /100). 22DDBC, which gives the state of charge on the i3, answers 0 here and is not used. Voltage 22DD68 and current 22DD69 as on the i3, unverified for Gen5. No SoH is known for Gen5 yet.",
+ "source": "OBDb BMW-iX3 and BMW-i5 (signals and captures 2021-2025)",
+ "license": "CC-BY-SA-4.0 (facts from OBDb)",
+ "verified": "iX3 2021-2025 and i5 2024-2025 (OBDb captures: 22E5CE, 22DDC0); i4, iX, i7 derived (same drive generation)",
+ "platform": "BMW Gen5 eDrive",
+ "vehicles": [
+  {
+   "make": "BMW",
+   "model": "iX3 (G08)",
+   "years": [
+    2020,
+    2025
+   ]
+  },
+  {
+   "make": "BMW",
+   "model": "i5",
+   "years": [
+    2023,
+    null
+   ]
+  },
+  {
+   "make": "BMW",
+   "model": "i4 (G26, derived)",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "BMW",
+   "model": "iX (derived)",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "BMW",
+   "model": "i7 (derived)",
+   "years": [
+    2022,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "e5ce",
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22E5CE"
+  },
+  {
+   "id": "ddc0",
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DDC0"
+  },
+  {
+   "id": "dd68",
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD68"
+  },
+  {
+   "id": "dd69",
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD69"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "e5ce",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/100"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "batt_temp_min": {
+   "step": "ddc0",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 100
+   },
+   "min": -40,
+   "max": 80,
+   "unit": "°C"
+  },
+  "batt_temp_max": {
+   "step": "ddc0",
+   "decode": {
+    "type": "bits",
+    "bix": 16,
+    "len": 16,
+    "sign": true,
+    "div": 100
+   },
+   "min": -40,
+   "max": 80,
+   "unit": "°C"
+  },
+  "voltage": {
+   "step": "dd68",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/100"
+   },
+   "min": 200,
+   "max": 900,
+   "unit": "V"
+  },
+  "current": {
+   "step": "dd69",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "sign": true,
+    "div": 100
+   },
+   "min": -1000,
+   "max": 1000,
+   "unit": "A"
+  }
+ }
+}

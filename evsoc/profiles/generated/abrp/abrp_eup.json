@@ -1,0 +1,137 @@
+{
+ "name": "abrp_eup",
+ "description": "Volkswagen e-up!, Skoda Citigo-e iV, Seat Mii electric",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/volkswagen/eUP.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Volkswagen",
+   "model": "e-up!",
+   "years": [
+    2013,
+    null
+   ]
+  },
+  {
+   "make": "Skoda",
+   "model": "Citigo-e iV",
+   "years": [
+    2019,
+    2020
+   ]
+  },
+  {
+   "make": "Seat",
+   "model": "Mii electric",
+   "years": [
+    2019,
+    2021
+   ]
+  }
+ ],
+ "init": [
+  "ATBI"
+ ],
+ "steps": [
+  {
+   "id": "s1_03221E3B55555555",
+   "at": [
+    "ATSP7",
+    "ATSHFC007B",
+    "ATCP17",
+    "ATCAF0",
+    "ATCF17FE7",
+    "ATCRA17FE007B"
+   ],
+   "request": "03221E3B55555555"
+  },
+  {
+   "id": "s2_03221E3D55555555",
+   "at": [
+    "ATSP7",
+    "ATSHFC007B",
+    "ATCP17",
+    "ATCAF0",
+    "ATCF17FE7",
+    "ATCRA17FE007B"
+   ],
+   "request": "03221E3D55555555"
+  },
+  {
+   "id": "s3_0322028C55555555",
+   "at": [
+    "ATSP7",
+    "ATSHFC007B",
+    "ATCP17",
+    "ATCAF0",
+    "ATCF17FE7",
+    "ATCRA17FE007B"
+   ],
+   "request": "0322028C55555555"
+  },
+  {
+   "id": "s4_0322744855555555",
+   "at": [
+    "ATSP7",
+    "ATSHFC007B",
+    "ATCP17",
+    "ATCAF0",
+    "ATCF17FE7",
+    "ATCRA17FE007B"
+   ],
+   "request": "0322744855555555"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s2_03221E3D55555555",
+   "decode": {
+    "type": "equation",
+    "expr": "-1*(A*256+B-2048)/10"
+   },
+   "min": -200.0,
+   "max": 200.0,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s1_03221E3B55555555",
+   "decode": {
+    "type": "equation",
+    "expr": "((A*256)+B)/4"
+   },
+   "min": 200.0,
+   "max": 400.0,
+   "unit": "V"
+  },
+  "soc": {
+   "step": "s3_0322028C55555555",
+   "decode": {
+    "type": "equation",
+    "expr": "A/2.55"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "is_charging": {
+   "step": "s4_0322744855555555",
+   "decode": {
+    "type": "equation",
+    "expr": "{A:2}"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  },
+  "is_dcfc": {
+   "step": "s4_0322744855555555",
+   "decode": {
+    "type": "equation",
+    "expr": "{A:1}&&{A:2}"
+   },
+   "min": 0.0,
+   "max": 1.0,
+   "unit": ""
+  }
+ }
+}

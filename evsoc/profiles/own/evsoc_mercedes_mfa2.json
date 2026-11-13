@@ -1,0 +1,76 @@
+{
+ "name": "evsoc_mercedes_mfa2",
+ "description": "Mercedes EQA and EQB (per OBDb): 7E5 -> 7ED, DID 6050 = SoC in 0.01 %, DID 6502 = remaining range. There is no open data for EQC/EQE/EQS; automatic detection still tries this profile on every Mercedes.",
+ "source": "OBDb Mercedes-Benz-EQA and Mercedes-Benz-EQB (CC-BY-SA)",
+ "license": "facts from CC-BY-SA",
+ "verified": "EQA (OBDb), EQB 2024 (OBDb captures 226050, e.g. 1B 83 = 70.43 %)",
+ "platform": "Mercedes MFA2",
+ "vehicles": [
+  {
+   "make": "Mercedes-Benz",
+   "model": "EQA",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "Mercedes-Benz",
+   "model": "EQB",
+   "years": [
+    2021,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "soc",
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "226050"
+  },
+  {
+   "id": "range",
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "226502"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "soc",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%"
+  },
+  "range": {
+   "step": "range",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 1000,
+   "unit": "km"
+  }
+ }
+}

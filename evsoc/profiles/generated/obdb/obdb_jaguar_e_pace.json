@@ -1,0 +1,92 @@
+{
+ "name": "obdb_jaguar_e_pace",
+ "description": "Jaguar E PACE",
+ "source": "https://github.com/OBDb/Jaguar-E-PACE",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Jaguar",
+   "model": "E PACE",
+   "years": [
+    2017,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224910",
+   "id": "c52_224910"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224918",
+   "id": "c53_224918"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c54_22DD01"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c52_224910",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c53_224918",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Battery state of health, average"
+  },
+  "odometer": {
+   "step": "c54_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  }
+ }
+}

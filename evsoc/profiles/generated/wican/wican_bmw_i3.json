@@ -1,0 +1,42 @@
+{
+ "name": "wican_bmw_i3",
+ "description": "BMW: i3",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "BMW",
+   "model": "i3",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22DDBC",
+   "at": [
+    "ATAT0",
+    "ATCEA07",
+    "ATTAF1",
+    "ATFCSH6F1",
+    "ATSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATCRA607"
+   ],
+   "request": "22DDBC"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22DDBC",
+   "decode": {
+    "type": "wican",
+    "expr": "[B11:B12]/10"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

@@ -1,0 +1,39 @@
+{
+ "name": "wican_renault_ariya_scenic_ev_e_tech_renault_5_e_tech_renault_4_e_tech_megane_e_tech_gsr2_2024_master_ev_e_tech",
+ "description": "Renault: Ariya/Scenic EV E-TECH/Renault 5 E-TECH/Renault 4 E-TECH/Megane E-TECH GSR2 2024/Master EV E-TECH",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "Ariya/Scenic EV E-TECH/Renault 5 E-TECH/Renault 4 E-TECH/Megane E-TECH GSR2 2024/Master EV E-TECH",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_015B",
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATST96",
+    "ATSHDB33F1",
+    "ATCRA18DAF1DB"
+   ],
+   "request": "015B"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_015B",
+   "decode": {
+    "type": "wican",
+    "expr": "B3/2.55"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

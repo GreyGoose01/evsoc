@@ -1,0 +1,141 @@
+{
+ "name": "obdb_volkswagen_e_golf",
+ "description": "Volkswagen e Golf",
+ "source": "https://github.com/OBDb/Volkswagen-e-Golf",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Volkswagen",
+   "model": "e Golf",
+   "years": [
+    2014,
+    2020
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH714",
+    "ATCRA77E",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222203",
+   "id": "c23_222203"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH714",
+    "ATCRA77E",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2222E0",
+   "id": "c26_2222E0"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221164",
+   "id": "c71_221164"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c94_22028C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2251E0",
+   "id": "c232_2251E0"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c23_222203",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "range": {
+   "step": "c26_2222E0",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Range remaining, displayed"
+  },
+  "soc_display": {
+   "step": "c71_221164",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "soc": {
+   "step": "c94_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "soh": {
+   "step": "c232_2251E0",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.127,
+    "add": -1798.574
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  }
+ }
+}

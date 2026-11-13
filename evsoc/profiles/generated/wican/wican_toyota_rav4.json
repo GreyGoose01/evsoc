@@ -1,0 +1,52 @@
+{
+ "name": "wican_toyota_rav4",
+ "description": "Toyota: Rav4",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Toyota",
+   "model": "Rav4",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_015B",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "015B"
+  },
+  {
+   "id": "s2_01A6",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "01A6"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_015B",
+   "decode": {
+    "type": "wican",
+    "expr": "(B3*20)/51"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "odometer": {
+   "step": "s2_01A6",
+   "decode": {
+    "type": "wican",
+    "expr": "([B3:B6])/10"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

@@ -1,0 +1,82 @@
+{
+ "name": "wican_ford_transit_north_america_2022",
+ "description": "Ford: Transit North America 2022",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "Transit North America 2022",
+   "years": null
+  }
+ ],
+ "init": [
+  "ATR1",
+  "STCAFCP726,72E",
+  "STCAFCP7E0,7E8"
+ ],
+ "steps": [
+  {
+   "id": "s1_22402B",
+   "at": [
+    "ATST32",
+    "ATSP6",
+    "ATCAF1",
+    "ATSH000726"
+   ],
+   "request": "22402B"
+  },
+  {
+   "id": "s2_224028",
+   "at": [
+    "ATST32",
+    "ATSP6",
+    "ATCAF1",
+    "ATSH000726"
+   ],
+   "request": "224028"
+  },
+  {
+   "id": "s3_22402A",
+   "at": [
+    "ATST32",
+    "ATSP6",
+    "ATCAF1",
+    "ATSH000726"
+   ],
+   "request": "22402A"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s1_22402B",
+   "decode": {
+    "type": "wican",
+    "expr": "([B4:B5]-32768)/256"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  },
+  "soc": {
+   "step": "s2_224028",
+   "decode": {
+    "type": "wican",
+    "expr": "B4"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "s3_22402A",
+   "decode": {
+    "type": "wican",
+    "expr": "([B4:B5]/256)/10"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  }
+ }
+}

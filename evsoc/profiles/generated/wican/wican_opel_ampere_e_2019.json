@@ -1,0 +1,75 @@
+{
+ "name": "wican_opel_ampere_e_2019",
+ "description": "Opel: Ampere-E 2019",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Opel",
+   "model": "Ampere-E 2019",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_228334",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH7E4"
+   ],
+   "request": "228334"
+  },
+  {
+   "id": "s2_2245F9",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH7E4"
+   ],
+   "request": "2245F9"
+  },
+  {
+   "id": "s3_22434F",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH7E4"
+   ],
+   "request": "22434F"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_228334",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4*100)/255"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "capacity": {
+   "step": "s2_2245F9",
+   "decode": {
+    "type": "wican",
+    "expr": "((B4*256)+B5)*0.0032"
+   },
+   "min": null,
+   "max": null,
+   "unit": "kWh"
+  },
+  "batt_temp": {
+   "step": "s3_22434F",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4-40)"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  }
+ }
+}

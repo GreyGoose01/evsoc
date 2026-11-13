@@ -1,0 +1,173 @@
+{
+ "name": "wican_genesis_gv60_gv70_ev_g80_electrified",
+ "description": "Genesis: GV60/GV70 EV/G80 Electrified",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Genesis",
+   "model": "GV60/GV70 EV/G80 Electrified",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_220101",
+   "at": [
+    "ATSH7E4",
+    "ATST96"
+   ],
+   "request": "220101"
+  },
+  {
+   "id": "s2_220105",
+   "at": [
+    "ATSH7E4",
+    "ATST96"
+   ],
+   "request": "220105"
+  },
+  {
+   "id": "s3_22B002",
+   "at": [
+    "ATST96",
+    "ATSH7C6",
+    "ATFCSH7C6"
+   ],
+   "request": "22B002"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B10/2"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "current": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "(65536-([B17:B18]))/10"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "[B19:B20]/10"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "power": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "([B19:B20]/10)*((65536-([B17:B18]))/10)"
+   },
+   "min": null,
+   "max": null,
+   "unit": "W"
+  },
+  "batt_temp_max": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B21"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "batt_temp_min": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B22"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "cell_max_voltage": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B31/50"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "cell_min_voltage": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B34/50"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "aux_voltage": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "B38*0.1"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "kwh_charged": {
+   "step": "s1_220101",
+   "decode": {
+    "type": "wican",
+    "expr": "([B49:B50]*65536 + [B51:B52])/10"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "kWh"
+  },
+  "soh": {
+   "step": "s2_220105",
+   "decode": {
+    "type": "wican",
+    "expr": "[B34:B35]/10"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc_display": {
+   "step": "s2_220105",
+   "decode": {
+    "type": "wican",
+    "expr": "B41/2"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "odometer": {
+   "step": "s3_22B002",
+   "decode": {
+    "type": "wican",
+    "expr": "[B5:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

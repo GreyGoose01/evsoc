@@ -1,0 +1,52 @@
+{
+ "name": "evsoc_ford_hybrid_pt",
+ "description": "Ford hybrids/PHEVs (model year 2021+, Ford architecture FNV2): listening to frame 0x24C Battery_Traction_4 with the traction battery SoC in 0.01 % (opendbc ford_lincoln_base_pt.dbc, MIT). Experimental: only works if this bus is present at the OBD socket; otherwise a tap is needed.",
+ "source": "https://github.com/commaai/opendbc (ford_lincoln_base_pt.dbc, MIT)",
+ "license": "MIT",
+ "verified": "experimental",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "F-150 PowerBoost Hybrid (experimental)",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "Ford",
+   "model": "Maverick / Escape / Kuga Hybrid and PHEV (experimental)",
+   "years": [
+    2021,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "bt4",
+   "at": [
+    "ATSP6",
+    "ATCAF0",
+    "ATCEA"
+   ],
+   "listen": "24C"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "bt4",
+   "decode": {
+    "type": "dbc",
+    "start": 29,
+    "len": 14,
+    "little": false,
+    "factor": 0.01
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  }
+ }
+}

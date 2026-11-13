@@ -1,0 +1,129 @@
+{
+ "name": "obdb_volvo_xc40",
+ "description": "Volvo XC40",
+ "source": "https://github.com/OBDb/Volvo-XC40",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Volvo",
+   "model": "XC40",
+   "years": [
+    2017,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01632",
+    "ATCRA1EC64E80",
+    "ATCEA",
+    "ATFCSH1DD01632",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c32_22DD01"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c42_224801"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224802",
+   "id": "c43_224802"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224803",
+   "id": "c44_224803"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c32_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c42_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": 0,
+   "max": 131,
+   "unit": "%",
+   "label": "High voltage battery state of charge"
+  },
+  "current": {
+   "step": "c43_224802",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 50
+   },
+   "min": -655,
+   "max": 655,
+   "unit": "A",
+   "label": "High voltage battery current"
+  },
+  "voltage": {
+   "step": "c44_224803",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  }
+ }
+}

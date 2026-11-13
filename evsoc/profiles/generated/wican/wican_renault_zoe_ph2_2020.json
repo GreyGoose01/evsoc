@@ -1,0 +1,141 @@
+{
+ "name": "wican_renault_zoe_ph2_2020",
+ "description": "Renault Zoe Ph2 (2020-)",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "Zoe Ph2 (2020-)",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_222006",
+   "at": [
+    "ATSP7",
+    "ATAT1",
+    "ATFCSM1",
+    "ATCP18"
+   ],
+   "request": "222006"
+  },
+  {
+   "id": "s3_229002",
+   "at": [
+    "ATSP7",
+    "ATAT1",
+    "ATFCSM1",
+    "ATCP18"
+   ],
+   "request": "229002"
+  },
+  {
+   "id": "s6_222218",
+   "at": [
+    "ATSP7",
+    "ATAT1",
+    "ATFCSM1",
+    "ATCP18"
+   ],
+   "request": "222218"
+  },
+  {
+   "id": "s7_222005",
+   "at": [
+    "ATSP7",
+    "ATAT1",
+    "ATFCSM1",
+    "ATCP18"
+   ],
+   "request": "222005"
+  },
+  {
+   "id": "s8_229003",
+   "at": [
+    "ATSP7",
+    "ATAT1",
+    "ATFCSM1",
+    "ATCP18"
+   ],
+   "request": "229003"
+  },
+  {
+   "id": "s10_229243",
+   "at": [
+    "ATSP7",
+    "ATAT1",
+    "ATFCSM1",
+    "ATCP18"
+   ],
+   "request": "229243"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "s1_222006",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  },
+  "soc": {
+   "step": "s3_229002",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5] * 0.01"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "ext_temp": {
+   "step": "s6_222218",
+   "decode": {
+    "type": "wican",
+    "expr": "([B4:B5] * 0.1) - 273"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "aux_voltage": {
+   "step": "s7_222005",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5] * 0.01"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "soh": {
+   "step": "s8_229003",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5] * 0.01"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "kwh_charged": {
+   "step": "s10_229243",
+   "decode": {
+    "type": "wican",
+    "expr": "[B5:B8] * 0.001"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "kWh"
+  }
+ }
+}

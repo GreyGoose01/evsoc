@@ -1,0 +1,366 @@
+{
+ "name": "obdb_volkswagen",
+ "description": "Volkswagen all models",
+ "source": "https://github.com/OBDb/Volkswagen",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Volkswagen",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA718",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222A0A",
+   "id": "c42_222A0A"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB6",
+   "id": "c69_222AB6"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH744",
+    "ATCRA7AE",
+    "ATCEA",
+    "ATFCSH744",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224965",
+   "id": "c173_224965"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2208D2",
+   "id": "c230_2208D2"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221156",
+   "pre": [
+    "1003"
+   ],
+   "id": "c397_221156"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221164",
+   "id": "c406_221164"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "pre": [
+    "1003"
+   ],
+   "id": "c1426_22028C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221801",
+   "id": "c1427_221801"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221802",
+   "pre": [
+    "1003"
+   ],
+   "id": "c1428_221802"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2251E0",
+   "id": "c1656_2251E0"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHFC00F1",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c1708_22028C"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC0076",
+    "ATCRA17FE0076",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "223DEF",
+   "id": "c1768_223DEF"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c1785_22028C"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c42_222A0A",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777175,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "range": {
+   "step": "c69_222AB6",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "mi",
+   "label": "Range remaining, displayed"
+  },
+  "capacity": {
+   "step": "c173_224965",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 20
+   },
+   "min": 0,
+   "max": 3276.75,
+   "unit": "kWh",
+   "label": "HV battery energy"
+  },
+  "soc_display": {
+   "step": "c230_2208D2",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge (displayed)"
+  },
+  "soc": {
+   "step": "c397_221156",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High-voltage battery charge"
+  },
+  "soc_display_2": {
+   "step": "c406_221164",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "soc_bms": {
+   "step": "c1426_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge"
+  },
+  "voltage": {
+   "step": "c1427_221801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c1428_221802",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 2.56,
+    "add": -1500,
+    "nullmin": -1500
+   },
+   "min": -1500,
+   "max": 166269,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soh": {
+   "step": "c1656_2251E0",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.127,
+    "add": -1798.574
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "soc_3": {
+   "step": "c1708_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 250
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soc_4": {
+   "step": "c1768_223DEF",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soc_display_5": {
+   "step": "c1785_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 20.4,
+    "div": 46,
+    "add": -6.4
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge, display"
+  },
+  "soc_6": {
+   "step": "c1785_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 250
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

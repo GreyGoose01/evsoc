@@ -1,0 +1,162 @@
+{
+ "name": "obdb_mazda_cx_50",
+ "description": "Mazda CX 50",
+ "source": "https://github.com/OBDb/Mazda-CX-50",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Mazda",
+   "model": "CX 50",
+   "years": [
+    2023,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH723",
+    "ATCRA72B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22480D",
+   "years": [
+    2025,
+    null
+   ],
+   "id": "c7_22480D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH723",
+    "ATCRA72B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22D914",
+   "years": [
+    2025,
+    null
+   ],
+   "id": "c9_22D914"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH723",
+    "ATCRA72B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c12_22DD01"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "years": [
+    2025,
+    null
+   ],
+   "id": "c68_221F5B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221F9A",
+   "years": [
+    2025,
+    null
+   ],
+   "id": "c69_221F9A"
+  }
+ ],
+ "fields": {
+  "voltage": {
+   "step": "c7_22480D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 10,
+    "div": 1000
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "V",
+   "label": "Battery pack voltage"
+  },
+  "soc": {
+   "step": "c9_22D914",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery state of charge"
+  },
+  "odometer": {
+   "step": "c12_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Total distance"
+  },
+  "soc_2": {
+   "step": "c68_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "current": {
+   "step": "c69_221F9A",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -3276.8,
+   "max": 3276.7,
+   "unit": "A",
+   "label": "HV battery current"
+  }
+ }
+}

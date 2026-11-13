@@ -1,0 +1,200 @@
+{
+ "name": "obdb_dodge",
+ "description": "Dodge all models",
+ "source": "https://github.com/OBDb/Dodge",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Dodge",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6A2",
+    "ATCRA682",
+    "ATCEA",
+    "ATFCSH6A2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D49C",
+   "id": "c4_22D49C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D410",
+   "id": "c378_22D410"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D810",
+   "id": "c390_22D810"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D860",
+   "id": "c395_22D860"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA44F1",
+    "ATCRA18DAF144",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22A00A",
+   "id": "c635_22A00A"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA44F1",
+    "ATCRA18DAF144",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22A010",
+   "id": "c636_22A010"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA44F1",
+    "ATCRA18DAF144",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22A011",
+   "id": "c637_22A011"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c4_22D49C",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c378_22D410",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 512
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge (calibrated)"
+  },
+  "soc_bms": {
+   "step": "c390_22D810",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 512
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge"
+  },
+  "soh": {
+   "step": "c395_22D860",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 16,
+    "div": 16
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery health"
+  },
+  "current": {
+   "step": "c635_22A00A",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 20,
+    "add": -1638.4
+   },
+   "min": -1638,
+   "max": 1638,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc_2": {
+   "step": "c636_22A010",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8,
+    "mul": 20,
+    "div": 51
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge"
+  },
+  "voltage": {
+   "step": "c637_22A011",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553,
+   "unit": "V",
+   "label": "Battery voltage, cell sum"
+  }
+ }
+}

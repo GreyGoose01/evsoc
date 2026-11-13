@@ -1,0 +1,216 @@
+{
+ "name": "wican_jaguar_i_pace",
+ "description": "Jaguar: I-PACE",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Jaguar",
+   "model": "I-PACE",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_224910",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "224910"
+  },
+  {
+   "id": "s2_224911",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "224911"
+  },
+  {
+   "id": "s3_224914",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "224914"
+  },
+  {
+   "id": "s4_224918",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "224918"
+  },
+  {
+   "id": "s10_224904",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "224904"
+  },
+  {
+   "id": "s11_224903",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "224903"
+  },
+  {
+   "id": "s12_22490F",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "22490F"
+  },
+  {
+   "id": "s13_22490C",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "22490C"
+  },
+  {
+   "id": "s14_224906",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "224906"
+  },
+  {
+   "id": "s15_224905",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "224905"
+  },
+  {
+   "id": "s18_22DD01",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "22DD01"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_224910",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/100"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soc_min": {
+   "step": "s2_224911",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/100"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc_max": {
+   "step": "s3_224914",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/100"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s4_224918",
+   "decode": {
+    "type": "wican",
+    "expr": "B4/2"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "cell_min_voltage": {
+   "step": "s10_224904",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/1000"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "cell_max_voltage": {
+   "step": "s11_224903",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/1000"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "voltage": {
+   "step": "s12_22490F",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/100"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s13_22490C",
+   "decode": {
+    "type": "wican",
+    "expr": "([B4:B5]-32768)/40"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  },
+  "batt_temp_min": {
+   "step": "s14_224906",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4/2)-40"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "batt_temp_max": {
+   "step": "s15_224905",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4/2)-40"
+   },
+   "min": null,
+   "max": null,
+   "unit": "°C"
+  },
+  "odometer": {
+   "step": "s18_22DD01",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

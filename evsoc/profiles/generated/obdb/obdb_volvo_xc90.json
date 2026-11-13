@@ -1,0 +1,142 @@
+{
+ "name": "obdb_volvo_xc90",
+ "description": "Volvo XC90",
+ "source": "https://github.com/OBDb/Volvo-XC90",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Volvo",
+   "model": "XC90",
+   "years": [
+    2002,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "years": [
+    2016,
+    2021
+   ],
+   "id": "c48_22DD01"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "years": [
+    2016,
+    null
+   ],
+   "id": "c147_224801"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224802",
+   "years": [
+    2016,
+    null
+   ],
+   "id": "c148_224802"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224803",
+   "years": [
+    2016,
+    null
+   ],
+   "id": "c149_224803"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c48_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c147_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": 0,
+   "max": 131,
+   "unit": "%",
+   "label": "High voltage battery state of charge"
+  },
+  "current": {
+   "step": "c148_224802",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 50
+   },
+   "min": -655,
+   "max": 655,
+   "unit": "A",
+   "label": "High voltage battery current"
+  },
+  "voltage": {
+   "step": "c149_224803",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  }
+ }
+}

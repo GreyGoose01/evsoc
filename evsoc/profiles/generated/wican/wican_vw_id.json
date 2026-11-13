@@ -1,0 +1,138 @@
+{
+ "name": "wican_vw_id",
+ "description": "VW: ID",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Volkswagen",
+   "model": "ID",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22028C",
+   "at": [
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATFCSH17FC007B",
+    "ATCRA17FE007B"
+   ],
+   "request": "22028C"
+  },
+  {
+   "id": "s2_222AB6",
+   "at": [
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP6",
+    "ATCP18",
+    "ATSH710",
+    "ATFCSH710",
+    "ATCRA77A"
+   ],
+   "request": "222AB6"
+  },
+  {
+   "id": "s3_22295A",
+   "at": [
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC0076",
+    "ATFCSH17FC0076",
+    "ATCRA17FE0076"
+   ],
+   "request": "22295A"
+  },
+  {
+   "id": "s4_222AB2",
+   "at": [
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP6",
+    "ATCP18",
+    "ATSH710",
+    "ATFCSH710",
+    "ATCRA77A"
+   ],
+   "request": "222AB2"
+  },
+  {
+   "id": "s7_222A0B",
+   "at": [
+    "ATST96",
+    "ATFCSD300000",
+    "ATSP7",
+    "ATSHFC007B",
+    "ATCP17",
+    "ATCRA17FE007B",
+    "ATFCSH17FC007B",
+    "ATFCSM1"
+   ],
+   "request": "222A0B"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22028C",
+   "decode": {
+    "type": "wican",
+    "expr": "B4*0.4425-6.1947"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "range": {
+   "step": "s2_222AB6",
+   "decode": {
+    "type": "wican",
+    "expr": "(B5*256)+B6"
+   },
+   "min": null,
+   "max": null,
+   "unit": "km"
+  },
+  "odometer": {
+   "step": "s3_22295A",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  },
+  "capacity": {
+   "step": "s4_222AB2",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]*50/1000"
+   },
+   "min": null,
+   "max": null,
+   "unit": "kWh"
+  },
+  "batt_temp": {
+   "step": "s7_222A0B",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4&15)/2"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  }
+ }
+}

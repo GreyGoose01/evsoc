@@ -1,0 +1,123 @@
+{
+ "name": "obdb_volkswagen_id_4",
+ "description": "Volkswagen ID.4",
+ "source": "https://github.com/OBDb/Volkswagen-ID.4",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Volkswagen",
+   "model": "ID.4",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB6",
+   "id": "c7_222AB6"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC0076",
+    "ATCRA17FE0076",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22295A",
+   "id": "c54_22295A"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC0076",
+    "ATCRA17FE0076",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "223DEF",
+   "id": "c56_223DEF"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c61_22028C"
+  }
+ ],
+ "fields": {
+  "range": {
+   "step": "c7_222AB6",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "mi",
+   "label": "Range remaining, displayed"
+  },
+  "odometer": {
+   "step": "c54_22295A",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 200000,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c56_223DEF",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soc_display": {
+   "step": "c61_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 20.4,
+    "div": 46,
+    "add": -6.4
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge, display"
+  }
+ }
+}

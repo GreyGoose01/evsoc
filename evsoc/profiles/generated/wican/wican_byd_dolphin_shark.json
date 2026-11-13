@@ -1,0 +1,37 @@
+{
+ "name": "wican_byd_dolphin_shark",
+ "description": "BYD: Dolphin/Shark",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "BYD",
+   "model": "Dolphin/Shark",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_220005",
+   "at": [
+    "ATST96",
+    "ATSP6",
+    "ATSH7E7"
+   ],
+   "request": "220005"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_220005",
+   "decode": {
+    "type": "wican",
+    "expr": "B4"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

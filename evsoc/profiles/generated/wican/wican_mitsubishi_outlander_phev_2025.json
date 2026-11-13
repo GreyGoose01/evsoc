@@ -1,0 +1,78 @@
+{
+ "name": "wican_mitsubishi_outlander_phev_2025",
+ "description": "Mitsubishi: Outlander-PHEV 2025",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Mitsubishi",
+   "model": "Outlander-PHEV 2025",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2201D1",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATSH18DB33F1",
+    "ATCRA18DAF1DB"
+   ],
+   "request": "2201D1"
+  },
+  {
+   "id": "s2_220375",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATSH18DB33F1",
+    "ATCRA18DAF1DB"
+   ],
+   "request": "220375"
+  },
+  {
+   "id": "s3_220387",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATSH18DB33F1",
+    "ATCRA18DAF1DB"
+   ],
+   "request": "220387"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_2201D1",
+   "decode": {
+    "type": "wican",
+    "expr": "(B5*0.64)-19.2"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soc_display": {
+   "step": "s2_220375",
+   "decode": {
+    "type": "wican",
+    "expr": "B5/2"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "s3_220387",
+   "decode": {
+    "type": "wican",
+    "expr": "B4+B5"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  }
+ }
+}

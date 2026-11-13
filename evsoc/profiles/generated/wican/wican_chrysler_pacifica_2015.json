@@ -1,0 +1,36 @@
+{
+ "name": "wican_chrysler_pacifica_2015",
+ "description": "Chrysler: Pacifica 2015+",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Chrysler",
+   "model": "Pacifica 2015+",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_015B",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "015B"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_015B",
+   "decode": {
+    "type": "wican",
+    "expr": "B3/2.55"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "name": "wican_honda_clarity_2018",
+ "description": "Honda: Clarity-2018",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Honda",
+   "model": "Clarity-2018",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22202A",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATSHDA01F1"
+   ],
+   "request": "22202A"
+  },
+  {
+   "id": "s2_227022",
+   "at": [
+    "ATSP7",
+    "ATST96",
+    "ATSHDA60F1"
+   ],
+   "request": "227022"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22202A",
+   "decode": {
+    "type": "wican",
+    "expr": "B62"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "odometer": {
+   "step": "s2_227022",
+   "decode": {
+    "type": "wican",
+    "expr": "[B12:B14]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

@@ -1,0 +1,98 @@
+{
+ "name": "wican_mg_mg5_marvel_zs",
+ "description": "MG: MG5/Marvel/ZS",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "MG",
+   "model": "MG5/Marvel/ZS",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22B046",
+   "at": [
+    "ATSP6",
+    "ATST64",
+    "ATSH7E5",
+    "ATCRA7ED"
+   ],
+   "request": "22B046"
+  },
+  {
+   "id": "s2_22B061",
+   "at": [
+    "ATSP6",
+    "ATST64",
+    "ATSH7E5",
+    "ATCRA7ED"
+   ],
+   "request": "22B061"
+  },
+  {
+   "id": "s3_22B056",
+   "at": [
+    "ATSP6",
+    "ATST64",
+    "ATSH7E5",
+    "ATCRA7ED"
+   ],
+   "request": "22B056"
+  },
+  {
+   "id": "s4_22B042",
+   "at": [
+    "ATSP6",
+    "ATST64",
+    "ATSH7E5",
+    "ATCRA7ED"
+   ],
+   "request": "22B042"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22B046",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]*1.035/10"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s2_22B061",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/100"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "batt_temp": {
+   "step": "s3_22B056",
+   "decode": {
+    "type": "wican",
+    "expr": "(B4/2)-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  },
+  "voltage": {
+   "step": "s4_22B042",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]*0.25"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  }
+ }
+}

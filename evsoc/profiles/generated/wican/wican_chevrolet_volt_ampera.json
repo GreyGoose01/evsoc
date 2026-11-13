@@ -1,0 +1,36 @@
+{
+ "name": "wican_chevrolet_volt_ampera",
+ "description": "Chevrolet: Volt/Ampera",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Chevrolet",
+   "model": "Volt/Ampera",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_015B",
+   "at": [
+    "ATSP6",
+    "ATST96"
+   ],
+   "request": "015B"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_015B",
+   "decode": {
+    "type": "wican",
+    "expr": "B3/2.55"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

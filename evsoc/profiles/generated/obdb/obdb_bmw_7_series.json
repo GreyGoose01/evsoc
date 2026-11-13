@@ -1,0 +1,218 @@
+{
+ "name": "obdb_bmw_7_series",
+ "description": "BMW 7 Series",
+ "source": "https://github.com/OBDb/BMW-7-Series",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "BMW",
+   "model": "7 Series",
+   "years": [
+    1977,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "226335",
+   "id": "c1_226335"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD69",
+   "id": "c3_22DD69"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DDBC",
+   "id": "c4_22DDBC"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22E5CE",
+   "id": "c11_22E5CE"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA618",
+    "ATCEA18",
+    "ATFCSH6F1",
+    "ATFCSD18300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DA23",
+   "id": "c73_22DA23"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA61A",
+    "ATCEA1A",
+    "ATFCSH6F1",
+    "ATFCSD1A300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DE00",
+   "id": "c81_22DE00"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22420C",
+   "id": "c99_22420C"
+  }
+ ],
+ "fields": {
+  "soh": {
+   "step": "c1_226335",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "current": {
+   "step": "c3_22DD69",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "sign": true,
+    "div": 100
+   },
+   "min": -10000,
+   "max": 10000,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc": {
+   "step": "c4_22DDBC",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10,
+    "nullmin": 0
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "soc_2": {
+   "step": "c11_22E5CE",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "odometer": {
+   "step": "c73_22DA23",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "mul": 8,
+    "nullmax": 1000000
+   },
+   "min": 0,
+   "max": 1000000,
+   "unit": "km",
+   "label": "Odometer, low resolution"
+  },
+  "plugged_in": {
+   "step": "c81_22DE00",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Is charger connected"
+  },
+  "is_charging": {
+   "step": "c81_22DE00",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 8
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "noyes",
+   "label": "Is charging"
+  },
+  "range": {
+   "step": "c99_22420C",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Estimated range remaining"
+  }
+ }
+}

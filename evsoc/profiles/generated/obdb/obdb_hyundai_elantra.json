@@ -1,0 +1,160 @@
+{
+ "name": "obdb_hyundai_elantra",
+ "description": "Hyundai Elantra",
+ "source": "https://github.com/OBDb/Hyundai-Elantra",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Hyundai",
+   "model": "Elantra",
+   "years": [
+    1990,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7C6",
+    "ATCRA7CE",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22B002",
+   "id": "c16_22B002"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22E004",
+   "years": [
+    2021,
+    null
+   ],
+   "id": "c47_22E004"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220101",
+   "years": [
+    2021,
+    null
+   ],
+   "id": "c72_220101"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220105",
+   "years": [
+    2021,
+    null
+   ],
+   "id": "c75_220105"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c16_22B002",
+   "decode": {
+    "type": "bits",
+    "bix": 72,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "mi",
+   "label": "Odometer (imperial)"
+  },
+  "soh": {
+   "step": "c47_22E004",
+   "decode": {
+    "type": "bits",
+    "bix": 328,
+    "len": 8,
+    "nullmin": 0
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Aux battery state of health"
+  },
+  "soc": {
+   "step": "c72_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, dashboard"
+  },
+  "is_charging": {
+   "step": "c72_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 72,
+    "len": 1
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "offon",
+   "label": "HV battery charging"
+  },
+  "plugged_in": {
+   "step": "c72_220101",
+   "decode": {
+    "type": "bits",
+    "bix": 74,
+    "len": 1
+   },
+   "min": 0,
+   "max": 1,
+   "unit": "offon",
+   "label": "Normal charge port state"
+  },
+  "soc_display": {
+   "step": "c75_220105",
+   "decode": {
+    "type": "bits",
+    "bix": 248,
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  }
+ }
+}

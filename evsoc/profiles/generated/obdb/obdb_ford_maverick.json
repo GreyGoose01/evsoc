@@ -1,0 +1,173 @@
+{
+ "name": "obdb_ford_maverick",
+ "description": "Ford Maverick",
+ "source": "https://github.com/OBDb/Ford-Maverick",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "Maverick",
+   "years": [
+    2022,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH720",
+    "ATCRA728",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22404C",
+   "id": "c1_22404C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c207_224801"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22480B",
+   "id": "c214_22480B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224845",
+   "id": "c225_224845"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22484F",
+   "id": "c228_22484F"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22490C",
+   "id": "c232_22490C"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c1_22404C",
+   "decode": {
+    "type": "bits",
+    "len": 24,
+    "div": 10
+   },
+   "min": 0,
+   "max": 1677721,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c207_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "current": {
+   "step": "c214_22480B",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 50
+   },
+   "min": -655,
+   "max": 655,
+   "unit": "A",
+   "label": "High voltage battery current"
+  },
+  "soc_display": {
+   "step": "c225_224845",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "is_charging": {
+   "step": "c228_22484F",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging state"
+  },
+  "soh": {
+   "step": "c232_22490C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of health"
+  }
+ }
+}

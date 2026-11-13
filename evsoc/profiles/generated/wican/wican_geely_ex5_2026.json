@@ -1,0 +1,41 @@
+{
+ "name": "wican_geely_ex5_2026",
+ "description": "Geely: EX5 2026",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Geely",
+   "model": "EX5 2026",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_224801",
+   "at": [
+    "ATSP7",
+    "ATSHD01635",
+    "ATCP1D",
+    "ATCRA1EC6AE80",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "224801"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_224801",
+   "decode": {
+    "type": "wican",
+    "expr": "([B7:B8]/470)-(117/20)"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

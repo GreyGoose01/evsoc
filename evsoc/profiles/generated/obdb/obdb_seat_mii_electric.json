@@ -1,0 +1,191 @@
+{
+ "name": "obdb_seat_mii_electric",
+ "description": "Seat Mii Electric",
+ "source": "https://github.com/OBDb/Seat-Mii-Electric",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Seat",
+   "model": "Mii Electric",
+   "years": [
+    2019,
+    2021
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH714",
+    "ATCRA77E",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222203",
+   "id": "c4_222203"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH714",
+    "ATCRA77E",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2222E0",
+   "id": "c5_2222E0"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221164",
+   "id": "c50_221164"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c194_22028C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221E3B",
+   "id": "c196_221E3B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221E3D",
+   "id": "c197_221E3D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2251E0",
+   "id": "c198_2251E0"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c4_222203",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "range": {
+   "step": "c5_2222E0",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "nullmax": 65535
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Range remaining, displayed"
+  },
+  "soc_display": {
+   "step": "c50_221164",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "soc": {
+   "step": "c194_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "voltage": {
+   "step": "c196_221E3B",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 4
+   },
+   "min": 0,
+   "max": 1000,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c197_221E3D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 4,
+    "add": -511
+   },
+   "min": -200,
+   "max": 200,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soh": {
+   "step": "c198_2251E0",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.127,
+    "add": -1798.574
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  }
+ }
+}

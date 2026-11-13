@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup</title>
+<style>
+:root {
+  --bg: #f4f5f7; --card: #fff; --text: #16181d; --muted: #646b78; --line: #e3e6eb;
+  --accent: #1f7a5a; --accent-soft: #e3f3ec; --warn: #b26a00; --warn-soft: #fff3df; --bad: #b3261e; --bad-soft: #fdecea;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0f1115; --card: #171a21; --text: #e8eaee; --muted: #9aa2af; --line: #262b35;
+    --accent: #4cc596; --accent-soft: #15291f; --warn: #f0b04a; --warn-soft: #2b2212; --bad: #f2867d; --bad-soft: #2d1513; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 20px 16px 40px; display: grid; gap: 16px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.top h1 { margin: 0; font-size: 22px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 0 0 12px; font-weight: 600; }
+h2 b { color: var(--text); margin-right: 6px; }
+label { display: block; font-size: 13px; color: var(--muted); margin: 10px 0 4px; }
+input { width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; }
+input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+input[type=checkbox] { width: auto; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+button { font: inherit; font-weight: 600; border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 8px; padding: 9px 14px; cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+@media (prefers-color-scheme: dark) { button.primary { color: #0b1a13; } }
+button:disabled { opacity: .45; cursor: default; }
+.muted { color: var(--muted); font-size: 13.5px; }
+.ok { color: var(--accent); } .bad { color: var(--bad); }
+.notice { padding: 10px 12px; border-radius: 10px; margin-top: 12px; font-size: 14px; }
+.notice.ok { background: var(--accent-soft); color: var(--accent); }
+.notice.bad { background: var(--bad-soft); color: var(--bad); }
+.notice.warn { background: var(--warn-soft); color: var(--warn); }
+.results { max-height: 260px; overflow: auto; margin-top: 8px; border: 1px solid var(--line); border-radius: 8px; }
+.results:empty { display: none; }
+.results div { padding: 8px 10px; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; justify-content: space-between; gap: 8px; }
+.results div:last-child { border-bottom: 0; }
+.results div:hover, .results div.sel { background: var(--accent-soft); }
+.results small { color: var(--muted); }
+.check { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+.check label { margin: 0; color: var(--text); font-size: 15px; }
+table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+td { padding: 5px 2px; border-bottom: 1px solid var(--line); }
+td:last-child { text-align: right; }
+details summary { cursor: pointer; font-weight: 600; }
+pre { font: 12px/1.5 ui-monospace, Menlo, monospace; color: var(--muted); max-height: 200px; overflow: auto; white-space: pre-wrap; margin: 0; }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><h1>Setup</h1><span><a href="/">to the display</a> <button id="btnLogout" hidden>Log out</button></span></div>
+
+  <!-- login -->
+  <section class="card" id="loginCard" hidden>
+    <h2>Log in</h2>
+    <div class="muted" id="loginHint">Enter the PIN.</div>
+    <label for="code">PIN bzw. Einrichtungscode</label>
+    <input id="code" type="password" autocomplete="current-password" inputmode="text">
+    <div class="row"><button class="primary" id="btnLogin">Log in</button></div>
+    <div id="loginMsg"></div>
+  </section>
+
+  <!-- PIN -->
+  <section class="card" id="pinCard" hidden>
+    <h2>Set PIN</h2>
+    <div class="muted">This PIN opens the setup again later. At least 4 digits.</div>
+    <div class="grid2">
+      <div><label for="pin1">new PIN</label><input id="pin1" type="password" inputmode="numeric" autocomplete="new-password"></div>
+      <div><label for="pin2">repeat</label><input id="pin2" type="password" inputmode="numeric" autocomplete="new-password"></div>
+    </div>
+    <div class="row"><button class="primary" id="btnPin">Save PIN</button></div>
+    <div id="pinMsg"></div>
+  </section>
+
+  <div id="setup" hidden style="display:grid; gap:16px">
+    <section class="card">
+      <h2><b>1</b>Adapter</h2>
+      <div id="adapter" class="muted">…</div>
+      <div class="row"><button id="btnDetect">Search again</button></div>
+    </section>
+
+    <section class="card">
+      <h2><b>2</b>Vehicle</h2>
+      <div id="vehicleNow" class="muted"></div>
+      <label for="q">Search model</label>
+      <input id="q" placeholder="z. B. e-208, Ioniq 5, Leaf, ID.4" autocomplete="off">
+      <div class="results" id="results"></div>
+      <label for="battery">Net nominal capacity (kWh, optional)</label>
+      <input id="battery" type="number" min="5" max="250" step="0.1" placeholder="e.g. 58 or 77">
+      <div class="muted">Only needed for battery health (SoH) on cars that report the energy content instead of an SoH value, e.g. VW ID., Enyaq, Born, Q4.</div>
+      <div class="row">
+        <button id="btnTest">Test the chosen vehicle</button>
+        <button id="btnAuto">Detect automatically</button>
+      </div>
+      <div class="muted" style="margin-top:8px">For testing the vehicle must be awake (ignition or "Ready" on, or charging).</div>
+      <div id="testResult"></div>
+    </section>
+
+    <section class="card">
+      <h2><b>3</b>Output to the network</h2>
+      <div class="check"><input type="checkbox" id="mqttOn"><label for="mqttOn">MQTT (e.g. Home Assistant, creates the sensors automatically)</label></div>
+      <label for="mqttUrl">Address</label>
+      <input id="mqttUrl" placeholder="mqtt://benutzer:passwort@192.168.1.10:1883/evsoc/auto">
+      <div class="row"><button id="btnMqtt">Test connection</button><span id="mqttMsg"></span></div>
+      <div class="check"><input type="checkbox" id="hookOn"><label for="hookOn">Webhook (state as JSON by HTTP POST)</label></div>
+      <label for="hookUrl">Address</label>
+      <input id="hookUrl" placeholder="http://192.168.1.10:8123/api/webhook/…">
+      <div class="row"><button id="btnHook">Test message</button><span id="hookMsg"></span></div>
+      <div class="muted" style="margin-top:12px">Other systems can also fetch the state themselves: <code>GET /api/v1/state</code> (JSON).</div>
+    </section>
+
+    <section class="card">
+      <details>
+        <summary>Advanced</summary>
+        <div class="grid2">
+          <div><label for="mInterval">Interval while awake (s)</label><input id="mInterval" type="number" min="10"></div>
+          <div><label for="mSleep">Check interval while asleep (s)</label><input id="mSleep" type="number" min="30"></div>
+          <div><label for="mVolt">awake from 12 V voltage (V)</label><input id="mVolt" type="number" step="0.1"></div>
+          <div><label for="mMin">never wake below (V)</label><input id="mMin" type="number" step="0.1"></div>
+          <div><label for="mWake">wake when the value is older than (h)</label><input id="mWake" type="number" min="1" placeholder="off"></div>
+          <div><label for="mWakeAt">also wake daily at</label><input id="mWakeAt" type="time"></div>
+        </div>
+      </details>
+    </section>
+
+    <div class="row" style="margin-top:0">
+      <button class="primary" id="btnSave">Save and start</button>
+      <button id="btnWake" title="Reads at once. If the car is asleep, it is woken for it (not below the minimum voltage, at most every 10 minutes).">Read now (wakes the car)</button>
+      <span id="saveMsg"></span>
+    </div>
+
+    <section class="card"><h2>Log</h2><pre id="log"></pre></section>
+  </div>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let cfg = null, chosen = null;
+
+async function api(path, body) {
+  const opt = { credentials: "same-origin", headers: {} };
+  if (body !== undefined) { opt.method = "POST"; opt.headers = { "Content-Type": "application/json", "X-Evsoc": "1" }; opt.body = JSON.stringify(body); }
+  const r = await fetch(path, opt);
+  const data = await r.json();
+  if (r.status === 401) { show("login"); throw new Error(data.error); }
+  if (!r.ok) throw new Error(data.error || r.statusText);
+  return data;
+}
+function msg(id, text, cls) { $(id).innerHTML = text ? `<div class="notice ${cls}">${esc(text)}</div>` : ""; }
+async function busy(btn, fn) {
+  const t = btn.textContent; btn.disabled = true; btn.textContent = "…";
+  try { await fn(); } finally { btn.disabled = false; btn.textContent = t; }
+}
+function show(which) {
+  $("loginCard").hidden = which !== "login"; $("pinCard").hidden = which !== "pin";
+  $("setup").hidden = which !== "setup"; $("setup").style.display = which === "setup" ? "grid" : "none";
+  $("btnLogout").hidden = which === "login";
+}
+
+async function start() {
+  const a = await (await fetch("/api/auth", { credentials: "same-origin" })).json();
+  if (!a.authorised) {
+    $("loginHint").textContent = a.needs_pin
+      ? "First setup: enter the setup code shown in the device log at start (journalctl -u evsoc)."
+      : "Enter the PIN.";
+    show("login"); return;
+  }
+  await load();
+}
+
+async function load() {
+  const v = await api("/api/setup");
+  if (v.needs_pin) { show("pin"); return; }
+  cfg = v.config; show("setup");
+  const ad = v.adapter;
+  $("adapter").innerHTML = ad.url ? `<span class="ok">✓ found:</span> ${esc(ad.caps ? ad.caps.name : "")} at <code>${esc(ad.url)}</code><br><span class="muted">${esc(ad.version || "")}</span>`
+    : `<span class="bad">✕ ${esc(ad.error || "not searched yet")}</span>`;
+  const veh = cfg.vehicle;
+  $("vehicleNow").innerHTML = veh.profile ? `Set up: <b>${esc(veh.label || veh.profile)}</b> <span class="muted">(${esc(veh.profile)})</span>`
+    : (v.state.profile ? `Detected automatically: <b>${esc(v.state.profile)}</b> – test and save below to set it.` : "No vehicle set yet.");
+  chosen = veh.profile ? { profile: veh.profile, label: veh.label } : null;
+  $("battery").value = veh.battery_kwh || "";
+  $("mqttOn").checked = cfg.outputs.mqtt.enabled; $("mqttUrl").value = cfg.outputs.mqtt.url || "";
+  $("hookOn").checked = cfg.outputs.webhook.enabled; $("hookUrl").value = cfg.outputs.webhook.url || "";
+  const m = cfg.monitor;
+  $("mInterval").value = m.interval; $("mSleep").value = m.sleep_interval; $("mVolt").value = m.awake_voltage;
+  $("mMin").value = m.min_voltage; $("mWake").value = m.wake_every || ""; $("mWakeAt").value = m.wake_at || "";
+  $("log").textContent = v.log.join("\n"); $("log").scrollTop = $("log").scrollHeight;
+}
+
+$("btnLogin").onclick = () => busy($("btnLogin"), async () => {
+  try { await api("/api/login", { code: $("code").value }); msg("loginMsg"); $("code").value = ""; await load(); }
+  catch (e) { msg("loginMsg", e.message, "bad"); }
+});
+$("code").onkeydown = (e) => { if (e.key === "Enter") $("btnLogin").click(); };
+$("btnLogout").onclick = async () => { await api("/api/logout", {}); show("login"); };
+$("btnPin").onclick = () => busy($("btnPin"), async () => {
+  if ($("pin1").value !== $("pin2").value) { msg("pinMsg", "The two entries do not match.", "bad"); return; }
+  try { await api("/api/setup/pin", { pin: $("pin1").value }); await load(); } catch (e) { msg("pinMsg", e.message, "bad"); }
+});
+$("btnDetect").onclick = () => busy($("btnDetect"), async () => { await api("/api/setup/detect-adapter", {}); await load(); });
+
+let timer = null;
+$("q").oninput = () => { clearTimeout(timer); timer = setTimeout(search, 200); };
+async function search() {
+  const q = $("q").value.trim(); const box = $("results");
+  if (!q) { box.innerHTML = ""; return; }
+  const rows = await api("/api/setup/models?q=" + encodeURIComponent(q));
+  box.innerHTML = rows.length ? "" : `<div class="muted">Nothing found – "Detect automatically" tries all profiles.</div>`;
+  for (const r of rows.slice(0, 60)) {
+    const el = document.createElement("div");
+    el.innerHTML = `<span>${esc(r.label)}</span><small>${esc(r.profile)}</small>`;
+    el.onclick = () => { [...box.children].forEach(c => c.classList.remove("sel")); el.classList.add("sel");
+      chosen = { profile: r.profile, label: r.label.replace(/\s*\(.*\)$/, "") }; };
+    box.appendChild(el);
+  }
+}
+
+function showReading(r) {
+  const vals = r.values.map(v => `<tr><td>${esc(v.label)}</td><td>${v.error ? '<span class="muted">' + esc(v.error) + "</span>"
+    : esc(v.value) + " " + esc(v.unit) + (v.plausible ? "" : " (implausible)")}</td></tr>`).join("");
+  const ok = r.soc !== null && r.soc !== undefined;
+  $("testResult").innerHTML = `<div class="notice ${ok ? "ok" : "warn"}">${ok ? "✓ state of charge " + r.soc.toFixed(1) + " %" : "No state of charge"} with <b>${esc(r.profile.name)}</b>${
+    r.detection ? ` (detected in ${r.detection.seconds} s${r.detection.also.length ? ", also plausible: " + esc(r.detection.also.join(", ")) : ""})` : ""}.
+    ${ok ? "Apply with \"Save and start\"." : ""}</div><table>${vals}</table>`;
+  const v = r.profile.vehicles[0] || "";
+  chosen = { profile: r.profile.name, label: chosen && chosen.profile === r.profile.name ? chosen.label : v.replace(/\s*\(.*\)$/, "") };
+}
+$("btnTest").onclick = () => busy($("btnTest"), async () => {
+  if (!chosen) { msg("testResult", "First choose a vehicle from the list or \"Detect automatically\".", "warn"); return; }
+  try { showReading(await api("/api/setup/test-vehicle", { profile: chosen.profile, battery_kwh: $("battery").value || null })); } catch (e) { msg("testResult", e.message, "bad"); }
+});
+$("btnAuto").onclick = () => busy($("btnAuto"), async () => {
+  msg("testResult", "Searching, this can take a few minutes …", "warn");
+  try { showReading(await api("/api/setup/test-vehicle", { car: $("q").value.trim() || null, battery_kwh: $("battery").value || null })); } catch (e) { msg("testResult", e.message, "bad"); }
+});
+async function testOut(kind, url, el) {
+  $(el).innerHTML = "…";
+  try { const r = await api("/api/setup/test-output", { kind, url });
+    $(el).innerHTML = r.ok ? '<span class="ok">✓ works</span>' : `<span class="bad">✕ ${esc(r.error)}</span>`;
+  } catch (e) { $(el).innerHTML = `<span class="bad">✕ ${esc(e.message)}</span>`; }
+}
+$("btnMqtt").onclick = () => busy($("btnMqtt"), () => testOut("mqtt", $("mqttUrl").value, "mqttMsg"));
+$("btnHook").onclick = () => busy($("btnHook"), () => testOut("webhook", $("hookUrl").value, "hookMsg"));
+
+$("btnWake").onclick = () => busy($("btnWake"), async () => {
+  try { await api("/api/wake", {}); $("saveMsg").innerHTML = '<span class="ok">✓ requested, the result appears in the display shortly</span>'; }
+  catch (e) { $("saveMsg").innerHTML = `<span class="bad">✕ ${esc(e.message)}</span>`; }
+});
+
+$("btnSave").onclick = () => busy($("btnSave"), async () => {
+  const num = (id) => $(id).value === "" ? null : Number($(id).value);
+  try {
+    await api("/api/setup/save", {
+      vehicle: { ...(chosen ? { profile: chosen.profile, label: chosen.label || null, car: null } : cfg.vehicle),
+                 battery_kwh: num("battery") },
+      outputs: { mqtt: { enabled: $("mqttOn").checked, url: $("mqttUrl").value.trim() },
+                 webhook: { enabled: $("hookOn").checked, url: $("hookUrl").value.trim() } },
+      monitor: { interval: num("mInterval"), sleep_interval: num("mSleep"), awake_voltage: num("mVolt"),
+                 min_voltage: num("mMin"), wake_every: num("mWake"), wake_at: $("mWakeAt").value || null },
+    });
+    msg("saveMsg", "Saved. The device now monitors continuously.", "ok"); await load();
+  } catch (e) { msg("saveMsg", e.message, "bad"); }
+});
+start();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+*.log
+*.pcap
+*.pcapng
+*.notizen
+*.notes
+.DS_Store
+.claude/settings.local.json
+.claude/launch.json
+firmware/evsoc-box-sim
+.coverage
+.ruff_cache/
+# reports and captures contain vehicle identification numbers and do not belong in the repository
+evsoc-probe-*.json
+evsoc-waketest-*.json
+evsoc-wecktest-*.json
+capture-*.log
+capture-*.pcap
+mitschnitt-*.log
+*.analyse.md
+evsoc-reports/
+evsoc-berichte/

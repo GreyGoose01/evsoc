@@ -1,0 +1,42 @@
+{
+ "name": "obdb_alfa_romeo",
+ "description": "Alfa Romeo all models",
+ "source": "https://github.com/OBDb/Alfa-Romeo",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Alfa Romeo",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22D410",
+   "id": "c1_22D410"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c1_22D410",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 512
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  }
+ }
+}

@@ -1,0 +1,199 @@
+{
+ "name": "obdb_bmw_x5",
+ "description": "BMW X5",
+ "source": "https://github.com/OBDb/BMW-X5",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "BMW",
+   "model": "X5",
+   "years": [
+    1999,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "226335",
+   "years": [
+    2017,
+    null
+   ],
+   "id": "c1_226335"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD69",
+   "years": [
+    2017,
+    null
+   ],
+   "id": "c2_22DD69"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DDBC",
+   "years": [
+    2017,
+    null
+   ],
+   "id": "c3_22DDBC"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA607",
+    "ATCEA07",
+    "ATFCSH6F1",
+    "ATFCSD07300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22E5CE",
+   "years": [
+    2025,
+    null
+   ],
+   "id": "c8_22E5CE"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA618",
+    "ATCEA18",
+    "ATFCSH6F1",
+    "ATFCSD18300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DA23",
+   "id": "c22_22DA23"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D111",
+   "years": [
+    2014,
+    null
+   ],
+   "id": "c35_22D111"
+  }
+ ],
+ "fields": {
+  "soh": {
+   "step": "c1_226335",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "current": {
+   "step": "c2_22DD69",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "sign": true,
+    "div": 100
+   },
+   "min": -10000,
+   "max": 10000,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc": {
+   "step": "c3_22DDBC",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10,
+    "nullmin": 0
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "soc_2": {
+   "step": "c8_22E5CE",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "odometer": {
+   "step": "c22_22DA23",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "mul": 8
+   },
+   "min": 0,
+   "max": 1000000,
+   "unit": "km",
+   "label": "Odometer, low resolution"
+  },
+  "range": {
+   "step": "c35_22D111",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553.5,
+   "unit": "km",
+   "label": "Current electric range"
+  }
+ }
+}

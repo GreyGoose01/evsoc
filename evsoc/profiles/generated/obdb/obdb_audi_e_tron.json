@@ -1,0 +1,335 @@
+{
+ "name": "obdb_audi_e_tron",
+ "description": "Audi e tron",
+ "source": "https://github.com/OBDb/Audi-e-tron",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Audi",
+   "model": "e tron",
+   "years": [
+    2019,
+    2025
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222A0A",
+   "id": "c6_222A0A"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB5",
+   "id": "c19_222AB5"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH744",
+    "ATCRA7AE",
+    "ATCEA",
+    "ATFCSH744",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221DD0",
+   "pre": [
+    "1003"
+   ],
+   "id": "c55_221DD0"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH744",
+    "ATCRA7AE",
+    "ATCEA",
+    "ATFCSH744",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224965",
+   "id": "c60_224965"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2208D2",
+   "id": "c78_2208D2"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221156",
+   "pre": [
+    "1003"
+   ],
+   "id": "c81_221156"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "pre": [
+    "1003"
+   ],
+   "id": "c100_22028C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221801",
+   "id": "c101_221801"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221802",
+   "pre": [
+    "1003"
+   ],
+   "id": "c102_221802"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2251E0",
+   "id": "c304_2251E0"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E5",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22F45B",
+   "pre": [
+    "1003"
+   ],
+   "id": "c310_22F45B"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c311_22028C"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c6_222A0A",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777175,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "range": {
+   "step": "c19_222AB5",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Estimated reserve range"
+  },
+  "soc_display": {
+   "step": "c55_221DD0",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge display"
+  },
+  "capacity": {
+   "step": "c60_224965",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 20
+   },
+   "min": 0,
+   "max": 3276.75,
+   "unit": "kWh",
+   "label": "HV battery energy"
+  },
+  "soc_display_2": {
+   "step": "c78_2208D2",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "soc": {
+   "step": "c81_221156",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High-voltage battery charge"
+  },
+  "soc_bms": {
+   "step": "c100_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge"
+  },
+  "voltage": {
+   "step": "c101_221801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c102_221802",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 2.56,
+    "add": -1500,
+    "nullmin": -1500
+   },
+   "min": -1500,
+   "max": 166269,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soh": {
+   "step": "c304_2251E0",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.127,
+    "add": -1798.574
+   },
+   "min": -1798.574,
+   "max": 6524,
+   "unit": "%",
+   "label": "HV battery health"
+  },
+  "soc_bms_3": {
+   "step": "c310_22F45B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge, hd"
+  },
+  "soc_4": {
+   "step": "c311_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 250
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

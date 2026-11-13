@@ -1,0 +1,164 @@
+{
+ "name": "obdb_aiways_u5",
+ "description": "Aiways U5",
+ "source": "https://github.com/OBDb/Aiways-U5",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Aiways",
+   "model": "U5",
+   "years": [
+    2019,
+    2023
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH703",
+    "ATCRA70B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221004",
+   "id": "c5_221004"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH703",
+    "ATCRA70B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221005",
+   "id": "c6_221005"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH703",
+    "ATCRA70B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221006",
+   "id": "c7_221006"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH703",
+    "ATCRA70B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221007",
+   "id": "c8_221007"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH703",
+    "ATCRA70B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221010",
+   "id": "c11_221010"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH703",
+    "ATCRA70B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DF05",
+   "id": "c20_22DF05"
+  }
+ ],
+ "fields": {
+  "voltage": {
+   "step": "c5_221004",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 500,
+   "unit": "V",
+   "label": "High voltage battery pack voltage"
+  },
+  "current": {
+   "step": "c6_221005",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10,
+    "add": -700
+   },
+   "min": -500,
+   "max": 500,
+   "unit": "A",
+   "label": "High voltage battery current"
+  },
+  "soc_display": {
+   "step": "c7_221006",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge, displayed"
+  },
+  "soc": {
+   "step": "c8_221007",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge, actual"
+  },
+  "soh": {
+   "step": "c11_221010",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of health, alternative"
+  },
+  "odometer": {
+   "step": "c20_22DF05",
+   "decode": {
+    "type": "bits",
+    "len": 24,
+    "div": 10
+   },
+   "min": 0,
+   "max": 1000000,
+   "unit": "km",
+   "label": "Odometer"
+  }
+ }
+}

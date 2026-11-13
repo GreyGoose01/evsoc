@@ -1,0 +1,37 @@
+{
+ "name": "wican_smart_1",
+ "description": "Smart: #1",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Smart",
+   "model": "#1",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_224801",
+   "at": [
+    "ATST64",
+    "ATSH7DF",
+    "ATSP7"
+   ],
+   "request": "224801"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_224801",
+   "decode": {
+    "type": "wican",
+    "expr": "([B4:B5]-3)/470"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

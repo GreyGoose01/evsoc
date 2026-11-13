@@ -1,0 +1,149 @@
+{
+ "name": "obdb_ford_edge",
+ "description": "Ford Edge",
+ "source": "https://github.com/OBDb/Ford-Edge",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "Edge",
+   "years": [
+    2007,
+    2024
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSH7E0",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c54_22DD01"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c59_224801"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224845",
+   "id": "c62_224845"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22484F",
+   "id": "c64_22484F"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22490C",
+   "id": "c65_22490C"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c54_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c59_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "soc_display": {
+   "step": "c62_224845",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge (displayed)"
+  },
+  "is_charging": {
+   "step": "c64_22484F",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging state"
+  },
+  "soh": {
+   "step": "c65_22490C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of health"
+  }
+ }
+}

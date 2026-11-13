@@ -1,0 +1,110 @@
+{
+ "name": "wican_byd_atto_2_atto_3_yuan_plus_ev_dolphin_seal_seal_u_sealion_m6_emax_7_denza_d9_denza_n7_sealion_7_ev_eu_version_only_before_2024_10_update",
+ "description": "BYD: Atto 2/Atto 3/Yuan Plus EV/Dolphin/Seal/Seal U/Sealion/M6/eMax 7/海豚/Denza D9/Denza N7/Sealion 7 EV (EU version, only before 2024.10 update)",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "BYD",
+   "model": "Atto 2/Atto 3/Yuan Plus EV/Dolphin/Seal/Seal U/Sealion/M6/eMax 7/海豚/Denza D9/Denza N7/Sealion 7 EV (EU version, only before 2024.10 update)",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_220005",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATST96",
+    "ATSH7E7",
+    "ATFCSH7E7",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "220005"
+  },
+  {
+   "id": "s3_221FFC",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATST96",
+    "ATSH7E7",
+    "ATFCSH7E7",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "221FFC"
+  },
+  {
+   "id": "s4_220008",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATST96",
+    "ATSH7E7",
+    "ATFCSH7E7",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "220008"
+  },
+  {
+   "id": "s5_220009",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATST96",
+    "ATSH7E7",
+    "ATFCSH7E7",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "220009"
+  }
+ ],
+ "fields": {
+  "soc_display": {
+   "step": "s1_220005",
+   "decode": {
+    "type": "wican",
+    "expr": "B4"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "s3_221FFC",
+   "decode": {
+    "type": "wican",
+    "expr": "((((B5*256)+B4)*100)/10000)"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "s4_220008",
+   "decode": {
+    "type": "wican",
+    "expr": "((B5*256)+B4)"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s5_220009",
+   "decode": {
+    "type": "wican",
+    "expr": "((((B5*256)+B4)*0.1)-500)"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  }
+ }
+}

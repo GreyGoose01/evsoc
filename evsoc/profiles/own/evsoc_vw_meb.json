@@ -1,0 +1,230 @@
+{
+ "name": "evsoc_vw_meb",
+ "description": "VW group MEB: BMS (17FC007B -> 17FE007B) for state of charge, voltage, temperature; gateway (710 -> 77A) for the maximum energy content (22 2AB2) and the current energy content (22 2AB8). SoH = maximum energy content / net nominal capacity; the nominal capacity cannot be read from the car and must be given (--battery-kwh).",
+ "source": "OBDb Volkswagen-ID.4 and Audi-Q4-e-tron (signals and captures 2021-2026), evDash CarVWID3.cpp, WiCAN EV MEB, ABRP volkswagen/MEB.json",
+ "license": "CC-BY-SA-4.0 (facts from OBDb)",
+ "verified": "formulas checked against OBDb captures (ID.4 2021-2026); SoH calculation as in VW forums (energy content / net nominal capacity)",
+ "platform": "VW MEB",
+ "battery_kwh": [
+  45,
+  52,
+  58,
+  59,
+  77,
+  79,
+  85,
+  86
+ ],
+ "vehicles": [
+  {
+   "make": "Volkswagen",
+   "model": "ID.3 / ID.4 / ID.5 / ID.7 / ID.Buzz",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Skoda",
+   "model": "Enyaq / Enyaq Coupé / Elroq",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Cupra",
+   "model": "Born / Tavascan",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "Audi",
+   "model": "Q4 e-tron / Q4 Sportback e-tron",
+   "years": [
+    2021,
+    null
+   ]
+  },
+  {
+   "make": "Ford",
+   "model": "Explorer EV / Capri",
+   "years": [
+    2024,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "bms_soc",
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C"
+  },
+  {
+   "id": "soc",
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC0076",
+    "ATCRA17FE0076",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "223DEF"
+  },
+  {
+   "id": "bms_voltage",
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221E3B"
+  },
+  {
+   "id": "bms_temp",
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC007B",
+    "ATCRA17FE007B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222A0B"
+  },
+  {
+   "id": "max_energy",
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB2"
+  },
+  {
+   "id": "energy",
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB8"
+  }
+ ],
+ "fields": {
+  "soc_display": {
+   "step": "bms_soc",
+   "decode": {
+    "type": "equation",
+    "expr": "A*20.4/46-6.4"
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%"
+  },
+  "soc_bms": {
+   "step": "bms_soc",
+   "decode": {
+    "type": "equation",
+    "expr": "A/2.5"
+   },
+   "min": 0,
+   "max": 102,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "soc",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "bms_voltage",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/4"
+   },
+   "min": 200,
+   "max": 500,
+   "unit": "V"
+  },
+  "batt_temp": {
+   "step": "bms_temp",
+   "decode": {
+    "type": "equation",
+    "expr": "A/2-40"
+   },
+   "min": -40,
+   "max": 80,
+   "unit": "°C"
+  },
+  "capacity": {
+   "step": "max_energy",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)*0.05"
+   },
+   "min": 20,
+   "max": 100,
+   "unit": "kWh",
+   "label": "maximum energy content"
+  },
+  "soh": {
+   "step": "max_energy",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)*0.05"
+   },
+   "percent_of": "battery_kwh",
+   "min": 50,
+   "max": 110,
+   "unit": "%",
+   "label": "maximum energy content / nominal capacity"
+  },
+  "energy_available": {
+   "step": "energy",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(C,D)*0.025"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "kWh"
+  }
+ }
+}

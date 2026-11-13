@@ -1,0 +1,37 @@
+{
+ "name": "wican_maxus_t90_eunic5_eunic6_eunic9_ev30_eg10_edeliver3_edeliver9",
+ "description": "Maxus: T90/EUNIC5/EUNIC6/EUNIC9/EV30/EG10/eDeliver3/eDeliver9",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Maxus",
+   "model": "T90/EUNIC5/EUNIC6/EUNIC9/EV30/EG10/eDeliver3/eDeliver9",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22E002",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH7E3"
+   ],
+   "request": "22E002"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22E002",
+   "decode": {
+    "type": "wican",
+    "expr": "B4"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

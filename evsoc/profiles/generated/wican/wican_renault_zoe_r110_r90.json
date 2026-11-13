@@ -1,0 +1,137 @@
+{
+ "name": "wican_renault_zoe_r110_r90",
+ "description": "Renault Zoe R110/R90",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "Zoe R110/R90",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_222002",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "222002"
+  },
+  {
+   "id": "s2_223206",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "223206"
+  },
+  {
+   "id": "s3_223451",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "223451"
+  },
+  {
+   "id": "s4_222006",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "222006"
+  },
+  {
+   "id": "s5_222004",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "222004"
+  },
+  {
+   "id": "s6_223204",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "223204"
+  },
+  {
+   "id": "s8_222001",
+   "at": [
+    "ATSP6"
+   ],
+   "request": "222001"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_222002",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]*0.02"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s2_223206",
+   "decode": {
+    "type": "wican",
+    "expr": "B4"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "range": {
+   "step": "s3_223451",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]"
+   },
+   "min": null,
+   "max": null,
+   "unit": "km"
+  },
+  "odometer": {
+   "step": "s4_222006",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  },
+  "voltage": {
+   "step": "s5_222004",
+   "decode": {
+    "type": "wican",
+    "expr": "[B3:B4] * 0.5"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s6_223204",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5] * 0.25 - 8192"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  },
+  "batt_temp": {
+   "step": "s8_222001",
+   "decode": {
+    "type": "wican",
+    "expr": "B4 - 40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  }
+ }
+}

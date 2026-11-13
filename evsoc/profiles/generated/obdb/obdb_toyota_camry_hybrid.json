@@ -1,0 +1,97 @@
+{
+ "name": "obdb_toyota_camry_hybrid",
+ "description": "Toyota Camry Hybrid",
+ "source": "https://github.com/OBDb/Toyota-Camry-Hybrid",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Toyota",
+   "model": "Camry Hybrid",
+   "years": [
+    2007,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH700",
+    "ATCRA708",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "220103",
+   "id": "c1_220103"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH745",
+    "ATCRA74D",
+    "ATCEA",
+    "ATFCSH745",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221739",
+   "id": "c94_221739"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "id": "c204_221F5B"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c1_220103",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc_display": {
+   "step": "c94_221739",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "soc": {
+   "step": "c204_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

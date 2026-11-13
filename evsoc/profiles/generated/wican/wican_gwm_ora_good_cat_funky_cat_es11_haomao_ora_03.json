@@ -1,0 +1,74 @@
+{
+ "name": "wican_gwm_ora_good_cat_funky_cat_es11_haomao_ora_03",
+ "description": "GWM: Ora Good Cat/Funky Cat/ES11/Haomao/Ora 03",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "GWM",
+   "model": "Ora Good Cat/Funky Cat/ES11/Haomao/Ora 03",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22D062",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH78A",
+    "ATFCSH78A",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATCRA7CA"
+   ],
+   "request": "22D062"
+  },
+  {
+   "id": "s3_22D004",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH78B",
+    "ATFCSH78B",
+    "ATCRA7CB"
+   ],
+   "request": "22D004"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22D062",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/10"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "capacity": {
+   "step": "s1_22D062",
+   "decode": {
+    "type": "wican",
+    "expr": "[B6:B7]/10"
+   },
+   "min": null,
+   "max": null,
+   "unit": "kWh"
+  },
+  "odometer": {
+   "step": "s3_22D004",
+   "decode": {
+    "type": "wican",
+    "expr": "[B5:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

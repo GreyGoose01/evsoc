@@ -1,0 +1,104 @@
+{
+ "name": "obdb_honda_cr_z",
+ "description": "Honda CR Z",
+ "source": "https://github.com/OBDb/Honda-CR-Z",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Honda",
+   "model": "CR Z",
+   "years": [
+    2010,
+    2016
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA10F1",
+    "ATCRA18DAF110",
+    "ATCEA",
+    "ATFCSH18DA10F1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222660",
+   "years": [
+    2013,
+    null
+   ],
+   "id": "c6_222660"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDBEFF1",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222010",
+   "id": "c26_222010"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDBEFF1",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222012",
+   "id": "c27_222012"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c6_222660",
+   "decode": {
+    "type": "bits",
+    "bix": 344,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "current": {
+   "step": "c26_222010",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16,
+    "sign": true,
+    "div": 100
+   },
+   "min": -327.68,
+   "max": 327.67,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc": {
+   "step": "c27_222012",
+   "decode": {
+    "type": "bits",
+    "bix": 40,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

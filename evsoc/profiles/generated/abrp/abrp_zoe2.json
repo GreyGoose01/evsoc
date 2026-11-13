@@ -1,0 +1,165 @@
+{
+ "name": "abrp_zoe2",
+ "description": "Renault Zoe Ph2",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/renault/zoe2.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "Zoe Ph2",
+   "years": [
+    2019,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s2_222003",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATSHDADAF1",
+    "ATCRA18DAF1DA",
+    "ATFCSH18DADAF1"
+   ],
+   "request": "222003"
+  },
+  {
+   "id": "s3_2220FE",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATSHDADAF1",
+    "ATCRA18DAF1DA",
+    "ATFCSH18DADAF1"
+   ],
+   "request": "2220FE"
+  },
+  {
+   "id": "s4_2221CC",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATSHDADAF1",
+    "ATCRA18DAF1DA",
+    "ATFCSH18DADAF1"
+   ],
+   "request": "2221CC"
+  },
+  {
+   "id": "s5_2291C8",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATFCSH18DADBF1"
+   ],
+   "request": "2291C8"
+  },
+  {
+   "id": "s6_229003",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATFCSH18DADBF1"
+   ],
+   "request": "229003"
+  },
+  {
+   "id": "s8_229002",
+   "at": [
+    "ATAL",
+    "ATCP18",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSP7",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATFCSH18DADBF1"
+   ],
+   "request": "229002"
+  }
+ ],
+ "fields": {
+  "kwh_charged": {
+   "step": "s5_2291C8",
+   "decode": {
+    "type": "equation",
+    "expr": "0.001*(A*65536+B*256+C)"
+   },
+   "min": 0.0,
+   "max": 60.0,
+   "unit": "kWh"
+  },
+  "soh": {
+   "step": "s6_229003",
+   "decode": {
+    "type": "equation",
+    "expr": "0.01*(A*256+B)"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "s8_229002",
+   "decode": {
+    "type": "equation",
+    "expr": "0.01*(A*256+B)"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "vehicle_reported_speed": {
+   "step": "s2_222003",
+   "decode": {
+    "type": "equation",
+    "expr": "0.01*(A*256+B)"
+   },
+   "min": 0.0,
+   "max": 180.0,
+   "unit": ""
+  },
+  "voltage": {
+   "step": "s3_2220FE",
+   "decode": {
+    "type": "equation",
+    "expr": "0.1*(A*256+B)"
+   },
+   "min": 300.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s4_2221CC",
+   "decode": {
+    "type": "equation",
+    "expr": "-1*(0.25*(A*256+B)-500)"
+   },
+   "min": -400.0,
+   "max": 400.0,
+   "unit": "A"
+  }
+ }
+}

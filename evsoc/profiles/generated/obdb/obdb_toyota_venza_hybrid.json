@@ -1,0 +1,48 @@
+{
+ "name": "obdb_toyota_venza_hybrid",
+ "description": "Toyota Venza Hybrid",
+ "source": "https://github.com/OBDb/Toyota-Venza-Hybrid",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Toyota",
+   "model": "Venza Hybrid",
+   "years": [
+    2021,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "id": "c5_221F5B"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c5_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

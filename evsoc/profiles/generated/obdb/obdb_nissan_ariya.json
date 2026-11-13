@@ -1,0 +1,132 @@
+{
+ "name": "obdb_nissan_ariya",
+ "description": "Nissan ARIYA",
+ "source": "https://github.com/OBDb/Nissan-ARIYA",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Nissan",
+   "model": "ARIYA",
+   "years": [
+    2022,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH743",
+    "ATCRA763",
+    "ATCEA",
+    "ATFCSH743",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2101",
+   "id": "c1_2101"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSH18DADBF1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "229001",
+   "id": "c17_229001"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSH18DADBF1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "229006",
+   "id": "c19_229006"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDADBF1",
+    "ATCRA18DAF1DB",
+    "ATCEA",
+    "ATFCSH18DADBF1",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "229284",
+   "id": "c162_229284"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c1_2101",
+   "decode": {
+    "type": "bits",
+    "bix": 64,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Odometer, meter group 1"
+  },
+  "soc": {
+   "step": "c17_229001",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100,
+    "add": -3
+   },
+   "min": -3,
+   "max": 652,
+   "unit": "%",
+   "label": "Traction battery state of charge"
+  },
+  "voltage": {
+   "step": "c19_229006",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "sign": true,
+    "div": 1024
+   },
+   "min": 0,
+   "max": 1000,
+   "unit": "V",
+   "label": "Traction battery voltage"
+  },
+  "current": {
+   "step": "c162_229284",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "sign": true,
+    "mul": -1,
+    "div": 1000
+   },
+   "min": -2147483,
+   "max": 2147483,
+   "unit": "A",
+   "label": "Traction battery current"
+  }
+ }
+}

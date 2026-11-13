@@ -1,0 +1,68 @@
+{
+ "name": "wican_toyota_bz4x_2022_2025",
+ "description": "Toyota: bZ4X 2022-2025",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Toyota",
+   "model": "bZ4X 2022-2025",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_221F5B",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH7D2",
+    "ATCRA7DA"
+   ],
+   "request": "221F5B"
+  },
+  {
+   "id": "s2_221F9A",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH7D2",
+    "ATCRA7DA"
+   ],
+   "request": "221F9A"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_221F5B",
+   "decode": {
+    "type": "wican",
+    "expr": "B4/2.55"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "s2_221F9A",
+   "decode": {
+    "type": "wican",
+    "expr": "((B7*256)+B9)*0.015625"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s2_221F9A",
+   "decode": {
+    "type": "wican",
+    "expr": "[S10:S11]*0.1"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  }
+ }
+}

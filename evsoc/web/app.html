@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>State of charge</title>
+<style>
+:root {
+  --bg: #f4f5f7; --card: #fff; --text: #16181d; --muted: #646b78; --line: #e3e6eb; --ring: #e6e9ee;
+  --accent: #1f7a5a; --accent-soft: #e3f3ec; --warn: #b26a00; --warn-soft: #fff3df; --bad: #b3261e; --bad-soft: #fdecea;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0f1115; --card: #171a21; --text: #e8eaee; --muted: #9aa2af; --line: #262b35; --ring: #262b35;
+    --accent: #4cc596; --accent-soft: #15291f; --warn: #f0b04a; --warn-soft: #2b2212; --bad: #f2867d; --bad-soft: #2d1513; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 20px 16px 40px; display: grid; gap: 16px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.top h1 { margin: 0; font-size: 22px; }
+.chip { font-size: 14px; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--bg); color: var(--muted); }
+.chip.ok { background: var(--accent-soft); color: var(--accent); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.hero { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.gauge { width: min(300px, 80vw); height: auto; }
+.gauge .val { font-size: 52px; font-weight: 700; fill: var(--text); }
+.gauge .unit { font-size: 16px; fill: var(--muted); }
+.since { color: var(--muted); margin-top: 6px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.tile { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.tile .k { font-size: 13px; color: var(--muted); }
+.tile .v { font-size: 22px; font-weight: 650; margin-top: 2px; font-variant-numeric: tabular-nums; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 0 0 12px; font-weight: 600; }
+.spark { width: 100%; height: 140px; }
+.spark path.line { fill: none; stroke: var(--accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.spark path.area { fill: var(--accent-soft); }
+.conn { display: grid; gap: 8px; }
+.conn div { display: flex; justify-content: space-between; gap: 12px; }
+.conn .s { font-weight: 600; text-align: right; }
+.s.ok { color: var(--accent); } .s.warn { color: var(--warn); } .s.bad { color: var(--bad); }
+.banner { padding: 12px 14px; border-radius: 12px; background: var(--warn-soft); color: var(--warn); }
+.banner a { color: inherit; font-weight: 600; }
+footer { text-align: center; font-size: 13px; color: var(--muted); }
+footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <h1 id="vehicle">State of charge</h1>
+    <span class="chip" id="status">connecting …</span>
+  </div>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <section class="card hero">
+    <svg class="gauge" viewBox="0 0 220 220" aria-label="State of charge">
+      <circle cx="110" cy="110" r="92" fill="none" stroke="var(--ring)" stroke-width="18"/>
+      <circle id="arc" cx="110" cy="110" r="92" fill="none" stroke="var(--accent)" stroke-width="18" stroke-linecap="round"
+        stroke-dasharray="0 578" transform="rotate(-90 110 110)" style="opacity:0"/>
+      <text id="soc" class="val" x="110" y="120" text-anchor="middle">–</text>
+      <text class="unit" x="110" y="148" text-anchor="middle">percent</text>
+    </svg>
+    <div class="since" id="since">No value yet</div>
+  </section>
+
+  <section class="tiles" id="tiles"></section>
+
+  <section class="card">
+    <h2>History (24 hours)</h2>
+    <svg class="spark" id="spark" viewBox="0 0 600 140" preserveAspectRatio="none"></svg>
+  </section>
+
+  <section class="card">
+    <h2>Connection</h2>
+    <div class="conn" id="conn"></div>
+  </section>
+
+  <footer><span id="version"></span> · <a href="/setup">Setup</a></footer>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const UNITS = { soh: "%", voltage: "V", current: "A", power: "kW", energy_available: "kWh", capacity: "kWh",
+  range: "km", batt_temp: "°C", odometer: "km", soce: "%", cell_min_voltage: "V", cell_max_voltage: "V" };
+const STATUS = {  // header text, colour, short text for the connection list
+  "awake": ["Vehicle awake", "ok", "awake"], "woken": ["briefly woken", "ok", "briefly woken"],
+  "asleep": ["Vehicle asleep", "", "asleep"], "no answer": ["Vehicle does not answer", "warn", "not answering"],
+  "no connection": ["Adapter not connected", "bad", "–"],
+};
+
+function ago(iso) {
+  if (!iso) return null;
+  const min = Math.round((Date.now() - new Date(iso)) / 60000);
+  if (min < 1) return "gerade eben";
+  if (min < 60) return `vor ${min} Min.`;
+  const h = Math.floor(min / 60);
+  if (h < 24) return `vor ${h} Std. ${min % 60} Min.`;
+  return new Date(iso).toLocaleString((window.EVSOC_LOCALE || "de-DE"), { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+}
+
+function fmt(name, v) {
+  if (v === null || v === undefined) return "–";
+  if (name.startsWith("is_") || name === "plugged_in") return v ? "yes" : "no";
+  const u = UNITS[name] || "";
+  const d = u === "V" && Math.abs(v) < 10 ? 2 : (Math.abs(v) >= 100 ? 0 : 1);
+  return `${Number(v).toFixed(d)} ${u}`.trim();
+}
+
+function render(s) {
+  $("vehicle").textContent = s.vehicle || "State of charge";
+  document.title = s.soc !== null && s.soc !== undefined ? `${s.soc.toFixed(0)} % · ${s.vehicle || "State of charge"}` : "State of charge";
+  const charging = (s.values.find(v => v.name === "is_charging") || {}).value;
+  let [label, cls, short] = STATUS[s.status] || [s.status || "starting", "", s.status || "–"];
+  if (charging && (s.status === "awake" || s.status === "woken")) [label, cls, short] = ["charging", "ok", "charging"];
+  $("status").textContent = label; $("status").className = "chip " + cls;
+
+  const banner = [];
+  if (!s.configured) banner.push(`Not set up yet. <a href="/setup">To the setup</a>`);
+  if (s.note) banner.push(esc(s.note));
+  $("banner").innerHTML = banner.join("<br>"); $("banner").hidden = !banner.length;
+
+  const soc = s.soc;
+  const len = 2 * Math.PI * 92, pct = soc === null || soc === undefined ? 0 : Math.max(0, Math.min(100, soc));
+  $("arc").setAttribute("stroke-dasharray", `${pct / 100 * len} ${len}`);
+  $("arc").style.opacity = soc === null || soc === undefined ? 0 : 1;
+  $("arc").setAttribute("stroke", pct < 15 ? "var(--bad)" : pct < 25 ? "var(--warn)" : "var(--accent)");
+  $("soc").textContent = soc === null || soc === undefined ? "–" : soc.toFixed(0);
+  $("since").textContent = s.soc_updated ? "As of " + ago(s.soc_updated) : "No value yet – appears as soon as the vehicle is awake";
+
+  const tiles = s.values.filter(v => !v.name.startsWith("is_") && v.name !== "plugged_in").slice(0, 6)
+    .map(v => `<div class="tile"><div class="k">${esc(v.label)}</div><div class="v">${esc(fmt(v.name, v.value))}</div></div>`);
+  if (s.voltage_12v) tiles.push(`<div class="tile"><div class="k">12-V-Batterie</div><div class="v">${s.voltage_12v.toFixed(2)} V</div></div>`);
+  $("tiles").innerHTML = tiles.join(""); $("tiles").hidden = !tiles.length;
+
+  const rows = [["Adapter", s.adapter.ok ? "verbunden" : s.adapter.detail, s.adapter.ok ? "ok" : "bad"],
+                ["Vehicle", short, cls || ""]];
+  for (const o of s.outputs) rows.push([`Weitergabe ${o.name}`, o.detail, o.ok ? "ok" : (o.ok === null ? "" : "bad")]);
+  rows.push(["last checked", ago(s.checked) || "–", ""]);
+  $("conn").innerHTML = rows.map(([k, v, c]) => `<div><span>${esc(k)}</span><span class="s ${c}">${esc(v)}</span></div>`).join("");
+
+  renderSpark(s.history);
+  $("version").textContent = "evsoc " + s.version;
+}
+
+function renderSpark(history) {
+  const now = Date.now() / 1000, t0 = now - 86400;
+  const pts = history.filter(h => h[0] >= t0);
+  const svg = $("spark"); const W = 600, H = 140, pad = 10;
+  if (!pts.length) { svg.innerHTML = `<text x="300" y="75" text-anchor="middle" fill="var(--muted)" font-size="14">no values yet</text>`; return; }
+  const x = t => pad + (t - t0) / 86400 * (W - 2 * pad), y = v => H - pad - v / 100 * (H - 2 * pad);
+  const line = "M" + pts.map(h => `${x(h[0]).toFixed(1)},${y(h[1]).toFixed(1)}`).join(" L");
+  const last = pts[pts.length - 1];
+  svg.innerHTML = `<path class="area" d="${line} L${x(last[0]).toFixed(1)},${H - pad} L${x(pts[0][0]).toFixed(1)},${H - pad} Z"/>
+    <path class="line" d="${line}"/>
+    <line x1="${x(last[0]).toFixed(1)}" y1="${y(last[1]).toFixed(1)}" x2="${x(last[0]).toFixed(1)}" y2="${y(last[1]).toFixed(1)}"
+      stroke="var(--accent)" stroke-width="8" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`;
+}
+
+async function poll() {
+  try {
+    const r = await fetch("/api/state", { cache: "no-store" });
+    render(await r.json());
+  } catch (e) {
+    $("status").textContent = "Device not reachable"; $("status").className = "chip bad";
+  }
+}
+poll(); setInterval(poll, 5000);
+</script>
+</body>
+</html>

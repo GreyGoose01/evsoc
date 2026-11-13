@@ -1,0 +1,77 @@
+{
+ "name": "evsoc_smart_eq",
+ "description": "smart EQ fortwo / forfour (type 453, 2017-2024): battery control unit 79B -> 7BB, KWP service 21 08. Formulas from the OVMS module vehicle_smarteq (MIT), not yet checked on a car.",
+ "source": "https://github.com/openvehicles/Open-Vehicle-Monitoring-System-3/tree/master/vehicle/OVMS.V3/components/vehicle_smarteq",
+ "license": "MIT (facts)",
+ "verified": "unverified",
+ "platform": "Renault Zoe / Kangoo Z.E.",
+ "vehicles": [
+  {
+   "make": "smart",
+   "model": "EQ fortwo / forfour (453)",
+   "years": [
+    2017,
+    2024
+   ]
+  },
+  {
+   "make": "smart",
+   "model": "ED (453)",
+   "years": [
+    2017,
+    2019
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "bms2108",
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "2108"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "bms2108",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(G,H)/16"
+   },
+   "min": 0,
+   "max": 105,
+   "unit": "%",
+   "label": "Kernel SoC"
+  },
+  "soc_bms": {
+   "step": "bms2108",
+   "decode": {
+    "type": "equation",
+    "expr": "(INT16(C,D)+INT16(E,F))/32"
+   },
+   "min": 0,
+   "max": 105,
+   "unit": "%",
+   "label": "Real SoC (mean of min/max)"
+  },
+  "voltage": {
+   "step": "bms2108",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/100"
+   },
+   "min": 200,
+   "max": 450,
+   "unit": "V",
+   "label": "Open circuit voltage (OCV)"
+  }
+ }
+}

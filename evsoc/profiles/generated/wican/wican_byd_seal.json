@@ -1,0 +1,62 @@
+{
+ "name": "wican_byd_seal",
+ "description": "BYD: Seal",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "BYD",
+   "model": "Seal",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_221FFC",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSH7E7",
+    "ATFCSH7E7",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "221FFC"
+  },
+  {
+   "id": "s2_220032",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSH7E7",
+    "ATFCSH7E7",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "220032"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_221FFC",
+   "decode": {
+    "type": "wican",
+    "expr": "((B5*256)+B4)/100"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "batt_temp": {
+   "step": "s2_220032",
+   "decode": {
+    "type": "wican",
+    "expr": "B4-40"
+   },
+   "min": -40.0,
+   "max": 80.0,
+   "unit": "°C"
+  }
+ }
+}

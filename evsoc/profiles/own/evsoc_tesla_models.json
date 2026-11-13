@@ -1,0 +1,56 @@
+{
+ "name": "evsoc_tesla_models",
+ "description": "Tesla Model S / Model X (until about 2020): no OBD data access; a cable to the diagnostic connector is needed. Listening to the BMS frame 0x302 (after OVMS vehicle_teslamodels, MIT).",
+ "source": "OVMS vehicle_teslamodels (MIT)",
+ "license": "MIT (facts)",
+ "verified": "Community",
+ "platform": "Tesla Model S/X",
+ "vehicles": [
+  {
+   "make": "Tesla",
+   "model": "Model S",
+   "years": [
+    2012,
+    2020
+   ]
+  },
+  {
+   "make": "Tesla",
+   "model": "Model X",
+   "years": [
+    2015,
+    2020
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "bms302",
+   "at": [
+    "ATSP6",
+    "ATCAF0",
+    "ATCEA"
+   ],
+   "listen": "302"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "bms302",
+   "decode": {
+    "type": "dbc",
+    "start": 10,
+    "len": 10,
+    "little": true,
+    "factor": 0.1
+   },
+   "min": 0,
+   "max": 102.3,
+   "unit": "%"
+  }
+ },
+ "connection": {
+  "cable": "Tesla diagnostic cable (Model S/X)"
+ }
+}

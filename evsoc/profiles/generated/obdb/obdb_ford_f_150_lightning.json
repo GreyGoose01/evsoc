@@ -1,0 +1,199 @@
+{
+ "name": "obdb_ford_f_150_lightning",
+ "description": "Ford F 150 Lightning",
+ "source": "https://github.com/OBDb/Ford-F-150-Lightning",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "F 150 Lightning",
+   "years": [
+    2022,
+    2025
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH720",
+    "ATCRA728",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22404C",
+   "id": "c3_22404C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c89_224801"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22480D",
+   "id": "c98_22480D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224845",
+   "id": "c110_224845"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22484F",
+   "id": "c114_22484F"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2248F9",
+   "id": "c118_2248F9"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22490C",
+   "id": "c120_22490C"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c3_22404C",
+   "decode": {
+    "type": "bits",
+    "len": 24,
+    "div": 10
+   },
+   "min": 0,
+   "max": 1677721,
+   "unit": "km",
+   "label": "Odometer, instrument panel"
+  },
+  "soc": {
+   "step": "c89_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Hv battery charge"
+  },
+  "voltage": {
+   "step": "c98_22480D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "V",
+   "label": "Hv battery voltage"
+  },
+  "soc_display": {
+   "step": "c110_224845",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Hv battery charge, displayed"
+  },
+  "is_charging": {
+   "step": "c114_22484F",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging state"
+  },
+  "current": {
+   "step": "c118_2248F9",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -600,
+   "max": 600,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soh": {
+   "step": "c120_22490C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Hv battery state of health"
+  }
+ }
+}

@@ -1,0 +1,211 @@
+{
+ "name": "obdb_lexus",
+ "description": "Lexus all models",
+ "source": "https://github.com/OBDb/Lexus",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Lexus",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA6F9",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22420C",
+   "id": "c1_22420C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6F1",
+    "ATCRA660",
+    "ATCEA60",
+    "ATFCSH6F1",
+    "ATFCSD60300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D10D",
+   "id": "c48_22D10D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH745",
+    "ATCRA74D",
+    "ATCEA",
+    "ATFCSH745",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221739",
+   "id": "c176_221739"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "id": "c274_221F5B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221F9A",
+   "id": "c321_221F9A"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E2",
+    "ATCRA7EA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "21C3",
+   "id": "c432_21C3"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E3",
+    "ATCRA7EB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "21CE",
+   "id": "c464_21CE"
+  }
+ ],
+ "fields": {
+  "range": {
+   "step": "c1_22420C",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Estimated range remaining"
+  },
+  "odometer": {
+   "step": "c48_22D10D",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer #2"
+  },
+  "soc_display": {
+   "step": "c176_221739",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  },
+  "soc": {
+   "step": "c274_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "voltage": {
+   "step": "c321_221F9A",
+   "decode": {
+    "type": "bits",
+    "bix": 16,
+    "len": 16,
+    "mul": 156.25,
+    "div": 10000
+   },
+   "min": 0,
+   "max": 1023,
+   "unit": "V",
+   "label": "HV battery voltage"
+  },
+  "current": {
+   "step": "c321_221F9A",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -3276.8,
+   "max": 3276.7,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc_2": {
+   "step": "c432_21C3",
+   "decode": {
+    "type": "bits",
+    "bix": 112,
+    "len": 8,
+    "mul": 0.392
+   },
+   "min": 0,
+   "max": 99.96,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soc_3": {
+   "step": "c464_21CE",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": 0,
+   "max": 127.5,
+   "unit": "%",
+   "label": "HV battery charge"
+  }
+ }
+}

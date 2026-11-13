@@ -1,0 +1,87 @@
+{
+ "name": "wican_smart_eq",
+ "description": "Smart: EQ",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Smart",
+   "model": "EQ",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2108",
+   "at": [
+    "ATST64",
+    "ATSP6",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH79B",
+    "ATFCSH79B",
+    "ATCRA7BB"
+   ],
+   "request": "2108"
+  },
+  {
+   "id": "s2_220207",
+   "at": [
+    "ATST64",
+    "ATSP6",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH743",
+    "ATFCSH743",
+    "ATCRA763"
+   ],
+   "request": "220207"
+  },
+  {
+   "id": "s3_223451",
+   "at": [
+    "ATST64",
+    "ATSP6",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH7E4",
+    "ATFCSH7E4",
+    "ATCRA7EC"
+   ],
+   "request": "223451"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_2108",
+   "decode": {
+    "type": "wican",
+    "expr": "[B11:B12]/16"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "odometer": {
+   "step": "s2_220207",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B6]"
+   },
+   "min": 0.0,
+   "max": null,
+   "unit": "km"
+  },
+  "range": {
+   "step": "s3_223451",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]"
+   },
+   "min": null,
+   "max": null,
+   "unit": "km"
+  }
+ }
+}

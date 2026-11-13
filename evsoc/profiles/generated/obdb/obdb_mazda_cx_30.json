@@ -1,0 +1,93 @@
+{
+ "name": "obdb_mazda_cx_30",
+ "description": "Mazda CX 30",
+ "source": "https://github.com/OBDb/Mazda-CX-30",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Mazda",
+   "model": "CX 30",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH723",
+    "ATCRA72B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22480D",
+   "id": "c2_22480D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH723",
+    "ATCRA72B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22D914",
+   "id": "c4_22D914"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH723",
+    "ATCRA72B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c7_22DD01"
+  }
+ ],
+ "fields": {
+  "voltage": {
+   "step": "c2_22480D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 10,
+    "div": 1000
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "V",
+   "label": "Battery pack voltage"
+  },
+  "soc": {
+   "step": "c4_22D914",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery state of charge"
+  },
+  "odometer": {
+   "step": "c7_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Total distance"
+  }
+ }
+}

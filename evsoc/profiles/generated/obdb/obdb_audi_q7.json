@@ -1,0 +1,96 @@
+{
+ "name": "obdb_audi_q7",
+ "description": "Audi Q7",
+ "source": "https://github.com/OBDb/Audi-Q7",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Audi",
+   "model": "Q7",
+   "years": [
+    2006,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB6",
+   "id": "c22_222AB6"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH714",
+    "ATCRA77E",
+    "ATCEA",
+    "ATFCSH714",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2222B8",
+   "id": "c37_2222B8"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221164",
+   "id": "c206_221164"
+  }
+ ],
+ "fields": {
+  "range": {
+   "step": "c22_222AB6",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "mi",
+   "label": "Range remaining"
+  },
+  "odometer": {
+   "step": "c37_2222B8",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "div": 1000
+   },
+   "min": 0,
+   "max": 4294967,
+   "unit": "km",
+   "label": "Odometer, mileage, HR"
+  },
+  "soc_display": {
+   "step": "c206_221164",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge, displayed"
+  }
+ }
+}

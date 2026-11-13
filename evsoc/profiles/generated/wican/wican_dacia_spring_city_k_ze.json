@@ -1,0 +1,64 @@
+{
+ "name": "wican_dacia_spring_city_k_ze",
+ "description": "Dacia: Spring/CITY K-ZE",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Dacia",
+   "model": "Spring/CITY K-ZE",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_229002",
+   "at": [
+    "ATSP6",
+    "ATST64",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH79B",
+    "ATFCSH79B",
+    "ATCRA7BB"
+   ],
+   "request": "229002"
+  },
+  {
+   "id": "s2_229003",
+   "at": [
+    "ATSP6",
+    "ATST64",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH79B",
+    "ATFCSH79B",
+    "ATCRA7BB"
+   ],
+   "request": "229003"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_229002",
+   "decode": {
+    "type": "wican",
+    "expr": "B4/2"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s2_229003",
+   "decode": {
+    "type": "wican",
+    "expr": "B4/2"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  }
+ }
+}

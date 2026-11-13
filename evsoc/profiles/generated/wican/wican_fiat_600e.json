@@ -1,0 +1,87 @@
+{
+ "name": "wican_fiat_600e",
+ "description": "Fiat: 600e",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Fiat",
+   "model": "600e",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22D410",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH6B4",
+    "ATFCSH6B4",
+    "ATCRA694"
+   ],
+   "request": "22D410"
+  },
+  {
+   "id": "s2_22D860",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH6B4",
+    "ATFCSH6B4",
+    "ATCRA694"
+   ],
+   "request": "22D860"
+  },
+  {
+   "id": "s3_22D815",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATSH6B4",
+    "ATFCSH6B4",
+    "ATCRA694"
+   ],
+   "request": "22D815"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22D410",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/512"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  },
+  "soh": {
+   "step": "s2_22D860",
+   "decode": {
+    "type": "wican",
+    "expr": "[B5:B6]/16"
+   },
+   "min": 0.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "s3_22D815",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/16"
+   },
+   "min": 200.0,
+   "max": 480.0,
+   "unit": "V"
+  }
+ }
+}

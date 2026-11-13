@@ -1,0 +1,122 @@
+{
+ "name": "obdb_audi_q4_e_tron",
+ "description": "Audi Q4 e tron",
+ "source": "https://github.com/OBDb/Audi-Q4-e-tron",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Audi",
+   "model": "Q4 e tron",
+   "years": [
+    2021,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA77A",
+    "ATCEA",
+    "ATFCSH710",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "222AB6",
+   "id": "c7_222AB6"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHFC00F1",
+    "ATCRA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22028C",
+   "id": "c43_22028C"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC0076",
+    "ATCRA17FE0076",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22295A",
+   "id": "c55_22295A"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP17",
+    "ATSHFC0076",
+    "ATCRA17FE0076",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "223DEF",
+   "id": "c57_223DEF"
+  }
+ ],
+ "fields": {
+  "range": {
+   "step": "c7_222AB6",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "mi",
+   "label": "Range remaining, displayed"
+  },
+  "soc": {
+   "step": "c43_22028C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 250
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "odometer": {
+   "step": "c55_22295A",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 200000,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc_2": {
+   "step": "c57_223DEF",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

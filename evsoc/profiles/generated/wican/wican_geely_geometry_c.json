@@ -1,0 +1,40 @@
+{
+ "name": "wican_geely_geometry_c",
+ "description": "Geely: Geometry C",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Geely",
+   "model": "Geometry C",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_224B35",
+   "at": [
+    "ATAT1",
+    "ATST96",
+    "ATSH7E2",
+    "ATFCSH7E2",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "224B35"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_224B35",
+   "decode": {
+    "type": "wican",
+    "expr": "[B4:B5]/10"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

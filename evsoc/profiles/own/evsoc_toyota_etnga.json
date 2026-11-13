@@ -1,0 +1,112 @@
+{
+ "name": "evsoc_toyota_etnga",
+ "description": "Toyota bZ4X / Subaru Solterra (e-TNGA) after OVMS: displayed state of charge 221738 at the plug-in control unit (745 -> 74D), BMS state of charge 221F5B and full charge capacity 221D3E (8 x INT16, 0.01 Ah) at the battery control unit (747 -> 74F). SoH = mean capacity / 201.1 Ah, only for the 96-cell battery 2022-2024.",
+ "source": "OVMS vehicle_toyota_etnga (MIT)",
+ "license": "MIT",
+ "verified": "OVMS: bZ4X/Solterra 2022-2024 checked on the car; model year 2025+ with a different battery only state of charge",
+ "platform": "Toyota/Subaru e-TNGA",
+ "vehicles": [
+  {
+   "make": "Toyota",
+   "model": "bZ4X",
+   "years": [
+    2022,
+    null
+   ]
+  },
+  {
+   "make": "Subaru",
+   "model": "Solterra",
+   "years": [
+    2022,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "soc_display",
+   "at": [
+    "ATSP6",
+    "ATSH745",
+    "ATCRA74D",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221738"
+  },
+  {
+   "id": "soc_bms",
+   "at": [
+    "ATSP6",
+    "ATSH747",
+    "ATCRA74F",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221F5B"
+  },
+  {
+   "id": "capacity",
+   "at": [
+    "ATSP6",
+    "ATSH747",
+    "ATCRA74F",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221D3E",
+   "years": [
+    2022,
+    2024
+   ]
+  }
+ ],
+ "fields": {
+  "soc_display": {
+   "step": "soc_display",
+   "decode": {
+    "type": "equation",
+    "expr": "A"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "soc_bms": {
+   "step": "soc_bms",
+   "decode": {
+    "type": "equation",
+    "expr": "A*100/255"
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%"
+  },
+  "capacity": {
+   "step": "capacity",
+   "decode": {
+    "type": "equation",
+    "expr": "(INT16(A,B)+INT16(C,D)+INT16(E,F)+INT16(G,H)+INT16(I,J)+INT16(K,L)+INT16(M,N)+INT16(O,P))/800"
+   },
+   "min": 100,
+   "max": 230,
+   "unit": "Ah",
+   "label": "Full charge capacity"
+  },
+  "soh": {
+   "step": "capacity",
+   "decode": {
+    "type": "equation",
+    "expr": "(INT16(A,B)+INT16(C,D)+INT16(E,F)+INT16(G,H)+INT16(I,J)+INT16(K,L)+INT16(M,N)+INT16(O,P))/800*100/201.1"
+   },
+   "min": 50,
+   "max": 110,
+   "unit": "%"
+  }
+ }
+}

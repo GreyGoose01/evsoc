@@ -1,0 +1,92 @@
+{
+ "name": "obdb_ford_focus_electric",
+ "description": "Ford Focus Electric",
+ "source": "https://github.com/OBDb/Ford-Focus-Electric",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Ford",
+   "model": "Focus Electric",
+   "years": [
+    2012,
+    2018
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH726",
+    "ATCRA72E",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "id": "c14_22DD01"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c22_224801"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22480D",
+   "id": "c25_22480D"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c14_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer (Instrument panel)"
+  },
+  "soc": {
+   "step": "c22_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "voltage": {
+   "step": "c25_22480D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "V",
+   "label": "HV battery voltage"
+  }
+ }
+}

@@ -1,0 +1,124 @@
+{
+ "name": "obdb_cadillac_lyriq",
+ "description": "Cadillac LYRIQ",
+ "source": "https://github.com/OBDb/Cadillac-LYRIQ",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Cadillac",
+   "model": "LYRIQ",
+   "years": [
+    2023,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA17F1",
+    "ATCRA18DAF117",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222414",
+   "id": "c1_222414"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA40F1",
+    "ATCRA18DAF140",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22448F",
+   "id": "c18_22448F"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDACBF1",
+    "ATCRA18DAF1CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2227C6",
+   "id": "c23_2227C6"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDACBF1",
+    "ATCRA18DAF1CB",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222B43",
+   "id": "c25_222B43"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "c1_222414",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 20
+   },
+   "min": -1000,
+   "max": 1000,
+   "unit": "A",
+   "label": "Traction battery current"
+  },
+  "odometer": {
+   "step": "c18_22448F",
+   "decode": {
+    "type": "bits",
+    "len": 32,
+    "div": 64
+   },
+   "min": 0,
+   "max": 671088,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c23_2227C6",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 100,
+    "div": 65535
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge, high resolution"
+  },
+  "soc_2": {
+   "step": "c25_222B43",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  }
+ }
+}

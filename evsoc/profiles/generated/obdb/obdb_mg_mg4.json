@@ -1,0 +1,92 @@
+{
+ "name": "obdb_mg_mg4",
+ "description": "MG MG4",
+ "source": "https://github.com/OBDb/MG-MG4",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "MG",
+   "model": "MG4",
+   "years": [
+    2022,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH710",
+    "ATCRA718",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22B921",
+   "id": "c1_22B921"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7DF",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "015B",
+   "id": "c10_015B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7DF",
+    "ATCRA7ED",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22B061",
+   "id": "c25_22B061"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c1_22B921",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c10_015B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 0.3921568627
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c25_22B061",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 0.01
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery health"
+  }
+ }
+}

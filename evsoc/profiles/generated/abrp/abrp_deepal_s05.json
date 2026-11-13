@@ -1,0 +1,211 @@
+{
+ "name": "abrp_deepal_s05",
+ "description": "Deepal S05",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/deepal/s05/deepal_s05_abrp_submit_candidate - Clean.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Deepal",
+   "model": "S05",
+   "years": [
+    2025,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22F22F",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F22F"
+  },
+  {
+   "id": "s2_22F228",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F228"
+  },
+  {
+   "id": "s3_22F229",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F229"
+  },
+  {
+   "id": "s4_22F250",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F250"
+  },
+  {
+   "id": "s5_22F251",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F251"
+  },
+  {
+   "id": "s6_22F252",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F252"
+  },
+  {
+   "id": "s7_22F253",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F253"
+  },
+  {
+   "id": "s8_22F255",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F255"
+  },
+  {
+   "id": "s9_22F27D",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F27D"
+  },
+  {
+   "id": "s10_22F264",
+   "at": [
+    "ATSP6",
+    "ATSH7A1"
+   ],
+   "request": "22F264"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22F22F",
+   "decode": {
+    "type": "equation",
+    "expr": "A"
+   },
+   "min": null,
+   "max": null,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "s2_22F228",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*256+B)/10"
+   },
+   "min": null,
+   "max": null,
+   "unit": "V"
+  },
+  "current": {
+   "step": "s3_22F229",
+   "decode": {
+    "type": "equation",
+    "expr": "((A*256+B)-6015)/10"
+   },
+   "min": null,
+   "max": null,
+   "unit": "A"
+  },
+  "soh": {
+   "step": "s9_22F27D",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*65536+B*256+C)/10000"
+   },
+   "min": null,
+   "max": null,
+   "unit": "%"
+  },
+  "cell_max_voltage": {
+   "step": "s4_22F250",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*256+B)/1000"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "cell_min_voltage": {
+   "step": "s5_22F251",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*256+B)/1000"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "battery_temp_max": {
+   "step": "s6_22F252",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "battery_temp_min": {
+   "step": "s7_22F253",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "charge_temp": {
+   "step": "s8_22F255",
+   "decode": {
+    "type": "equation",
+    "expr": "(A-32)/1.8"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "energy_available_candidate": {
+   "step": "s10_22F264",
+   "decode": {
+    "type": "equation",
+    "expr": "68-(A*256+B)/1000"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  },
+  "legacy_et_sum_experimental": {
+   "step": "s10_22F264",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*256+B)/100"
+   },
+   "min": null,
+   "max": null,
+   "unit": ""
+  }
+ }
+}

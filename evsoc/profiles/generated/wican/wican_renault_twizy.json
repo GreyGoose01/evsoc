@@ -1,0 +1,41 @@
+{
+ "name": "wican_renault_twizy",
+ "description": "Renault: Twizy",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "Renault",
+   "model": "Twizy",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2103",
+   "at": [
+    "ATSP6",
+    "ATST96",
+    "ATSH79B",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATCRA7BB"
+   ],
+   "request": "2103"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_2103",
+   "decode": {
+    "type": "wican",
+    "expr": "[B29:B30]/100"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

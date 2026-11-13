@@ -1,0 +1,420 @@
+{
+ "name": "evsoc_stellantis_ecmp",
+ "description": "Stellantis e-CMP / STLA Small and the electric vans (K9: e-Doblo, e-Berlingo, e-Partner, Combo-e; EMP2/eK9: e-Ulysse, e-Traveller, Vivaro-e ...). BMU 6B4 -> 694. SoC/voltage derived from a Corsa-e capture and cross-checked; SoH, current and energy after OVMS (e-Doblo, MIT) and WiCAN (e-Ulysse). The formulas match the workshop data in PSA-RE (BMU_CTE1). Battery temperature min/max/mean (22D87D, 22D817, 22D877, each A-40) after PSA-RE, experimental: not checked on any car. The plug-in hybrids (evsoc_stellantis_phev) answer at the same address with a different scaling; they are told apart by the length of the answer to 22D860 (3 bytes here).",
+ "source": "wican-fw#279 (Corsa-e log), OVMS vehicle_fiatedoblo (MIT), WiCAN fiat/eUlysse, PSA-RE diag/AEE2010.ev/TBMU/BMU_CTE1 (Apache-2.0)",
+ "license": "own work",
+ "verified": "Corsa-e (capture); SoH 93.8 % from the capture plausible",
+ "vehicles": [
+  {
+   "make": "Peugeot",
+   "model": "e-208",
+   "years": [
+    2019,
+    null
+   ]
+  },
+  {
+   "make": "Peugeot",
+   "model": "e-2008",
+   "years": [
+    2019,
+    null
+   ]
+  },
+  {
+   "make": "Opel",
+   "model": "Corsa-e / Corsa Electric",
+   "years": [
+    2019,
+    null
+   ]
+  },
+  {
+   "make": "Opel",
+   "model": "Mokka-e / Mokka Electric",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Vauxhall",
+   "model": "Corsa-e / Mokka-e",
+   "years": [
+    2019,
+    null
+   ]
+  },
+  {
+   "make": "Citroen",
+   "model": "e-C4 / e-C4 X",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "DS",
+   "model": "DS 3 E-Tense",
+   "years": [
+    2019,
+    null
+   ]
+  },
+  {
+   "make": "Jeep",
+   "model": "Avenger",
+   "years": [
+    2023,
+    null
+   ]
+  },
+  {
+   "make": "Fiat",
+   "model": "600e",
+   "years": [
+    2023,
+    null
+   ]
+  },
+  {
+   "make": "Lancia",
+   "model": "Ypsilon",
+   "years": [
+    2024,
+    null
+   ]
+  },
+  {
+   "make": "Alfa Romeo",
+   "model": "Junior",
+   "years": [
+    2024,
+    null
+   ]
+  },
+  {
+   "make": "Fiat",
+   "model": "e-Doblo",
+   "years": [
+    2022,
+    null
+   ]
+  },
+  {
+   "make": "Citroen",
+   "model": "e-Berlingo / e-Jumpy / e-SpaceTourer",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Peugeot",
+   "model": "e-Partner / e-Rifter / e-Expert / e-Traveller",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Opel",
+   "model": "Combo-e / Vivaro-e / Zafira-e",
+   "years": [
+    2020,
+    null
+   ]
+  },
+  {
+   "make": "Fiat",
+   "model": "e-Ulysse / E-Scudo",
+   "years": [
+    2022,
+    null
+   ]
+  },
+  {
+   "make": "Toyota",
+   "model": "Proace (City) Electric",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "soc",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D410"
+  },
+  {
+   "id": "soc_bms",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D810"
+  },
+  {
+   "id": "volt",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D815"
+  },
+  {
+   "id": "cmin",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D86F"
+  },
+  {
+   "id": "cmax",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D870"
+  },
+  {
+   "id": "soh",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D860"
+  },
+  {
+   "id": "curr",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D816"
+  },
+  {
+   "id": "kwh",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D865"
+  },
+  {
+   "id": "tmin",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D87D"
+  },
+  {
+   "id": "tmax",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D817"
+  },
+  {
+   "id": "tavg",
+   "at": [
+    "ATSP6",
+    "ATAT1",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "22D877"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "soc",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/512"
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%"
+  },
+  "soc_bms": {
+   "step": "soc_bms",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/512"
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%"
+  },
+  "voltage": {
+   "step": "volt",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/16"
+   },
+   "min": 200,
+   "max": 500,
+   "unit": "V"
+  },
+  "cell_min_voltage": {
+   "step": "cmin",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/1000"
+   },
+   "min": 2.5,
+   "max": 4.3,
+   "unit": "V"
+  },
+  "cell_max_voltage": {
+   "step": "cmax",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/1000"
+   },
+   "min": 2.5,
+   "max": 4.3,
+   "unit": "V"
+  },
+  "soh": {
+   "step": "soh",
+   "decode": {
+    "type": "equation",
+    "expr": "(INT24(A,B,C)-65536)/16"
+   },
+   "min": 50,
+   "max": 110,
+   "unit": "%"
+  },
+  "current": {
+   "step": "curr",
+   "decode": {
+    "type": "equation",
+    "expr": "INT24(B,C,D)/64-1200"
+   },
+   "min": -600,
+   "max": 600,
+   "unit": "A"
+  },
+  "energy_available": {
+   "step": "kwh",
+   "decode": {
+    "type": "equation",
+    "expr": "INT16(A,B)/64"
+   },
+   "min": 0,
+   "max": 120,
+   "unit": "kWh"
+  },
+  "batt_temp_min": {
+   "step": "tmin",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": -40,
+   "max": 80,
+   "unit": "°C"
+  },
+  "batt_temp_max": {
+   "step": "tmax",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": -40,
+   "max": 80,
+   "unit": "°C"
+  },
+  "batt_temp": {
+   "step": "tavg",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": -40,
+   "max": 80,
+   "unit": "°C"
+  }
+ },
+ "confirm": [
+  {
+   "step": "soh",
+   "bytes": 3
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+# Brings up the CAN interface at boot (systemd-networkd). Copy to /etc/systemd/network/,
+# then: sudo systemctl enable --now systemd-networkd
+[Match]
+Name=can0
+
+[CAN]
+BitRate=500k
+# Listen only (e.g. Nissan Leaf EV-CAN, Tesla): ListenOnly=yes
+# CAN FD (board with MCP2518FD): DataBitRate=2M and FDMode=yes

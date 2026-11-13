@@ -1,0 +1,106 @@
+{
+ "name": "obdb_honda_civic",
+ "description": "Honda Civic",
+ "source": "https://github.com/OBDb/Honda-Civic",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Honda",
+   "model": "Civic",
+   "years": [
+    1972,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA01F1",
+    "ATCRA18DAF101",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22202A",
+   "years": [
+    2023,
+    null
+   ],
+   "id": "c2_22202A"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA10F1",
+    "ATCRA18DAF110",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222660",
+   "years": [
+    2015,
+    null
+   ],
+   "id": "c11_222660"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "c2_22202A",
+   "decode": {
+    "type": "bits",
+    "bix": 400,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "current": {
+   "step": "c2_22202A",
+   "decode": {
+    "type": "bits",
+    "bix": 456,
+    "len": 16,
+    "sign": true,
+    "div": 50
+   },
+   "min": -100,
+   "max": 200,
+   "unit": "A",
+   "label": "High voltage battery total current"
+  },
+  "voltage": {
+   "step": "c2_22202A",
+   "decode": {
+    "type": "bits",
+    "bix": 488,
+    "len": 16,
+    "div": 20
+   },
+   "min": 0,
+   "max": 400,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  },
+  "odometer": {
+   "step": "c11_222660",
+   "decode": {
+    "type": "bits",
+    "bix": 344,
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  }
+ }
+}

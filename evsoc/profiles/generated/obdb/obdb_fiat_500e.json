@@ -1,0 +1,166 @@
+{
+ "name": "obdb_fiat_500e",
+ "description": "FIAT 500e",
+ "source": "https://github.com/OBDb/FIAT-500e",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "FIAT",
+   "model": "500e",
+   "years": [
+    2012,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA42F1",
+    "ATCRA18DAF142",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "223027",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c4_223027"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA44F1",
+    "ATCRA18DAF144",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22A00A",
+   "id": "c18_22A00A"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA44F1",
+    "ATCRA18DAF144",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22A010",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c19_22A010"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA44F1",
+    "ATCRA18DAF144",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22A011",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c20_22A011"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP18",
+    "ATSHDA44F1",
+    "ATCRA18DAF144",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22A029",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c22_22A029"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c4_223027",
+   "decode": {
+    "type": "bits",
+    "len": 24,
+    "mul": 32187,
+    "div": 200000
+   },
+   "min": 0,
+   "max": 2700041,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "current": {
+   "step": "c18_22A00A",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 20,
+    "add": -1638.4
+   },
+   "min": -1638,
+   "max": 1638,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc": {
+   "step": "c19_22A010",
+   "decode": {
+    "type": "bits",
+    "bix": 24,
+    "len": 8,
+    "mul": 20,
+    "div": 51
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of charge"
+  },
+  "voltage": {
+   "step": "c20_22A011",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": 0,
+   "max": 6553,
+   "unit": "V",
+   "label": "Battery voltage, cell sum"
+  },
+  "soh": {
+   "step": "c22_22A029",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 655.35
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of health"
+  }
+ }
+}

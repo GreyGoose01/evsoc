@@ -1,0 +1,115 @@
+{
+ "name": "obdb_porsche_panamera",
+ "description": "Porsche Panamera",
+ "source": "https://github.com/OBDb/Porsche-Panamera",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Porsche",
+   "model": "Panamera",
+   "years": [
+    2009,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH714",
+    "ATCRA77E",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "222203",
+   "id": "c39_222203"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH714",
+    "ATCRA77E",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "2222E0",
+   "id": "c43_2222E0"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221156",
+   "id": "c163_221156"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATCRA7E8",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221164",
+   "id": "c172_221164"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c39_222203",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 255,
+   "unit": "km",
+   "label": "Odometer, dash"
+  },
+  "range": {
+   "step": "c43_2222E0",
+   "decode": {
+    "type": "bits",
+    "len": 16
+   },
+   "min": 0,
+   "max": 65535,
+   "unit": "km",
+   "label": "Range remaining, displayed"
+  },
+  "soc": {
+   "step": "c163_221156",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High-voltage battery charge"
+  },
+  "soc_display": {
+   "step": "c172_221164",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High-voltage battery charge shown to the driver"
+  }
+ }
+}

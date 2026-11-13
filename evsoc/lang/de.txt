@@ -1,0 +1,918 @@
+# English -> German for evsoc (terminal and web pages). One entry per line: english || deutsch
+# {} = any text (translated in turn), {0} {1} ... in the German text change the order. See evsoc/i18n.py.
+
+
+# ---- value names ----------------------------------------------------------------------------------
+State of charge (SoC) || Ladestand (SoC)
+State of charge (display) || Ladestand Anzeige
+State of charge (BMS) || Ladestand BMS
+State of charge (UDS) || Ladestand (UDS)
+Display 100 % at || Anzeige 100 % bei
+Display 0 % at || Anzeige 0 % bei
+Health (SoH) || Gesundheit (SoH)
+Certified energy level || Zertif. Energiestand
+Voltage || Spannung
+Current || Strom
+Power || Leistung
+Capacity || Kapazität
+Cell capacity min || Zellkapazität min
+Cell capacity mean || Zellkapazität Mittel
+Cell capacity max || Zellkapazität max
+Energy available || Energie verfügbar
+Range || Reichweite
+Battery temperature || Batterietemperatur
+Battery temp. max || Batterietemp. max
+Battery temp. min || Batterietemp. min
+Cell min || Zelle min
+Cell max || Zelle max
+Outside temperature || Außentemperatur
+Odometer || Kilometerstand
+Charging || Lädt
+Plugged in || Stecker steckt
+State of charge || Ladestand
+State of charge time || Ladestand Stand
+Battery health || Batteriegesundheit
+12 V battery || 12V-Batterie
+12 V voltage || 12-V-Spannung
+State of charge: {} || Ladestand: {}
+SoC: {} || SoC: {}
+(implausible) || (unplausibel)
+implausible || unplausibel
+yes || ja
+no || nein
+
+# ---- read / detect ------------------------------------------------------------------------------
+Reading the vehicle identification number (VIN) ... || Lese Fahrgestellnummer (VIN) ...
+VIN: {} || VIN: {}
+no VIN (normal for many EVs) || keine VIN (bei vielen E-Autos normal)
+Trying {} profiles ... || Probiere {} Profile ...
+Trying {} profiles (model year {}) ... || Probiere {} Profile (Modelljahr {}) ...
+Match: {}  ({}) || Treffer: {}  ({})
+Detected after {} s: {}  ->  -p {} saves time next time || Erkannt nach {} s: {}  ->  -p {} spart beim nächsten Mal Zeit
+also plausible: {} || ebenfalls plausibel: {}
+{} profiles do not fit the adapter ({}), e.g. {}: {} || {} Profile passen nicht zum Adapter ({}), z. B. {}: {}
+{}: state of charge plausible, but a different control unit ({}) || {}: Ladestand plausibel, aber anderes Steuergerät ({})
+Init command {} got no answer ({}), carrying on || Init-Befehl {} ohne Antwort ({}), mache weiter
+Profile: {}   ({}) || Profil: {}   ({})
+Vehicles: {} || Fahrzeuge: {}
+({} more values without an answer, details with --all) || ({} weitere Werte ohne Antwort, Details mit --all)
+No profile returned a plausible state of charge. Ignition on? Record with --log and analyse the file (see docs/own-profiles.md). || Kein Profil hat einen plausiblen Ladestand geliefert. Zündung an? Mit --log mitschneiden und Datei auswerten (siehe docs/own-profiles.md).
+No profile returned a plausible state of charge (ignition on?). || Kein Profil hat einen plausiblen Ladestand geliefert (Zündung an?).
+No profile returned a plausible state of charge. Ignition or "Ready" on? || Kein Profil hat einen plausiblen Ladestand geliefert. Zündung bzw. „Bereit“ an?
+Unknown profile {}. List: evsoc profiles / evsoc models || Unbekanntes Profil {}. Liste: evsoc profiles / evsoc models
+Unknown profile {} || Unbekanntes Profil {}
+Profile {} needs a different adapter: {}. || Profil {} braucht einen anderen Adapter: {}.
+Suitable: {}  (details: evsoc plan "{}") || Passend: {}  (Details: evsoc plan "{}")
+Nominal (net) capacity missing: give --battery-kwh || Nennkapazität (netto) fehlt: --battery-kwh angeben
+Nominal (net) capacity missing: give --battery-kwh, usual: {} kWh || Nennkapazität (netto) fehlt: --battery-kwh angeben, üblich: {} kWh
+not requested || nicht abgefragt
+no valid value || kein gültiger Wert
+does not apply to model year {} || gilt nicht für Modelljahr {}
+{}: {} (overheard) || {}: {} (mitgehört)
+Error: {} || Fehler: {}
+
+# ---- profiles, models, devices, plan, scan -------------------------------------------------------
+{} profiles shown. Total: {} || {} Profile angezeigt. Gesamt: {}
+Platform: {}   Fields: {} || Plattform: {}   Felder: {}
+Source: {} ({}) || Quelle: {} ({})
+Nothing found for {}. Tip: model name only, e.g. 'ioniq' or 'e-208'. || Nichts gefunden für {}. Tipp: nur Modellname, z. B. 'ioniq' oder 'e-208'.
+For unknown cars 'evsoc read' still tries all profiles (scan). || Unbekannte Autos probiert 'evsoc read' trotzdem mit allen Profilen (Scan).
+'read --car {}' also tries profiles of the same platform: {} || Außerdem probiert 'read --car {}' Profile derselben Plattform: {}
+{} entries || {} Einträge
+USB adapters (cable): || USB-Adapter (Kabel):
+Other serial ports (e.g. paired Bluetooth adapters): || Andere serielle Ports (u. a. gekoppelte Bluetooth-Adapter):
+CAN interfaces (SocketCAN, e.g. a CAN HAT on the Pi): || CAN-Schnittstellen (SocketCAN, z. B. CAN-Aufsteckplatine am Pi):
+Bluetooth LE devices (5 s scan): || Bluetooth-LE-Geräte (5 s Suche):
+bleak missing (pip install bleak) || bleak fehlt (pip install bleak)
+Bluetooth scanning is off in wired-only mode. || Bluetooth-Suche ist im Nur-Kabel-Modus abgeschaltet.
+pyserial missing (pip install pyserial) || pyserial fehlt (pip install pyserial)
+BMW ENET: || BMW ENET:
+nothing found (ignition on? connected to the adapter's network?) || nichts gefunden (Zündung an? mit dem Netz des Adapters verbunden?)
+No profile for {}. 'evsoc models' lists all vehicles; for unknown cars 'evsoc read' tries the standard profile (CAN, pins 6/14). || Kein Profil für {}. 'evsoc models' zeigt alle Fahrzeuge; unbekannte Autos probiert 'evsoc read' mit dem Standardprofil (CAN, Pins 6/14).
+OBD type:  {} || OBD-Art:   {}
+or:        {} (BMW ENET) || oder:      {} (BMW-ENET)
+Adapters:  {} || Adapter:   {}
+none of the known adapters || keiner der bekannten Adapter
+Your adapter ({}): fits || Dein Adapter ({}): passt
+Your adapter ({}): does not fit: {} || Dein Adapter ({}): passt nicht: {}
+… {} more profiles (raise --limit) || … {} weitere Profile (--limit erhöhen)
+CAN interface: traffic on the bus || CAN-Interface: Verkehr auf dem Bus
+CAN interface: no traffic || CAN-Interface: kein Verkehr
+Bus scanning needs the evsoc box (box:…). Normal adapters only see pins 6/14. || Bus-Suche geht nur mit der evsoc-Box (box:…). Normale Adapter sehen nur Pins 6/14.
+No active buses found. Ignition on? || Keine aktiven Busse gefunden. Zündung an?
+{} pins {} {} kbit/s  {} frames  IDs {} || {} Pins {} {} kbit/s  {} Botschaften  IDs {}
+ENET: vehicle {} at {} ({}) || ENET: Fahrzeug {} unter {} ({})
+No BMW found over ENET. Ignition on? Network set to DHCP/automatic? With a WiFi adapter: connected to its WiFi, mobile data off? || Kein BMW per ENET gefunden. Zündung an? Netzwerk auf DHCP/automatisch? Beim WLAN-Adapter: mit dessen WLAN verbunden, mobile Daten aus?
+Range {}: start and end must have the same length, e.g. 22DD00-22DDFF || Bereich {}: Anfang und Ende gleich lang angeben, z. B. 22DD00-22DDFF
+Range {}: at most 4096 requests || Bereich {}: höchstens 4096 Anfragen
+Done: {} profiles available. || Fertig: {} Profile verfügbar.
+Unknown source: {}. Possible: {} || Unbekannte Quelle: {}. Möglich: {}
+The PIN must have at least 4 digits. || Die PIN muss aus mindestens 4 Ziffern bestehen.
+PIN saved in {}. Restart the service: sudo systemctl restart evsoc || PIN gespeichert in {}. Dienst neu starten: sudo systemctl restart evsoc
+New PIN (at least 4 digits): || Neue PIN (mind. 4 Ziffern):
+
+# ---- gui / run / desktop ----------------------------------------------------------------------------
+evsoc interface: {} || evsoc-Oberfläche: {}
+Window: {}. evsoc quits when the window has been closed for 3 minutes. || Fenster: {}. evsoc beendet sich, wenn das Fenster 3 Minuten geschlossen ist.
+default browser || Standardbrowser
+Reachable via {} ({}). || Erreichbar über {} ({}).
+Note: reachable on the network. Access only with the link above (it contains the key), without encryption (HTTP). Use only on your own network. || Achtung: im Netzwerk erreichbar. Zugang nur mit dem Link oben (enthält den Schlüssel), ohne Verschlüsselung (HTTP). Nur im eigenen Netz verwenden.
+Quit with Ctrl+C. || Beenden mit Strg+C.
+evsoc is running: display http://{}:{}/  ·  setup …/setup || evsoc läuft: Anzeige http://{}:{}/  ·  Einrichtung …/einrichtung
+First setup: setup code {} (valid until a PIN is set) || Erste Einrichtung: Einrichtungscode {} (gilt, bis eine PIN gesetzt ist)
+Launcher installed: {} || Starter eingerichtet: {}
+evsoc is now in the application menu (log out and in if needed). Remove: evsoc desktop --remove || evsoc steht jetzt im Anwendungsmenü (ggf. ab- und anmelden). Entfernen: evsoc desktop --remove
+Removed: {} || Entfernt: {}
+No launcher was installed. || Es war kein Starter eingerichtet.
+
+# ---- probe ------------------------------------------------------------------------------------------
+Testing {} profiles completely ... || Teste {} Profile vollständig ...
+Testing {} profiles completely (model year {}) ... || Teste {} Profile vollständig (Modelljahr {}) ...
+[{}/{}] {}: {} new requests, {} answers || [{}/{}] {}: {} neue Anfragen, {} Antworten
+{} answers to {} additional read commands || {} Antworten auf {} zusätzliche Lesebefehle
+Reading identification and fault memory of {} control units (read only) ... || Lese Kennung und Fehlerspeicher von {} Steuergeräten (nur lesend) ...
+Control unit {}: {} || Steuergerät {}: {}
+{} fault entries || {} Fehlereinträge
+no answer to the OBD fault query (03, 07, 0A) || keine Antwort auf OBD-Fehlerabfrage (03, 07, 0A)
+Vehicle: {}   Adapter: {} || Fahrzeug: {}   Adapter: {}
+Vehicle: {}, model year {}   Adapter: {} || Fahrzeug: {}, Modelljahr {}   Adapter: {}
+{} requests, {} answers, {} s || {} Anfragen, {} Antworten, {} s
+Noted: {} || Notiert: {}
+No profile got an answer. Ignition on? Right adapter? Test all profiles with --all-profiles. || Kein Profil hat eine Antwort bekommen. Zündung an? Adapter richtig? Mit --all-profiles alle Profile testen.
+{}   {}/{} values plausible   {} || {}   {}/{} Werte plausibel   {}
+{}   {}/{} values plausible || {}   {}/{} Werte plausibel
+<- 'evsoc read' would choose this || <- das würde 'evsoc read' wählen
+different control unit ({}) || anderes Steuergerät ({})
+matches {}={} || passt zu {}={}
+DIFFERS from {}={} || WEICHT AB von {}={}
+Answer, but no plausible value ({}): {} || Antwort, aber kein plausibler Wert ({}): {}
+Control units ({}): || Steuergeräte ({}):
+Fault memory not readable: {} || Fehlerspeicher nicht lesbar: {}
+no fault entries || keine Fehlereinträge
+{} profiles do not fit the adapter and were skipped, e.g. {}: {} || {} Profile passen nicht zum Adapter und wurden ausgelassen, z. B. {}: {}
+Additional read commands: {} answers (in the report) || Zusätzliche Lesebefehle: {} Antworten (stehen im Bericht)
+Report: {} || Bericht: {}
+This file holds all raw answers. Re-evaluate later: evsoc probe -d {} || Diese Datei enthält alle Rohantworten. Später neu auswerten: evsoc probe -d {}
+{} is not a report of 'evsoc probe' (format {}) || {} ist kein Bericht von 'evsoc probe' (Format {})
+Note {}: form name=number, e.g. soc=54 || Notiz {}: Form name=zahl, z. B. soc=54
+Give an adapter (-a …) or evaluate a report (-d report.json). || Adapter angeben (-a …) oder einen Bericht auswerten (-d bericht.json).
+no value || kein Wert
+No answer: NO DATA || Keine Antwort: NO DATA
+No answer: {} || Keine Antwort: {}
+No answer from the vehicle || Keine Antwort vom Fahrzeug
+stored || gespeichert
+pending || vorläufig
+permanent || dauerhaft
+active || aktiv
+confirmed || bestätigt
+occurred since clearing || seit Löschen aufgetreten
+warning lamp || Warnlampe
+not active || nicht aktiv
+Vehicle identification number || Fahrgestellnummer
+Part number || Teilenummer
+Serial number || Seriennummer
+Hardware number || Hardwarenummer
+Software version || Softwarestand
+System name || Systemname
+Part number (PSA) || Teilenummer (PSA)
+SME (high-voltage battery) || SME (Hochvoltbatterie)
+SME (per G-Diag) || SME (laut G-Diag)
+DME/EDME (drive) || DME/EDME (Antrieb)
+EGS (gearbox) || EGS (Getriebe)
+ICM (chassis) || ICM (Fahrwerk)
+DSC (brakes) || DSC (Bremse)
+EMF (parking brake) || EMF (Parkbremse)
+EPS (steering) || EPS (Lenkung)
+BDC (body) || BDC (Karosserie)
+FZD (roof) || FZD (Dach)
+KAFAS (camera) || KAFAS (Kamera)
+KOMBI (instrument cluster) || KOMBI (Instrumente)
+PDC (park distance control) || PDC (Parkhilfe)
+ZBE (iDrive controller) || ZBE (iDrive-Regler)
+Passenger seat || Sitz Beifahrer
+Driver seat || Sitz Fahrer
+AHM (trailer) || AHM (Anhänger)
+FLE (headlights) || FLE (Scheinwerfer)
+IHKA (climate) || IHKA (Klima)
+
+# ---- wake test, monitor --------------------------------------------------------------------------------
+1. State before ... || 1. Zustand vorher ...
+Connection, attempt {}/{}: {} || Verbindung, Versuch {}/{}: {}
+Adapter or car not reachable. With ENET that usually means the car is asleep. Trying further ... || Adapter bzw. Auto nicht erreichbar. Bei ENET heißt das meist: das Auto schläft. Versuche es weiter ...
+2. Waking: reading the state of charge ... || 2. Wecken: Ladestand lesen ...
+Attempt {}: state of charge {} % after {} s || Versuch {}: Ladestand {} % nach {} s
+Attempt {}: {} || Versuch {}: {}
+Attempt {}: no answer || Versuch {}: keine Antwort
+state of charge {} % after {} s || Ladestand {} % nach {} s
+3. Watching for up to {} min whether the car falls asleep again (no requests) ... || 3. Beobachte bis zu {} min, ob das Auto wieder einschläft (ohne Anfragen) ...
+{} min: awake || {} min: wach
+{} min: awake, {} V || {} min: wach, {} V
+{} min: asleep || {} min: schläft
+{} min: asleep, {} V || {} min: schläft, {} V
+awake ({}) || wach ({})
+asleep ({}) || schläft ({})
+awake ({}, {} V) || wach ({}, {} V)
+asleep ({}, {} V) || schläft ({}, {} V)
+gateway reachable || Gateway erreichbar
+traffic on the bus || Verkehr auf dem Bus
+no traffic || kein Verkehr
+no longer reachable ({}) || nicht mehr erreichbar ({})
+Wake test {} || Wecktest {}
+Before: not reachable || Vorher: nicht erreichbar
+Before: awake || Vorher: wach
+Before: asleep || Vorher: schläft
+Before: awake, {} V || Vorher: wach, {} V
+Before: asleep, {} V || Vorher: schläft, {} V
+Watched: {} min || Beobachtet: {} min
+Watched: {} min, 12 V between {} and {} V || Beobachtet: {} min, 12 V zwischen {} und {} V
+No connection. The car cannot be reached or woken this way through this adapter. || Keine Verbindung. Über diesen Adapter lässt sich das Auto so nicht erreichen oder wecken.
+Check: is the adapter plugged in and powered? Over ENET a sleeping car does not answer. || Prüfen: Steckt der Adapter, hat er Strom? Bei ENET antwortet ein schlafendes Auto nicht.
+The car was already awake at the start. The test then says nothing about waking, only about when it falls asleep again. For the wake test: lock the car and wait 15–30 minutes. || Das Auto war beim Start schon wach. Der Test sagt dann nichts über das Wecken, nur darüber, wann es wieder einschläft. Für den Wecktest: Auto abschließen, 15–30 Minuten warten.
+Not woken: 12 V battery only {} V (limit {} V). || Nicht geweckt: 12-V-Batterie nur {} V (Grenze {} V).
+No answer after {} attempts: this car cannot be woken through the OBD socket with this adapter (or the profile does not fit). || Keine Antwort nach {} Versuchen: Dieses Auto lässt sich mit diesem Adapter über die OBD-Buchse nicht wecken (oder das Profil passt nicht).
+Waking works: answer after {} s (attempt {}), state of charge {} %. || Wecken funktioniert: Antwort nach {} s ({}. Versuch), Ladestand {} %.
+Over ENET falling asleep cannot be measured passively: while the connection stands, the car counts as awake, and a permanently plugged ENET cable can keep it awake. Check the 12 V voltage overnight another way (multimeter, app). || Über ENET lässt sich das Einschlafen nicht passiv messen: Solange die Verbindung steht, gilt das Auto als wach, und ein dauerhaft gestecktes ENET-Kabel kann es wach halten. 12-V-Spannung über Nacht anders prüfen (Multimeter, App).
+The car was asleep again after about {} min. || Das Auto schlief nach etwa {} min wieder.
+After {} min the car was still awake. Is it charging, climatising or is the ignition on? Otherwise the adapter keeps it awake: then do not wake it regularly. || Nach {} min war das Auto noch wach. Lädt es, klimatisiert es oder steht die Zündung an? Sonst hält der Adapter es wach: dann nicht dauerhaft wecken.
+12 V battery too weak || 12-V-Batterie zu schwach
+Waking the car ({}) ... || Wecke das Auto ({}) ...
+ok after attempt {} ({}) || ok nach {}. Versuch ({})
+no answer after {} attempts ({}) || keine Antwort nach {} Versuchen ({})
+last value older than {} h || letzter Wert älter als {} h
+wake-up time {} || Weckzeit {}
+request: {} || Anforderung: {}
+refused ({}): last wake-up {} min ago, minimum gap {} min || abgelehnt ({}): letztes Wecken vor {} min, Mindestabstand {} min
+not woken: 12 V only {} V (< {} V) || nicht geweckt: 12 V nur {} V (< {} V)
+not possible ({}): no connection to the car || nicht möglich ({}): keine Verbindung zum Auto
+Car still awake 30 min after waking (12 V {} V). If this happens often without driving or charging: turn waking off. || Auto 30 min nach dem Wecken noch wach (12 V {} V). Wenn das ohne Fahrt oder Laden öfter vorkommt: Wecken abschalten.
+Connection: {} || Verbindung: {}
+MQTT: reading requested || MQTT: Lesen angefordert
+MQTT: unknown command {} (possible: wake, read) || MQTT: unbekannter Befehl {} (möglich: wake, read)
+Webhook failed: {} || Webhook fehlgeschlagen: {}
+Output {} failed: {} || Ausgabe {} fehlgeschlagen: {}
+target answers with HTTP {} || Ziel antwortet mit HTTP {}
+target refuses the connection (check address/port) || Ziel lehnt die Verbindung ab (Adresse/Port prüfen)
+no answer (timeout) || keine Antwort (Zeitüberschreitung)
+name cannot be resolved (check address) || Name nicht auflösbar (Adresse prüfen)
+paho-mqtt missing: pip install paho-mqtt || paho-mqtt fehlt: pip install paho-mqtt
+broker refuses: {} || Broker lehnt ab: {}
+Read now (wakes the car) || Jetzt lesen (weckt das Auto)
+Reading requested (wakes the car if it is asleep) || Lesen angefordert (weckt das Auto, falls es schläft)
+Reading requested || Lesen angefordert
+awake || wach
+woken || geweckt
+asleep || schläft
+no answer || keine Antwort
+no connection || keine Verbindung
+unknown || unbekannt
+starting … || startet …
+starting || startet
+being detected || wird erkannt
+searching || wird gesucht
+off || aus
+briefly woken || kurz geweckt
+Vehicle awake || Fahrzeug wach
+charging || lädt
+
+# ---- sniff, broadcast, analyse (terminal output) ---------------------------------------------------
+Listening: {}. evsoc sends nothing. || Lese mit: {}. evsoc sendet nichts.
+Listening: {}. evsoc sends nothing. Duration {} s. || Lese mit: {}. evsoc sendet nichts. Dauer {} s.
+Capture: {} || Mitschnitt: {}
+Capture saved: {} || Mitschnitt gespeichert: {}
+Now open the wanted values in the app. Type the values shown here, e.g. "soc 80.5" + Enter. || Jetzt in der App die gewünschten Werte öffnen. Angezeigte Werte hier eintippen, z. B. „soc 80.5“ + Enter.
+Give either -a ADAPTER (listen live) or -d FILE (evaluate a capture). || Entweder -a ADAPTER (live mitlesen) oder -d DATEI (Mitschnitt auswerten) angeben.
+Give either -a ADAPTER (record and evaluate) or -d FILE (evaluate a capture). || Entweder -a ADAPTER (aufzeichnen und auswerten) oder -d DATEI (Mitschnitt auswerten) angeben.
+ENET cannot be overheard with a Y cable (Ethernet is point to point). Put evsoc in between instead: -a enet-proxy://auto (see docs/listening-in.md) || ENET lässt sich nicht per Y-Kabel mithören (Ethernet ist Punkt-zu-Punkt). Stattdessen evsoc dazwischen schalten: -a enet-proxy://auto (siehe docs/de/mitlesen.md)
+{}  noted: {} = {} || {}  gemerkt: {} = {}
+{}  noted: {} || {}  notiert: {}
+{} frames, {} requests ({} new to evsoc), {} other IDs || {} Botschaften, {} Anfragen ({} neu für evsoc), {} andere IDs
+Capture: {} frames in {} s || Mitschnitt: {} Botschaften in {} s
+No diagnostic requests seen. Is the app running and asking for values right now? Right protocol (--protocol 7 for 29-bit cars like VW ID., Renault)? || Keine Diagnose-Anfragen gesehen. Läuft die App und fragt sie gerade Werte ab? Richtiges Protokoll (--protocol 7 bei 29-Bit-Autos wie VW ID., Renault)?
+The app's requests ({}): || Anfragen der App ({}):
+last {} || zuletzt {}
+last {}   changing: {} || zuletzt {}   veränderlich: {}
+session change {} before (goes into the profile as "pre") || vorher Sitzungswechsel {} (kommt ins Profil als "pre")
+flow control comes from {} (not from the sender of the request) || Flusssteuerung kommt von {} (nicht vom Absender der Anfrage)
+NEW to evsoc || NEU für evsoc
+known: {} || bekannt: {}
+refused: {} || abgelehnt: {}
+Other frames (not diagnostics, e.g. broadcast): {} IDs, most frequent: {} || Andere Botschaften (keine Diagnose, z. B. Broadcast): {} IDs, häufigste: {}
+Formula search (noted values): || Formelsuche (abgelesene Werte):
+nothing found. Value read exactly? Give a larger --tolerance or a time @HH:MM:SS. || nichts gefunden. Wert genau abgelesen? Größere --tolerance oder Zeitpunkt @HH:MM:SS angeben.
+(already in profiles) || (schon in Profilen)
+Tip: note a second, different value; then usually only one formula is left. || Tipp: bei einem zweiten, anderen Wert noch einmal ablesen; dann bleibt meist nur eine Formel übrig.
+Tip: type values from the app while listening (e.g. "soc 80.5" + Enter) or give them with --value soc=80.5. evsoc then searches the matching formula. || Tipp: Werte aus der App während des Mitlesens eintippen (z. B. „soc 80.5“ + Enter) oder mit --value soc=80.5 angeben. Dann sucht evsoc die passende Formel.
+WARNING, the app sent services that are not read commands: {} || ACHTUNG, die App hat Dienste gesendet, die keine Lesebefehle sind: {}
+{}  WARNING: the app sends {} ({} …) to {}. This is not a read command. evsoc itself sends nothing. || {}  ACHTUNG: die App sendet {} ({} …) an {}. Das ist kein Lesebefehl. evsoc selbst sendet nichts.
+{}  {} without answer || {}  {} ohne Antwort
+No profile written: no formula found (give values with --value or by typing). || Kein Profil geschrieben: keine Formel gefunden (Werte mit --value oder per Eingabe angeben).
+No profile written: {}. At least one state of charge value needed, e.g. --value soc=80.5. || Kein Profil geschrieben: {}. Mindestens ein Ladestand-Wert nötig, z. B. --value soc=80.5.
+Profile {} written: {} || Profil {} geschrieben: {}
+Check, then copy to evsoc/profiles/own/ and test: evsoc read -a … -p {} || Prüfen, dann nach evsoc/profiles/own/ kopieren und testen: evsoc read -a … -p {}
+Value {} not understood, example: soc=80.5 or soc=80.5@21:03:12 || Wert {} nicht verstanden, Beispiel: soc=80.5 oder soc=80.5@21:03:12
+Note: adapter buffer full, listening restarted. An OBDLink or a CAN interface misses less. || Hinweis: Adapter-Puffer voll, Mithören neu gestartet. Ein OBDLink oder ein CAN-Interface verpasst weniger.
+Note: {} has no listen-only mode. It acknowledges frames (ACK) like any control unit but sends nothing itself. || Hinweis: {} kann keinen Listen-only-Modus. Es bestätigt Botschaften (ACK) wie jedes Steuergerät, sendet aber selbst nichts.
+Broadcast frames: {} IDs. Searching for the noted values: || Dauerbotschaften: {} IDs. Suche nach den notierten Werten:
+{}: {} reference values, {} different ({} … {}) || {}: {} Referenzwerte, {} verschiedene ({} … {})
+no signal found. Is the value on this bus? Do the times of the values match the capture? || kein Signal gefunden. Liegt der Wert auf diesem Bus? Passt die Uhrzeit der Werte zum Mitschnitt?
+{}  {}   deviation at most {}, {} different values matched || {}  {}   Abweichung höchstens {}, {} verschiedene Werte getroffen
+{}  {}   deviation at most {}, {} different values matched  [odd scaling] || {}  {}   Abweichung höchstens {}, {} verschiedene Werte getroffen  [krumme Skalierung]
+{}  {}   deviation at most {}, {} different values matched  [does not move in the capture] || {}  {}   Abweichung höchstens {}, {} verschiedene Werte getroffen  [bewegt sich im Mitschnitt nicht]
+… and {} more candidates || … und {} weitere Kandidaten
+Careful: with fewer than three different reference values, chance matches are common. Record longer while the value changes (driving or charging). || Achtung: Bei weniger als drei verschiedenen Referenzwerten sind Zufallstreffer häufig. Länger mitschneiden, während sich der Wert ändert (Fahrt oder Laden).
+For a profile: step {}  field decoder {} || Für ein Profil: Schritt {}  Feld-Dekoder {}
+Reference: reading {} every {} s || Referenz: lese {} alle {} s
+Reference: no profile returns a plausible state of charge || Referenz: kein Profil liefert einen plausiblen Ladestand
+Reference failed: {} || Referenz ausgefallen: {}
+{} in listen mode (ATMA), protocol {} || {} im Mithörmodus (ATMA), Protokoll {}
+{} in listen mode (ATMA), protocol {}, listen only || {} im Mithörmodus (ATMA), Protokoll {}, nur hören
+Recording: {}. evsoc sends nothing. || Zeichne auf: {}. evsoc sendet nichts.
+Type what you are doing + Enter (e.g. "door open", "charging started", "soc 80.5"). It goes into the report with the time. || Was du gerade tust, hier eintippen + Enter (z. B. „Tür auf“, „Laden gestartet“, „soc 80.5“). Das steht dann mit Uhrzeit im Bericht.
+Nothing recorded. Ignition on, right bus, right bitrate? Report anyway: {} || Nichts aufgezeichnet. Zündung an, richtiger Bus, richtige Bitrate? Bericht trotzdem: {}
+Report: {} ({} lines, {} kB) || Bericht: {} ({} Zeilen, {} kB)
+Give this file to Claude (upload or paste it) and say what you want to know. || Diese Datei an Claude geben (hochladen oder Inhalt einfügen) und dazu schreiben, was du wissen willst.
+A single frame in full length: evsoc analyse -d {} --id 3D2 -o - || Einzelne Botschaft in voller Länge: evsoc analyse -d {} --id 3D2 -o -
+ENET listener: app connects to {} port {}, passed on to {} || ENET-Mitleser: App verbindet sich mit {} Port {}, weiter an {}
+ENET: vehicle at {} ({}) || ENET: Fahrzeug unter {} ({})
+No BMW found over ENET. ENET adapter/cable plugged in, ignition on, Pi on the adapter's network? Otherwise give the address: enet-proxy://192.168.16.254 || Kein BMW per ENET gefunden. ENET-Adapter/Kabel gesteckt, Zündung an, Pi im Netz des Adapters? Sonst Adresse angeben: enet-proxy://192.168.16.254
+Port {} is in use ({}). Is 'evsoc run' or a second session running? || Port {} ist belegt ({}). Läuft 'evsoc run' oder eine zweite Sitzung?
+Note: vehicle discovery (UDP {}) not possible ({}). Then enter evsoc's address in the app. || Hinweis: Fahrzeugsuche (UDP {}) nicht möglich ({}). In der App dann die Adresse von evsoc fest eintragen.
+App {} connected, but {} not reachable: {} || App {} verbunden, aber {} nicht erreichbar: {}
+App connected from {}, passed on to {} || App verbunden von {}, weiter an {}
+App {} disconnected || App {} getrennt
+Vehicle discovery from {} answered || Fahrzeugsuche von {} beantwortet
+Note: traffic is not HSFZ, only passed through || Hinweis: Verkehr ist kein HSFZ, wird nur noch durchgereicht
+
+# ---- errors from adapters and the read-only guard ---------------------------------------------------
+Control unit refuses service 0x{} (NRC 0x{}: {}) || Steuergerät lehnt Service 0x{} ab (NRC 0x{}: {})
+conditionsNotCorrect (ignition off?) || conditionsNotCorrect (z. B. Zündung aus?)
+No matching answer to {} || Keine passende Antwort auf {}
+The adapter does not know {} ({}). Cheap ELM327 clones often lack commands; OBDLink or vLinker are more reliable. || Adapter kennt {} nicht ({}). Günstige ELM327-Klone können oft nicht alle Befehle; OBDLink oder vLinker sind zuverlässiger.
+No frame 0x{} heard (wrong bus or vehicle asleep?) || Keine Botschaft 0x{} gehört (falscher Bus oder Fahrzeug schläft?)
+No frame 0x{} heard || Keine Botschaft 0x{} gehört
+The adapter does not answer {} (timeout) || Adapter antwortet nicht auf {} (Timeout)
+Passive listening needs a CAN adapter, not ENET || Passives Mithören geht nur mit CAN-Adaptern, nicht über ENET
+No answer to {} from control unit 0x{} || Keine Antwort auf {} von Steuergerät 0x{}
+No answer to {} || Keine Antwort auf {}
+gateway of the WiFi/LAN adapter || Gateway des WLAN/LAN-Adapters
+No ENET connection to {}:{}: {}. Ignition on, cable plugged in? || Keine ENET-Verbindung zu {}:{}: {}. Zündung an, Kabel gesteckt?
+Gateway reports error 0x{} || Gateway meldet Fehler 0x{}
+ENET: timeout || ENET: Timeout
+ENET: connection closed || ENET: Verbindung geschlossen
+No flow control answer || Keine Flow-Control-Antwort
+cable on pins {} || Kabel auf Pins {}
+CAN interface {}:{} cannot be opened: {} || CAN-Interface {}:{} lässt sich nicht öffnen: {}
+{} has no listen-only mode: {} || {} kann keinen Listen-only-Modus: {}
+python-can missing: pip install python-can || python-can fehlt: pip install python-can
+Service 0x{} is not allowed. evsoc only sends read commands (allowed: {}). || Service 0x{} ist nicht erlaubt. evsoc sendet nur Lesebefehle (erlaubt: {}).
+Service 0x{} with this parameter is not allowed. || Service 0x{} mit diesem Parameter ist nicht erlaubt.
+Adapter command {} is blocked (bus monitoring). || Adapterbefehl {} ist gesperrt (Bus-Monitoring).
+Invalid command {} || Ungültiger Befehl {}
+Cannot decode raw command {} || Kann Rohbefehl {} nicht dekodieren
+Empty command || Leerer Befehl
+No serial BLE interface found on the device || Keine serielle BLE-Schnittstelle auf dem Gerät gefunden
+The adapter closed the connection || Adapter hat die Verbindung geschlossen
+BLE device {} not found || BLE-Gerät {} nicht gefunden
+Cannot open {}: {} || Kann {} nicht öffnen: {}
+No connection to {}:{}: {}. Is the computer on the adapter's WiFi? || Keine Verbindung zu {}:{}: {}. Ist der Mac im WLAN des Adapters?
+Not an evsoc box (answer to EVSI: {}). Connect normal adapters without 'box:'. || Kein evsoc-Box-Adapter (Antwort auf EVSI: {}). Für normale Adapter ohne 'box:' verbinden.
+DoIP over the evsoc box is planned in the protocol but not yet in evsoc (use enet:// for BMW/Mini) || DoIP über die evsoc-Box ist im Protokoll vorgesehen, aber in evsoc noch nicht umgesetzt (für BMW/Mini enet:// nutzen)
+The box refuses {}: {} || Box lehnt {} ab: {}
+Wired-only mode: {} is a wireless connection (WiFi/Bluetooth). || Nur-Kabel-Modus: {} ist eine Funkverbindung (WLAN/Bluetooth).
+Wired-only mode: {} is not a USB device (probably a paired Bluetooth adapter). Allowed are USB adapters, CAN interfaces (can://) and ENET (enet://). || Nur-Kabel-Modus: {} ist kein USB-Gerät (vermutlich ein gekoppelter Bluetooth-Adapter). Erlaubt sind USB-Adapter, CAN-Interfaces (can://) und ENET (enet://).
+Interface {} has no IPv4 address (cable plugged in?). || Schnittstelle {} hat keine IPv4-Adresse (Kabel gesteckt?).
+Byte B{} missing (only {} bytes received) || Byte B{} fehlt (nur {} Bytes empfangen)
+Byte {} missing (the answer has only {} bytes) || Byte {} fehlt (Antwort hat nur {} Bytes)
+Answer too short: {} bits needed, {} present || Antwort zu kurz: {} Bits nötig, {} vorhanden
+Adapter found: {} ({}) || Adapter gefunden: {} ({})
+no USB adapter, no CAN interface, no ENET || kein USB-Adapter, keine CAN-Schnittstelle, kein ENET
+No adapter found ({}). Is the USB cable plugged in? With ENET: ignition on and connected to the adapter's network? || Kein Adapter gefunden ({}). Steckt das USB-Kabel? Bei ENET: Zündung an und mit dem Netz des Adapters verbunden?
+{} cannot do {} || {} kann kein {}
+{} does not reach pins {} (only {}) || {} erreicht die Pins {} nicht (nur {})
+{} cannot listen passively || {} kann nicht passiv mithören
+{} usually cannot do extended CAN addressing (ATCEA) || {} kann die erweiterte CAN-Adressierung (ATCEA) meist nicht
+{} only reaches BMW/Mini control units || {} erreicht nur BMW/Mini-Steuergeräte
+evsoc box (universal adapter) || evsoc-Box (Universal-Adapter)
+ELM327 adapter || ELM327-Adapter
+listen only || nur mithören
+often incomplete AT commands, no ATCEA || oft unvollständige AT-Befehle, kein ATCEA
+per the maker also Ford MS-CAN and GM SW-CAN; evsoc does not switch to them yet || kann laut Hersteller auch Ford MS-CAN und GM SW-CAN; evsoc schaltet das noch nicht
+BMW/Mini only (HSFZ) || nur BMW/Mini (HSFZ)
+other pins with a suitably wired cable (?pins=12,13) || andere Pins über ein passend verdrahtetes Kabel (?pins=12,13)
+switches pins and protocol per vehicle by itself || schaltet Pins und Protokoll pro Fahrzeug selbst um
+
+# ---- gui / appliance backend messages ------------------------------------------------------------------
+Connecting to {} ... || Verbinde mit {} ...
+Connected: {} || Verbunden: {}
+Disconnected || Verbindung getrennt
+Still running: {}. Please wait. || Es läuft noch: {}. Bitte warten.
+Stop continuous operation first. || Erst den Dauerbetrieb stoppen.
+The test drive is still running. Please wait. || Der Probelauf läuft noch. Bitte warten.
+Continuous operation is running and reads by itself; values are shown there. || Der Dauerbetrieb läuft und liest selbst; Werte stehen unter Dauerbetrieb.
+No adapter connected. || Kein Adapter verbunden.
+Adapter does not fit: {} || Adapter passt nicht: {}
+Adapter does not fit this vehicle: {} || Adapter passt nicht zu diesem Fahrzeug: {}
+State of charge {} % ({}) || Ladestand {} % ({})
+Continuous operation is already running. || Dauerbetrieb läuft schon.
+Continuous operation started || Dauerbetrieb gestartet
+Continuous operation stopped || Dauerbetrieb gestoppt
+Continuous operation is not running. || Der Dauerbetrieb läuft nicht.
+Monitoring is not running. || Die Überwachung läuft nicht.
+Adapter address missing. || Adapter-Adresse fehlt.
+Report {} not found || Bericht {} nicht gefunden
+Report re-evaluated with the current profiles || Bericht mit den aktuellen Profilen neu ausgewertet
+Test drive finished: {} || Probelauf fertig: {}
+Wake test finished: {} || Wecktest fertig: {}
+Listening finished: {} || Mitlesen fertig: {}
+Error ({}): {} || Fehler ({}): {}
+{} raw commands, {} answers || {} Rohbefehle, {} Antworten
+No CAN frames recognised in the file (candump, ATMA text or CL2000 text). || In der Datei wurden keine CAN-Botschaften erkannt (candump, ATMA-Text oder CL2000-Text).
+Not listening right now. || Gerade wird nicht mitgelesen.
+Bluetooth is off in wired-only mode. || Bluetooth ist im Nur-Kabel-Modus abgeschaltet.
+Test vehicle {} (no car) || Testfahrzeug {} (ohne Auto)
+Simulated evsoc box: {} || Simulierte evsoc-Box: {}
+WiFi adapter (default address) || WLAN-Adapter (Standardadresse)
+BMW/Mini ENET cable || BMW/Mini ENET-Kabel
+CAN interface {} (SocketCAN) || CAN-Schnittstelle {} (SocketCAN)
+{}  {} (USB) || {}  {} (USB)
+{}  (Bluetooth/serial) || {}  (Bluetooth/seriell)
+No test drive yet || Noch kein Probelauf
+Token missing or wrong || Token fehlt oder falsch
+Host not allowed || Host nicht erlaubt
+Request too large || Anfrage zu groß
+JSON expected || JSON erwartet
+not found || nicht gefunden
+invalid request || ungültige Anfrage
+Access only with the link from the terminal (…/?token=…) || Zugang nur mit dem Link aus dem Terminal (…/?token=…)
+Nominal capacity {} kWh is implausible (5 to 250) || Nennkapazität {} kWh ist unplausibel (5 bis 250)
+Adapter not reachable || Adapter nicht erreichbar
+no connection to the broker (address, port, credentials?) || keine Verbindung zum Broker (Adresse, Port, Zugangsdaten?)
+not connected || nicht verbunden
+nothing sent yet || noch nichts gesendet
+last ok || zuletzt ok
+PIN or setup code wrong. || PIN bzw. Einrichtungscode falsch.
+Too many failed attempts, please wait 10 minutes. || Zu viele Fehlversuche, bitte 10 Minuten warten.
+PIN set || PIN gesetzt
+Settings saved || Einstellungen gespeichert
+Setup: {} || Einrichtung: {}
+Unknown output {} || Unbekannte Weitergabe {}
+interface || Oberfläche
+setup page || Einrichtungsseite
+Language {} unknown, possible: {} || Sprache {} unbekannt, möglich: {}
+
+# ---- command line help -----------------------------------------------------------------------------
+Read the state of charge (SoC) of EVs and plug-in hybrids through an OBD adapter. Read access only. || Ladestand (SoC) von E-Autos und Plug-in-Hybriden per OBD-Adapter auslesen. Nur Lesezugriffe.
+wired adapters only (USB, CAN, ENET), no WiFi/Bluetooth; also via EVSOC_WIRED_ONLY=1 || nur kabelgebundene Adapter (USB, CAN, ENET), kein WLAN/Bluetooth; auch per EVSOC_WIRED_ONLY=1
+output language: en or de (default: system language; also via EVSOC_LANG) || Sprache der Ausgabe: en oder de (sonst Systemsprache; auch per EVSOC_LANG)
+list all profiles || alle Profile anzeigen
+search vehicles, e.g. 'evsoc models ioniq' || Fahrzeuge suchen, z. B. 'evsoc models ioniq'
+complete list as Markdown (docs/vehicles.md) || komplette Liste als Markdown (docs/vehicles.md)
+find adapters || Adapter suchen
+also scan Bluetooth LE || auch Bluetooth LE scannen
+also look for BMW ENET || auch BMW ENET suchen
+choose a vehicle: which OBD type (bus, pins) and which adapter fits || Fahrzeug wählen: welche OBD-Art (Bus, Pins) und welcher Adapter passt
+model, e.g. 'Nissan Leaf' or 'e-208' || Modell, z. B. 'Nissan Leaf' oder 'e-208'
+also check your own adapter || eigenen Adapter mitprüfen
+test drive at the car: test all fitting profiles completely, write a report || Probelauf am Auto: alle passenden Profile komplett testen, Bericht schreiben
+see below || siehe unten
+instead of at the car: re-evaluate a report with the current profiles || statt am Auto: einen Bericht mit den aktuellen Profilen neu auswerten
+report name (default evsoc-probe-VIN-DATE.json) || Name des Berichts (sonst evsoc-probe-VIN-DATUM.json)
+give the model, e.g. 'i4' (default: by VIN) || Modell vorgeben, z. B. 'i4' (sonst nach VIN)
+give the VIN (default: read from the car) || Fahrgestellnummer vorgeben (sonst wird sie gelesen)
+model year (default: from the VIN) || Modelljahr (sonst aus der VIN)
+test all profiles, not only those fitting the car (takes a while) || alle Profile testen, nicht nur die zum Auto passenden (dauert)
+value read off the car for comparison, e.g. --note soc=54 --note soh=93 (repeatable) || abgelesener Wert zum Vergleich, z. B. --note soc=54 --note soh=93 (mehrfach möglich)
+net nominal capacity, for SoH from the energy content || Nennkapazität netto, für SoH aus dem Energieinhalt
+do not read identification and fault memory of the control units (default: read, never clear) || Kennung und Fehlerspeicher der Steuergeräte nicht lesen (sonst: lesen, nie löschen)
+afterwards additional read commands as with 'evsoc raw', e.g. ATSH6F1 ATCEA07 22E500-22E5FF || danach zusätzliche Lesebefehle wie bei 'evsoc raw', z. B. ATSH6F1 ATCEA07 22E500-22E5FF
+log all adapter traffic || gesamten Adapter-Verkehr mitschreiben
+wake test: can the parked car be woken, does it fall asleep again? || Wecktest: lässt sich das geparkte Auto wecken, schläft es wieder ein?
+profile name (default: automatic detection, which means more requests) || Profilname (sonst automatische Erkennung, das sind mehr Anfragen)
+give the model, e.g. 'i4' || Modell vorgeben, z. B. 'i4'
+watch this long whether it falls asleep again (20) || so lange beobachten, ob es wieder einschläft (20)
+interval between observations (30) || Abstand der Beobachtungen (30)
+from this 12 V voltage the car counts as awake || ab dieser 12-V-Spannung gilt das Auto als wach
+below this, no waking || darunter wird nicht geweckt
+report name (default evsoc-waketest-DATE.json) || Name des Berichts (sonst evsoc-wecktest-DATUM.json)
+find active buses at the OBD socket (evsoc box) || aktive Busse an der OBD-Buchse suchen (evsoc-Box)
+start the interface in the browser || Oberfläche im Browser starten
+127.0.0.1 = this computer only (default); interface name like eth0 = only over this cable; 0.0.0.0 = all networks || 127.0.0.1 = nur dieser Rechner (Standard); Schnittstellenname wie eth0 = nur über dieses Kabel; 0.0.0.0 = alle Netze
+do not open the browser automatically || Browser nicht automatisch öffnen
+fixed access key (default: new on every start); also via EVSOC_GUI_TOKEN || fester Zugangsschlüssel (sonst bei jedem Start neu); auch per EVSOC_GUI_TOKEN
+open as a window of its own (Chromium/Chrome, else the default browser) and quit when it is closed || als eigenes Fenster öffnen (Chromium/Chrome, sonst Standardbrowser) und beenden, wenn es zu ist
+Linux: add evsoc to the application menu (start without a terminal) || Linux: evsoc ins Anwendungsmenü eintragen (Start ohne Terminal)
+remove the entry again || den Eintrag wieder entfernen
+run as an installed device: continuous operation, outputs, display, setup || als fest eingebautes Gerät laufen: Dauerbetrieb, Weitergabe, Anzeige, Einrichtung
+configuration file (default {}) || Konfigurationsdatei (Standard {})
+overrides web.host from the configuration, e.g. eth0 || überschreibt web.host aus der Konfiguration, z. B. eth0
+overrides web.port || überschreibt web.port
+set the setup PIN on the device || Einrichtungs-PIN am Gerät setzen
+(default: asked for) || (sonst wird sie abgefragt)
+re-import profiles from ABRP, WiCAN and OBDb (internet) || Profile aus ABRP, WiCAN und OBDb neu importieren (Internet)
+abrp, wican, obdb (default: all) || abrp, wican, obdb (Standard: alle)
+listen in on other OBD apps through a Y cable (listen only) and build profiles from it || andere OBD-Apps über ein Y-Kabel mitlesen (nur hören) und daraus Profile bauen
+second adapter on the Y cable || zweiter Adapter am Y-Kabel
+evaluate a capture (candump log, .asc, .blf, .trc, ATMA text) || Mitschnitt auswerten (candump-Log, .asc, .blf, .trc, ATMA-Text)
+capture goes here (default capture-DATE.log) || Mitschnitt hierhin (Standard capture-DATUM.log)
+evsoc box: OBD pins, e.g. 12,13 (Leaf EV-CAN) || evsoc-Box: OBD-Pins, z. B. 12,13 (Leaf EV-CAN)
+stop after SEC seconds || nach SEK Sekunden aufhören
+show every answer, changed bytes in [ ] || jede Antwort zeigen, geänderte Bytes in [ ]
+value read off the app, e.g. soc=80.5 (repeatable, best with the time) || in der App abgelesener Wert, z. B. soc=80.5 (mehrfach, je mit Uhrzeit am besten)
+second adapter through which evsoc reads the car meanwhile (e.g. enet://auto); its values are the yardstick for the search in broadcast frames || zweiter Adapter, über den evsoc das Auto währenddessen selbst liest (z. B. enet://auto); die gelesenen Werte dienen als Maßstab für die Suche in den Dauerbotschaften
+profile for the reference (default: automatic or by --car) || Profil für die Referenz (sonst automatisch bzw. nach --car)
+interval of the reference values (10) || Abstand der Referenzwerte (10)
+write an evsoc profile from the formulas found || aus den gefundenen Formeln ein evsoc-Profil schreiben
+vehicle for the profile, e.g. 'Opel Corsa-e' || Fahrzeug für das Profil, z. B. 'Opel Corsa-e'
+evaluation as JSON || Auswertung als JSON
+record complete CAN or Ethernet traffic and condense it into a report for Claude || kompletten CAN- oder Ethernet-Verkehr aufzeichnen und zu einem Bericht für Claude verdichten
+record, then evaluate || aufzeichnen und danach auswerten
+evaluate an existing capture || vorhandenen Mitschnitt auswerten
+report goes here (default CAPTURE.analyse.md, '-' = terminal) || Bericht hierhin (Standard MITSCHNITT.analyse.md, '-' = Terminal)
+only this CAN ID, request (22D410) or stream, but in full length; repeatable || nur diese CAN-ID, Anfrage (22D410) oder diesen Strom, dafür in voller Länge; mehrfach möglich
+CAN bitrate for the bus load (default 500000) || CAN-Bitrate für die Buslast (Standard 500000)
+ELM/OBDLink/box only, as with 'sniff' || nur ELM/OBDLink/Box, wie bei 'sniff'
+read the state of charge || Ladestand lesen
+send single read commands || einzelne Lesebefehle senden
+monitor continuously (adapter stays in the car) || dauerhaft überwachen (Adapter bleibt im Auto)
+profile name or 'auto' (default) || Profilname oder 'auto' (Standard)
+give the model, e.g. 'e-208' or 'Ioniq 5' (faster) || Modell vorgeben, z. B. 'e-208' oder 'Ioniq 5' (schneller)
+net nominal capacity, for SoH from the energy content (e.g. VW MEB: 58 or 77) || Nennkapazität netto, für SoH aus dem Energieinhalt (z. B. VW MEB: 58 oder 77)
+all values of the profile, not only SoC || alle Werte des Profils, nicht nur SoC
+repeat every SEC seconds || alle SEK Sekunden wiederholen
+JSON output || JSON-Ausgabe
+profile name (default: one-off detection, remembered in --state) || Profilname (sonst einmalige Auto-Erkennung, wird in --state gemerkt)
+give the model, e.g. 'e-208' || Modell vorgeben, z. B. 'e-208'
+model year || Modelljahr
+net nominal capacity, for SoH (see read) || Nennkapazität netto, für SoH (siehe read)
+interval while the car is awake (60) || Abstand, solange das Auto wach ist (60)
+interval while it is asleep (300) || Abstand, solange es schläft (300)
+from this 12 V voltage the car counts as awake (13.0; higher with a 12 V lithium battery) || ab dieser 12-V-Spannung gilt das Auto als wach (13.0; bei 12-V-Lithium-Batterie höher)
+wake a sleeping car when the last value is older than HOURS hours (e.g. 24) || schlafendes Auto wecken, wenn der letzte Wert älter als STD Stunden ist (z. B. 24)
+wake a sleeping car daily at this time (repeatable) || schlafendes Auto täglich um diese Uhrzeit wecken (mehrfach möglich)
+never wake when the 12 V battery is below this (12.2) || nie wecken, wenn die 12-V-Batterie darunter liegt (12.2)
+minimum gap between two wake-ups on request (MQTT command, button), in minutes (10) || Mindestabstand zwischen zwei Weckvorgängen auf Anforderung (MQTT-Befehl, Knopf), in Minuten (10)
+save the last state as JSON (and load it at start) || letzten Stand als JSON speichern (und beim Start laden)
+mqtt://user:pass@host:1883/evsoc/auto, with Home Assistant discovery; 'wake' to …/cmd reads at once || mqtt://user:pass@host:1883/evsoc/auto, mit Home-Assistant-Discovery; 'wake' an …/cmd liest sofort
+send the state with every check by HTTP POST || Stand bei jeder Prüfung per HTTP POST senden
+JSON lines instead of text || JSON-Zeilen statt Text
+a single check only (e.g. from cron) || nur eine Prüfung (z. B. per cron)
+send this profile's init commands first || vorher die Init-Befehle dieses Profils senden
+e.g. ATSH7E4 220105, ranges like 22DD00-22DDFF || z. B. ATSH7E4 220105, Bereiche wie 22DD00-22DDFF
+show positive answers only (for ranges) || nur positive Antworten zeigen (für Bereiche)
+Adapter address (-a): || Adapter-Adresse (-a):
+USB or Bluetooth Classic (OBDLink MX+, ELM327 BT) || USB oder Bluetooth-Classic (OBDLink MX+, ELM327 BT)
+WiFi adapter (computer on the adapter's WiFi) || WLAN-Adapter (Mac ins WLAN des Adapters)
+Bluetooth LE (name or address) || Bluetooth LE (Name oder Adresse)
+BMW/Mini ENET (cable or WiFi adapter like UCSI-3000) || BMW/Mini ENET (Kabel oder WLAN-Adapter wie UCSI-3000)
+raw CAN interface through python-can (also pcan, kvaser, || rohes CAN-Interface über python-can (auch pcan, kvaser,
+gs_usb, vector ...; ?fd=1 for CAN FD, || gs_usb, vector ...; ?fd=1 für CAN-FD,
+?pins=12,13 if the cable taps other OBD pins) || ?pins=12,13 wenn das Kabel andere OBD-Pins abgreift)
+evsoc box (universal adapter, USB only), switches pins/bus itself || evsoc-Box (Universal-Adapter, nur USB), schaltet Pins/Bus selbst
+simulated evsoc box || simulierte evsoc-Box
+
+# ---- web pages (evsoc gui) -------------------------------------------------------------------------------
+read only || nur lesend
+Connection || Verbindung
+Vehicle || Fahrzeug
+Test drive || Probelauf
+Control units & faults || Steuergeräte & Fehler
+Tools || Werkzeuge
+Continuous operation || Dauerbetrieb
+Log || Protokoll
+Toggle light/dark || Hell/Dunkel umschalten
+Dark || Dunkel
+Light || Hell
+no adapter || kein Adapter
+no profile || kein Profil
+Adapter: {} || Adapter: {}
+Adapter: in continuous operation || Adapter: im Dauerbetrieb
+Profile: {} || Profil: {}
+{} running … || {} läuft …
+Continuous operation: {} || Dauerbetrieb: {}
+wired only || nur Kabel
+{} profiles · {} makes · version {} || {} Profile · {} Marken · Version {}
+Connect the adapter || Adapter verbinden
+USB, Bluetooth, WiFi, ENET cable or a test vehicle without a car. || USB, Bluetooth, WLAN, ENET-Kabel oder ein Testfahrzeug ohne Auto.
+Choose the vehicle || Fahrzeug wählen
+Optional. Without a choice evsoc detects the car by its VIN. || Optional. Ohne Auswahl erkennt evsoc das Auto über die Fahrgestellnummer.
+Read or test drive || Lesen oder Probelauf
+Read the state of charge, or test everything and write a report. || Ladestand lesen, oder alles durchtesten und einen Bericht schreiben.
+Ignition on, plug the adapter into the OBD socket, then connect. || Zündung an, Adapter in die OBD-Buchse stecken, dann verbinden.
+Adapters found and examples || Gefundene Adapter und Beispiele
+Address || Adresse
+Connect || Verbinden
+Disconnect || Trennen
+Reload the list of adapters || Liste der Adapter neu laden
+Search again || Neu suchen
+Search 5 seconds for Bluetooth LE adapters || 5 Sekunden nach Bluetooth-LE-Adaptern suchen
+Search Bluetooth LE || Bluetooth LE suchen
+What the adapter can do || Was der Adapter kann
+Not connected yet. || Noch nicht verbunden.
+evsoc box: search active buses on all pins || evsoc-Box: aktive Busse an allen Pins suchen
+Search buses || Busse suchen
+Found || Gefunden
+Examples and tests || Beispiele und Tests
+Connected to {} || Verbunden mit {}
+Bus || Bus
+Pins || Pins
+Bitrate || Bitrate
+Frames || Botschaften
+IDs || IDs
+listen || mithören
+Pins {} || Pins {}
+Pins: all || Pins alle
+Search model || Modell suchen
+Leave empty for evsoc to detect the car itself. || Leer lassen, wenn evsoc das Auto selbst erkennen soll.
+e.g. e-208, Ioniq 5, Leaf, ID.4, i4 || z. B. e-208, Ioniq 5, Leaf, ID.4, i4
+Profile and OBD type || Profil und OBD-Art
+Click a model: evsoc shows bus, pins, bitrate and which adapters fit. || Ein Modell anklicken: evsoc zeigt Bus, Pins, Bitrate und welche Adapter passen.
+Nothing found. "Detect automatically" still tries all profiles. || Nichts gefunden. „Automatisch erkennen“ probiert trotzdem alle Profile.
+verified: {} || geprüft: {}
+OBD type || OBD-Art
+or || oder
+Suitable adapters || Passende Adapter
+Read with this profile || Mit diesem Profil lesen
+percent || Prozent
+Not read yet. || Noch nicht gelesen.
+Read || Lesen
+Detect automatically || Automatisch erkennen
+Determine the profile by VIN or by trying || Profil über die Fahrgestellnummer bzw. durch Probieren bestimmen
+all values || alle Werte
+read again every 10 s || alle 10 s neu lesen
+Only for SoH from the energy content, e.g. VW ID., Enyaq, Born, Q4 || Nur für den SoH aus dem Energieinhalt, z. B. VW ID., Enyaq, Born, Q4
+Nominal battery capacity in kWh (optional) || Nennkapazität des Akkus in kWh (optional)
+e.g. 77 || z. B. 77
+Detected: {} after {} s || Erkannt: {} nach {} s
+Detected: {} after {} s · also plausible: {} || Erkannt: {} nach {} s · ebenfalls plausibel: {}
+History || Verlauf
+No values yet. || Noch keine Werte.
+{} value, {} – {}, last {} % || {} Wert, {} – {}, zuletzt {} %
+{} values, {} – {}, last {} % || {} Werte, {} – {}, zuletzt {} %
+Values || Werte
+"Read" uses the chosen profile, "Detect automatically" finds one itself. || „Lesen“ nutzt das gewählte Profil, „Automatisch erkennen“ sucht es selbst.
+As of {} (continuous operation) || Stand {} (Dauerbetrieb)
+Test drive at the car || Probelauf am Auto
+Tests all fitting profiles completely, reads control units and fault memory and writes a report with all raw answers. What is right is decided by comparing with the values you read off the car. || Testet alle passenden Profile komplett, liest Steuergeräte und Fehlerspeicher und schreibt einen Bericht mit allen Rohantworten. Was stimmt, entscheidet der Vergleich mit den Werten, die du im Auto abliest.
+State of charge % || Ladestand %
+SoH % || SoH %
+if known || falls bekannt
+Range km || Reichweite km
+More values read off the car (name=value, separated by spaces) || Weitere abgelesene Werte (name=wert, durch Leerzeichen getrennt)
+Model (optional, default: by VIN) || Modell (optional, sonst über die Fahrgestellnummer)
+e.g. i4 || z. B. i4
+Read control units and fault memory || Steuergeräte und Fehlerspeicher lesen
+For cars evsoc does not know. Takes a few minutes. || Für Autos, die evsoc nicht kennt. Dauert einige Minuten.
+test all profiles || alle Profile testen
+Append additional read commands || Zusätzliche Lesebefehle anhängen
+As under Tools: adapter and read commands, ranges too. Everything else is blocked. || Wie unter Werkzeuge: Adapterbefehle und Lesebefehle, auch Bereiche. Alles andere wird blockiert.
+Start test drive || Probelauf starten
+Save report || Bericht speichern
+Re-evaluate a report with the current profiles, without the car || Einen Bericht ohne Auto mit den aktuellen Profilen neu auswerten
+Open report … || Bericht öffnen …
+Saved reports || Gespeicherte Berichte
+Folder: {} || Ordner: {}
+No reports yet. || Noch keine Berichte.
+Open and re-evaluate with the current profiles || Öffnen und mit den aktuellen Profilen neu auswerten
+Test drive running … || Probelauf läuft …
+Test drive finished || Probelauf fertig
+Report evaluated with the current profiles || Bericht mit den aktuellen Profilen ausgewertet
+Report not readable: {} || Bericht nicht lesbar: {}
+Result || Ergebnis
+Scope || Umfang
+Noted || Notiert
+Choice || Auswahl
+File || Datei
+{}, model year {} || {}, Modelljahr {}
+{} requests, {} answers{} || {} Anfragen, {} Antworten{}
+nothing. Without values read off the car, it can only be said whether a value is plausible. || nichts. Ohne abgelesene Werte lässt sich nur sagen, ob ein Wert plausibel ist.
+"Read" would choose {} || „Lesen“ würde {} wählen
+no profile with a plausible state of charge || kein Profil mit plausiblem Ladestand
+No profile returned a plausible value. Ignition on? Right adapter? "test all profiles" tries more. || Kein Profil hat einen plausiblen Wert geliefert. Zündung an? Adapter richtig? „alle Profile testen“ probiert mehr.
+{} profiles with an answer but no plausible value || {} Profile mit Antwort, aber ohne plausiblen Wert
+{} profiles do not fit the adapter || {} Profile passen nicht zum Adapter
+{} answers to additional read commands || {} Antworten auf zusätzliche Lesebefehle
+chosen by "Read" || Auswahl von „Lesen“
+different control unit: {} || anderes Steuergerät: {}
+{}/{} plausible || {}/{} plausibel
+matches {} = {} || passt zu {} = {}
+differs from {} = {} || weicht ab von {} = {}
+Profile status: {} || Stand des Profils: {}
+{} more profiles read the same values || {} weitere Profile lesen dieselben Werte
+Control units and fault memory || Steuergeräte und Fehlerspeicher
+From the last test drive. evsoc only reads the fault memory, clearing is blocked. || Aus dem letzten Probelauf. evsoc liest den Fehlerspeicher nur, Löschen ist gesperrt.
+No test drive yet. Start one under "Test drive" or open a report. || Noch kein Probelauf. Unter „Probelauf“ starten oder einen Bericht öffnen.
+The last test drive read no control units (switched off or no answer). || Im letzten Probelauf wurden keine Steuergeräte gelesen (abgeschaltet oder keine Antwort).
+{} control units, {} fault entries || {} Steuergeräte, {} Fehlereinträge
+Fault memory not readable || Fehlerspeicher nicht lesbar
+no faults || keine Fehler
+Code || Code
+hex || hex
+Status || Status
+Plain texts are maker-specific and not stored in evsoc. The code can be looked up. || Klartexte sind herstellerspezifisch und in evsoc nicht hinterlegt. Der Code lässt sich nachschlagen.
+Single read commands || Einzelne Lesebefehle
+Adapter commands (AT…) and read commands, ranges too, like || Adapterbefehle (AT…) und Lesebefehle, auch Bereiche wie
+. Writing commands are blocked. || . Schreibende Befehle werden blockiert.
+Send || Senden
+show answers only || nur Antworten zeigen
+No answers. || Keine Antworten.
+Listen in on other apps || Andere Apps mitlesen
+Listen through a Y cable to what Car Scanner, BimmerLink & co. ask. evsoc sends nothing. Or evaluate an existing capture (candump, ATMA text, CL2000 text). || Über ein Y-Kabel zuhören, was Car Scanner, BimmerLink & Co. fragen. evsoc sendet dabei nichts. Oder einen vorhandenen Mitschnitt auswerten (candump, ATMA-Text, CL2000-Text).
+Adapter (empty = the connected one) || Adapter (leer = der verbundene)
+Duration in seconds || Dauer in Sekunden
+evsoc reads the car meanwhile through this adapter and uses the values as yardstick to find the matching signal in the broadcast frames || evsoc liest das Auto währenddessen selbst über diesen Adapter und nimmt die Werte als Maßstab, um das passende Signal in den Dauerbotschaften zu finden
+Reference adapter (optional, e.g. enet://auto, while the first one only listens) || Referenz-Adapter (optional, z. B. enet://auto, während der erste nur mithört)
+Values read off for the formula search (e.g. soc=80.5) || Abgelesene Werte für die Formelsuche (z. B. soc=80.5)
+Start listening || Mitlesen starten
+Note value now || Wert jetzt merken
+Note the value with the time now, while listening || Den Wert jetzt mit Uhrzeit merken, während mitgelesen wird
+Open capture … || Mitschnitt öffnen …
+Listening … || Mitlesen läuft …
+Listening finished || Mitlesen fertig
+Enter a value first, e.g. soc=80.5 || Erst einen Wert eintragen, z. B. soc=80.5
+The adapter stays in the car. evsoc only asks while the car is awake (12 V voltage) and otherwise keeps the last value. || Der Adapter bleibt im Auto. evsoc fragt nur ab, wenn das Auto wach ist (12-V-Spannung), und merkt sich sonst den letzten Wert.
+Interval awake (s) || Abstand wach (s)
+Interval asleep (s) || Abstand im Schlaf (s)
+awake from 12 V voltage (V) || wach ab 12-V-Spannung (V)
+wake when the value is older than (h) || wecken, wenn Wert älter als (h)
+off, e.g. 24 || aus, z. B. 24
+also wake at || zusätzlich wecken um
+Start || Starten
+Stop || Stoppen
+Reads at once. If the car is asleep, it is woken for it: not below 12.2 V and at most every 10 minutes. || Liest sofort. Schläft das Auto, wird es dafür geweckt: nicht unter 12,2 V und höchstens alle 10 Minuten.
+From outside the same works over MQTT: || Von außen geht dasselbe über MQTT:
+to the topic || an das Thema
+. Home Assistant gets a button for it automatically. || senden. Home Assistant bekommt dafür automatisch einen Knopf.
+State || Stand
+last state of charge || letzter Ladestand
+Profile || Profil
+last wake-up || letztes Wecken
+Note || Hinweis
+Wake test || Wecktest
+Measures whether the parked car can be woken through the OBD socket and whether it falls asleep again afterwards. Lock it and wait 15 to 30 minutes first so that it really sleeps. It is never woken below 12.2 V. || Misst, ob sich das geparkte Auto über die OBD-Buchse wecken lässt und ob es danach wieder einschläft. Vorher abschließen und 15 bis 30 Minuten warten, damit es wirklich schläft. Geweckt wird nie unter 12,2 V.
+Watch (minutes) || Beobachten (Minuten)
+Start wake test || Wecktest starten
+uses the address from "Connection" and the chosen vehicle || nutzt die Adresse aus „Verbindung“ und das gewählte Fahrzeug
+Wake test running … || Wecktest läuft …
+Wake test finished || Wecktest fertig
+What evsoc is doing right now, including error messages. || Was evsoc gerade tut, inklusive Fehlermeldungen.
+Language || Sprache
+Power while asleep || Leistung im Schlaf
+
+# ---- device pages (evsoc run): display and setup -------------------------------------------------------
+Vehicle asleep || Fahrzeug schläft
+Vehicle asleep, last state || Fahrzeug schläft, letzter Stand
+no connection to the adapter || keine Verbindung zum Adapter
+searching for the adapter || Adapter wird gesucht
+Setup || Einrichtung
+Display || Anzeige
+Log out || Abmelden
+Log in || Anmelden
+PIN or setup code || PIN oder Einrichtungscode
+Save and start || Speichern und starten
+Advanced || Erweitert
+Test || Testen
+✓ works || ✓ funktioniert
+✓ requested, the result appears in the display shortly || ✓ angefordert, Ergebnis steht gleich in der Anzeige
+Interval while awake (s) || Abstand, solange wach (s)
+Check interval while asleep (s) || Prüfabstand im Schlaf (s)
+never wake below (V) || nie wecken unter (V)
+also wake daily at || zusätzlich täglich wecken um
+Reads at once. If the car is asleep, it is woken for it (not below the minimum voltage, at most every 10 minutes). || Liest sofort. Schläft das Auto, wird es dafür geweckt (nicht unter der Mindestspannung, höchstens alle 10 Minuten).
+No value yet || Noch kein Wert
+History (24 hours) || Verlauf (24 Stunden)
+Vehicle does not answer || Fahrzeug antwortet nicht
+not answering || antwortet nicht
+Adapter not connected || Adapter nicht verbunden
+Not set up yet. || Noch nicht eingerichtet.
+No value yet – appears as soon as the vehicle is awake || Noch kein Wert – erscheint, sobald das Fahrzeug wach ist
+last checked || zuletzt geprüft
+no values yet || noch keine Werte
+Device not reachable || Gerät nicht erreichbar
+This PIN opens the setup again later. At least 4 digits. || Mit dieser PIN lässt sich die Einrichtung später wieder öffnen. Mindestens 4 Ziffern.
+Net nominal capacity (kWh, optional) || Nennkapazität netto (kWh, optional)
+e.g. 58 or 77 || z. B. 58 oder 77
+Only needed for battery health (SoH) on cars that report the energy content instead of an SoH value, e.g. VW ID., Enyaq, Born, Q4. || Nur nötig für die Batteriegesundheit (SoH) bei Autos, die statt eines SoH-Werts den Energieinhalt melden, z. B. VW ID., Enyaq, Born, Q4.
+Test the chosen vehicle || Ausgewähltes Fahrzeug testen
+For testing the vehicle must be awake (ignition or "Ready" on, or charging). || Zum Testen muss das Fahrzeug wach sein (Zündung bzw. „Bereit“ an oder Laden läuft).
+MQTT (e.g. Home Assistant, creates the sensors automatically) || MQTT (z. B. Home Assistant, legt die Sensoren automatisch an)
+Test connection || Verbindung testen
+Webhook (state as JSON by HTTP POST) || Webhook (Stand als JSON per HTTP POST)
+Other systems can also fetch the state themselves: || Andere Systeme können den Stand auch selbst abholen:
+First setup: enter the setup code shown in the device log at start (journalctl -u evsoc). || Erste Einrichtung: den Einrichtungscode eingeben, der beim Start im Protokoll des Geräts steht (journalctl -u evsoc).
+– test and save below to set it. || – zum Festlegen unten testen und speichern.
+No vehicle set yet. || Noch kein Fahrzeug festgelegt.
+The two entries do not match. || Die beiden Eingaben stimmen nicht überein.
+Nothing found – "Detect automatically" tries all profiles. || Nichts gefunden – „Automatisch erkennen“ probiert alle Profile.
+with || mit
+First choose a vehicle from the list or "Detect automatically". || Erst ein Fahrzeug aus der Liste wählen oder „Automatisch erkennen“.
+Searching, this can take a few minutes … || Suche läuft, das kann bis zu einigen Minuten dauern …
+Saved. The device now monitors continuously. || Gespeichert. Das Gerät überwacht jetzt dauerhaft.
+Enter the PIN. || PIN eingeben.
+Set PIN || PIN festlegen
+Save PIN || PIN speichern
+Test message || Testsendung
+Output to the network || Weitergabe ins Netzwerk
+To the setup || Zur Einrichtung
+to the display || zur Anzeige
+new PIN || neue PIN
+connecting … || verbinde …
+repeat || wiederholen
+✓ found: || ✓ gefunden:
+✓ found: {} || ✓ gefunden: {}
+(JSON). || (JSON).
+
+# ---- phrases inside longer lines (signal descriptions, help epilogs) --------------------------------------
+(16 bit, big endian, signed) || (16 Bit, höherwertiges zuerst mit Vorzeichen)
+(16 bit, little endian, signed) || (16 Bit, niederwertiges zuerst mit Vorzeichen)
+(16 bit, big endian) || (16 Bit, höherwertiges zuerst)
+(16 bit, little endian) || (16 Bit, niederwertiges zuerst)
+(big endian) || (höherwertiges zuerst)
+(little endian) || (niederwertiges zuerst)
+bits from byte || Bit ab Byte
+bits from bit || Bit ab Bit
+allowed deviation of the formula (default 1 %%, at least 0.06) || erlaubte Abweichung der Formel (Standard 1 %%, mind. 0.06)
+Setup: car ── Y cable ──┬── the app's adapter (Car Scanner, BimmerLink, …) || Aufbau: Auto ── Y-Kabel ──┬── Adapter der App (Car Scanner, BimmerLink, …)
+└── second adapter for evsoc (-a) || └── zweiter Adapter für evsoc (-a)
+CAN interface (CANable), listens without ACK (best) || CAN-Interface (CANable), hört ohne ACK mit (am besten)
+Pi with a CAN HAT || Pi mit CAN-Aufsteckplatine
+ELM327/OBDLink over USB in listen mode (ATMA) || ELM327/OBDLink per USB im Mithörmodus (ATMA)
+evsoc box (listen-only) || evsoc-Box (Listen-only)
+BMW/Mini ENET (UCSI-3000, ENET cable): the app connects to evsoc, || BMW/Mini ENET (UCSI-3000, ENET-Kabel): App verbindet sich mit evsoc,
+evsoc passes everything on to the car (no Y cable) || evsoc reicht alles ans Auto weiter (kein Y-Kabel)
+try without a car || ausprobieren ohne Auto
+Examples: || Beispiele:
+Record (-a): || Aufzeichnen (-a):
+CAN interface on the Y cable (as with 'sniff', also gs_usb, socketcan, ?fd=1) || CAN-Interface am Y-Kabel (wie bei 'sniff', auch gs_usb, socketcan, ?fd=1)
+ELM327/OBDLink/evsoc box in listen mode || ELM327/OBDLink/evsoc-Box im Mithörmodus
+BMW ENET: evsoc between app and car || BMW-ENET: evsoc zwischen App und Auto
+Ethernet interface (Linux, root), e.g. behind a TAP or media converter || Ethernet-Schnittstelle (Linux, root), z. B. hinter TAP oder Medienkonverter
+Evaluate (-d): candump log, .asc, .blf, .trc, .csv, ATMA text, .pcap, .pcapng || Auswerten (-d): candump-Log, .asc, .blf, .trc, .csv, ATMA-Text, .pcap, .pcapng
+raw data while recording goes here (default capture-DATE.log/.pcap) || Rohdaten beim Aufzeichnen hierhin (Standard capture-DATUM.log/.pcap)
+history lines per frame (12) || Zeilen im Verlauf je Botschaft (12)
+show this many frames individually (60) || so viele Botschaften einzeln zeigen (60)
+evsoc box: OBD pins, e.g. 12,13 || evsoc-Box: OBD-Pins, z. B. 12,13
+ELM/OBDLink/box: 6 = 11 bit 500 kbit/s (default), 7 = 29 bit (VW ID., Renault), 8/9 = 250 kbit/s || ELM/OBDLink/Box: 6 = 11 Bit 500 kbit/s (Standard), 7 = 29 Bit (VW ID., Renault), 8/9 = 250 kbit/s
+ELM327 clone || ELM327-Klon
+BMW ENET cable || BMW-ENET-Kabel
+CAN interface (python-can) + OBD cable || CAN-Interface (python-can) + OBD-Kabel
+CAN FD interface (python-can) + OBD cable || CAN-FD-Interface (python-can) + OBD-Kabel
+(as of {}) || (Stand {})
+cable: {} || Kabel: {}
+{}  {} value: {} || {}  {} Wert: {}
+{} frames read || {} Botschaften gelesen
+Listening || Mitlesen
+Please log in || Bitte anmelden
+not searched yet || noch nicht gesucht
+Set up: {} || Eingerichtet: {}
+Detected automatically: {} – test and save below to set it. || Automatisch erkannt: {} – zum Festlegen unten testen und speichern.
+Apply with "Save and start". || Mit „Speichern und starten“ übernehmen.
+No state of charge || Kein Ladestand
+✓ state of charge {} % || ✓ Ladestand {} %
+(detected in {} s) || (erkannt in {} s)
+(detected in {} s, also plausible: {}) || (erkannt in {} s, ebenfalls plausibel: {})
+No traffic on the bus || Kein Verkehr auf dem Bus
+As of {} || Stand {}
+connected || verbunden
+Listen-only mode: requests are switched off || Listen-only-Modus: Anfragen sind abgeschaltet
+{} CAN frames, {} IDs || {} CAN-Botschaften, {} IDs
+{} Ethernet packets || {} Ethernet-Pakete
+{} diagnostic requests || {} Diagnose-Anfragen
+Division by zero || Division durch null
+Unknown function {} || Unbekannte Funktion {}
+Unknown variable {} || Unbekannte Variable {}
+Unexpected end in {} || Unerwartetes Ende in {}
+{} expected, {} found in {} || {} erwartet, {} gefunden in {}
+Extra characters from {} in {} || Überzählige Zeichen ab {} in {}
+Invalid WiCAN expression {} || Ungültiger WiCAN-Ausdruck {}
+{} instead of {} data bytes || {} statt {} Datenbytes
+refused (NRC {} {}) || abgelehnt (NRC {} {})
+nothing plausible || nichts plausibel
+simulated app on test vehicle {} || simulierte App am Testfahrzeug {}
+Unknown test vehicle {}, available: {} || Unbekanntes Testfahrzeug {}, verfügbar: {}
+pyserial missing: pip install pyserial || pyserial fehlt: pip install pyserial
+bleak missing: pip install bleak || bleak fehlt: pip install bleak
+this computer || dieser Rechner
+Formulas: {} || Formeln: {}
+OBD current data || OBD aktuelle Daten
+OBD freeze frame || OBD Freeze Frame
+OBD read faults || OBD Fehler lesen
+OBD CLEAR faults || OBD Fehler LÖSCHEN
+OBD vehicle info || OBD Fahrzeuginfo
+session || Sitzung
+control unit RESET || Steuergerät-RESET
+CLEAR fault memory || Fehlerspeicher LÖSCHEN
+read fault memory || Fehlerspeicher lesen
+KWP identification || KWP Kennung
+KWP read || KWP lesen
+UDS read || UDS lesen
+read memory || Speicher lesen
+security access || Sicherheitszugang
+communication control || Kommunikation steuern
+UDS WRITE || UDS SCHREIBEN
+actuator control || Stellglied ansteuern
+data transfer || Datenübertragung
+KWP WRITE || KWP SCHREIBEN
+fault memory control || Fehlerspeicher steuern
+Note: {} has no listen-only mode (SocketCAN: ip link set can0 type can bitrate 500000 listen-only on). It acknowledges frames (ACK) like any control unit but sends nothing itself. || Hinweis: {} kann keinen Listen-only-Modus (SocketCAN: ip link set can0 type can bitrate 500000 listen-only on). Es bestätigt Botschaften (ACK) wie jedes Steuergerät, sendet aber selbst nichts.
+Duplicate profile name: {} ({}) || Profilname doppelt: {} ({})
+checksum? || Prüfsumme?

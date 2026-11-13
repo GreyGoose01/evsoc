@@ -1,0 +1,161 @@
+{
+ "name": "obdb_land_rover_defender",
+ "description": "Land Rover Defender",
+ "source": "https://github.com/OBDb/Land-Rover-Defender",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Land Rover",
+   "model": "Defender",
+   "years": [
+    1983,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22490C",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c60_22490C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22490F",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c61_22490F"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224910",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c62_224910"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "224918",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c63_224918"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22DD01",
+   "years": [
+    2020,
+    null
+   ],
+   "id": "c64_22DD01"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "c60_22490C",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 40
+   },
+   "min": -500,
+   "max": 819.175,
+   "unit": "A",
+   "label": "High voltage battery current"
+  },
+  "voltage": {
+   "step": "c61_22490F",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 450,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  },
+  "soc": {
+   "step": "c62_224910",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "soh": {
+   "step": "c63_224918",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "Battery state of health, average"
+  },
+  "odometer": {
+   "step": "c64_22DD01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  }
+ }
+}

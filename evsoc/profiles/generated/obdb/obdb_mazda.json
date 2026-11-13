@@ -1,0 +1,274 @@
+{
+ "name": "obdb_mazda",
+ "description": "Mazda all models",
+ "source": "https://github.com/OBDb/Mazda",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Mazda",
+   "model": "all models",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH720",
+    "ATCRA728",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22404C",
+   "id": "c30_22404C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH723",
+    "ATCRA72B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22480D",
+   "id": "c48_22480D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH723",
+    "ATCRA72B",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "22D914",
+   "id": "c51_22D914"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSH7D2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221F5B",
+   "id": "c295_221F5B"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7D2",
+    "ATCRA7DA",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221F9A",
+   "id": "c296_221F9A"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c776_224801"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224845",
+   "id": "c798_224845"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22484F",
+   "id": "c802_22484F"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH7E4",
+    "ATCRA7EC",
+    "ATCEA",
+    "ATFCSH7E4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22490C",
+   "id": "c810_22490C"
+  },
+  {
+   "at": [
+    "ATSP7",
+    "ATCP1D",
+    "ATSHD01635",
+    "ATCRA1EC6AE80",
+    "ATCEA",
+    "ATFCSH1DD01635",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "224801",
+   "id": "c874_224801"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c30_22404C",
+   "decode": {
+    "type": "bits",
+    "len": 24,
+    "div": 10
+   },
+   "min": 0,
+   "max": 1677721,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "voltage": {
+   "step": "c48_22480D",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "mul": 10,
+    "div": 1000
+   },
+   "min": 0,
+   "max": 655.35,
+   "unit": "V",
+   "label": "Battery pack voltage"
+  },
+  "soc": {
+   "step": "c51_22D914",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 10
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery state of charge"
+  },
+  "soc_2": {
+   "step": "c295_221F5B",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "mul": 100,
+    "div": 255
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge"
+  },
+  "current": {
+   "step": "c296_221F9A",
+   "decode": {
+    "type": "bits",
+    "bix": 32,
+    "len": 16,
+    "sign": true,
+    "div": 10
+   },
+   "min": -3276.8,
+   "max": 3276.7,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "soc_3": {
+   "step": "c776_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge"
+  },
+  "soc_display": {
+   "step": "c798_224845",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery charge (displayed)"
+  },
+  "is_charging": {
+   "step": "c802_22484F",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging state"
+  },
+  "soh": {
+   "step": "c810_22490C",
+   "decode": {
+    "type": "bits",
+    "len": 8,
+    "div": 2
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "HV battery state of health"
+  },
+  "soc_4": {
+   "step": "c874_224801",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 500
+   },
+   "min": 0,
+   "max": 131,
+   "unit": "%",
+   "label": "High voltage battery state of charge"
+  }
+ }
+}

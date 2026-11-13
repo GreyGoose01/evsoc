@@ -1,0 +1,297 @@
+{
+ "name": "obdb_nissan_leaf",
+ "description": "Nissan Leaf",
+ "source": "https://github.com/OBDb/Nissan-Leaf",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Nissan",
+   "model": "Leaf",
+   "years": [
+    2010,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH743",
+    "ATCRA763",
+    "ATCEA",
+    "ATFCSH743",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220E01",
+   "years": [
+    2018,
+    null
+   ],
+   "id": "c4_220E01"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH743",
+    "ATCRA763",
+    "ATCEA",
+    "ATFCSH743",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220E2D",
+   "years": [
+    2018,
+    null
+   ],
+   "id": "c9_220E2D"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH743",
+    "ATCRA763",
+    "ATCEA",
+    "ATFCSH743",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "220E2E",
+   "years": [
+    2018,
+    null
+   ],
+   "id": "c10_220E2E"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH797",
+    "ATCRA79A",
+    "ATCEA",
+    "ATFCSH797",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22114E",
+   "years": [
+    2013,
+    null
+   ],
+   "id": "c18_22114E"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH797",
+    "ATCRA79A",
+    "ATCEA",
+    "ATFCSH797",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "221234",
+   "years": [
+    2013,
+    null
+   ],
+   "id": "c27_221234"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH797",
+    "ATCRA79A",
+    "ATCEA",
+    "ATFCSM0",
+    "ATST32"
+   ],
+   "request": "221248",
+   "id": "c29_221248"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2101",
+   "years": [
+    null,
+    2017
+   ],
+   "id": "c37_2101"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2101",
+   "years": [
+    2018,
+    null
+   ],
+   "id": "c38_2101"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH79B",
+    "ATCRA7BB",
+    "ATCEA",
+    "ATFCSH79B",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "2161",
+   "id": "c43_2161"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c4_220E01",
+   "decode": {
+    "type": "bits",
+    "len": 24
+   },
+   "min": 0,
+   "max": 16777215,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc_display": {
+   "step": "c9_220E2D",
+   "decode": {
+    "type": "bits",
+    "bix": 112,
+    "len": 8
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "State of charge, as the dash shows it"
+  },
+  "range": {
+   "step": "c10_220E2E",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "nullmin": 0,
+    "nullmax": 2047
+   },
+   "min": 0,
+   "max": 2047,
+   "unit": "km",
+   "label": "Range remaining"
+  },
+  "is_charging": {
+   "step": "c18_22114E",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "Charging mode"
+  },
+  "plugged_in": {
+   "step": "c27_221234",
+   "decode": {
+    "type": "bits",
+    "len": 8
+   },
+   "min": 0,
+   "max": null,
+   "unit": "",
+   "label": "L1/L2 charge port plug state"
+  },
+  "current": {
+   "step": "c29_221248",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "sign": true,
+    "div": 2
+   },
+   "min": -16384,
+   "max": 16383.5,
+   "unit": "A",
+   "label": "HV battery current"
+  },
+  "voltage": {
+   "step": "c37_2101",
+   "decode": {
+    "type": "bits",
+    "bix": 144,
+    "len": 16,
+    "div": 100
+   },
+   "min": 0,
+   "max": 655,
+   "unit": "V",
+   "label": "High voltage battery voltage"
+  },
+  "soc": {
+   "step": "c37_2101",
+   "decode": {
+    "type": "bits",
+    "bix": 232,
+    "len": 24,
+    "div": 10000
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge"
+  },
+  "soc_2": {
+   "step": "c38_2101",
+   "decode": {
+    "type": "bits",
+    "bix": 248,
+    "len": 24,
+    "div": 8190,
+    "add": -17
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge"
+  },
+  "soh": {
+   "step": "c43_2161",
+   "decode": {
+    "type": "bits",
+    "bix": 16,
+    "len": 16,
+    "div": 100
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery health"
+  }
+ }
+}

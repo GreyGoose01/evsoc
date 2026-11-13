@@ -1,0 +1,42 @@
+{
+ "name": "wican_bt1_hummer_ev_silverado_ev_sierra_av_bev3_cadillac_lyriq_celestiq_chevrolet_blazer_ev_equinox_ev_honda_prologue_ev_acura_zdx",
+ "description": "BT1: Hummer EV, Silverado EV, Sierra AV; BEV3: Cadillac Lyriq, Celestiq, Chevrolet Blazer EV, Equinox EV; Honda Prologue EV; Acura ZDX",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "GM",
+   "model": "Hummer EV, Silverado EV, Sierra AV; BEV3: Cadillac Lyriq, Celestiq, Chevrolet Blazer EV, Equinox EV; Honda Prologue EV; Acura ZDX",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_2227C6",
+   "at": [
+    "ATST96",
+    "ATSP7",
+    "ATCP14",
+    "ATSHDACBF1",
+    "ATCRA142AF1CB",
+    "ATFCSH14DACBF1",
+    "ATFCSD300000",
+    "ATFCSM1"
+   ],
+   "request": "2227C6"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_2227C6",
+   "decode": {
+    "type": "wican",
+    "expr": "[B8:B9]/655.35"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}

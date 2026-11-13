@@ -1,0 +1,60 @@
+{
+ "name": "evsoc_nissan_leaf_evcan",
+ "description": "Nissan Leaf ZE0/AZE0 (2011-2017): listening to the battery frame 0x55B on the EV-CAN, which is on OBD pins 12/13 (not 6/14). SoC as a 10-bit value in 0.1 % (BMS nominal value, never reaches 0/100 % because of the buffer). Needs an adapter that reaches pins 12/13: evsoc box or CAN interface with a Leaf cable. For diagnostics over 6/14 there is obdb_nissan_leaf.",
+ "source": "OVMS vehicle_nissanleaf (MIT), IncomingFrameCan1/0x55b; leaf-obd.readthedocs.io (pinout)",
+ "license": "MIT (facts)",
+ "verified": "Community",
+ "platform": "Nissan Leaf",
+ "vehicles": [
+  {
+   "make": "Nissan",
+   "model": "Leaf ZE0 / AZE0",
+   "years": [
+    2011,
+    2017
+   ]
+  },
+  {
+   "make": "Nissan",
+   "model": "e-NV200 (derived)",
+   "years": [
+    2014,
+    2021
+   ]
+  }
+ ],
+ "connection": {
+  "pins": [
+   12,
+   13
+  ]
+ },
+ "init": [],
+ "steps": [
+  {
+   "id": "lbc55b",
+   "at": [
+    "ATSP6",
+    "ATCAF0",
+    "ATCEA"
+   ],
+   "listen": "55B"
+  }
+ ],
+ "fields": {
+  "soc_bms": {
+   "step": "lbc55b",
+   "decode": {
+    "type": "bits",
+    "bix": 0,
+    "len": 10,
+    "div": 10,
+    "nullmax": 102.3
+   },
+   "min": 0,
+   "max": 100,
+   "unit": "%",
+   "label": "SoC (BMS, EV-CAN)"
+  }
+ }
+}

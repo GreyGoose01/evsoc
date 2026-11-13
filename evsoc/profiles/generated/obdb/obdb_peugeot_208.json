@@ -1,0 +1,125 @@
+{
+ "name": "obdb_peugeot_208",
+ "description": "Peugeot 208",
+ "source": "https://github.com/OBDb/Peugeot-208",
+ "license": "CC-BY-SA-4.0",
+ "vehicles": [
+  {
+   "make": "Peugeot",
+   "model": "208",
+   "years": [
+    2012,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6A2",
+    "ATCRA682",
+    "ATCEA",
+    "ATFCSH6A2",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D49C",
+   "id": "c4_22D49C"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D410",
+   "id": "c297_22D410"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D810",
+   "id": "c309_22D810"
+  },
+  {
+   "at": [
+    "ATSP6",
+    "ATSH6B4",
+    "ATCRA694",
+    "ATCEA",
+    "ATFCSH6B4",
+    "ATFCSD300000",
+    "ATFCSM1",
+    "ATST32"
+   ],
+   "request": "22D860",
+   "id": "c314_22D860"
+  }
+ ],
+ "fields": {
+  "odometer": {
+   "step": "c4_22D49C",
+   "decode": {
+    "type": "bits",
+    "len": 32
+   },
+   "min": 0,
+   "max": 4294967295,
+   "unit": "km",
+   "label": "Odometer"
+  },
+  "soc": {
+   "step": "c297_22D410",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 512
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge, calibrated"
+  },
+  "soc_bms": {
+   "step": "c309_22D810",
+   "decode": {
+    "type": "bits",
+    "len": 16,
+    "div": 512
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery charge"
+  },
+  "soh": {
+   "step": "c314_22D860",
+   "decode": {
+    "type": "bits",
+    "bix": 8,
+    "len": 16,
+    "div": 16
+   },
+   "min": -5,
+   "max": 105,
+   "unit": "%",
+   "label": "High voltage battery health"
+  }
+ }
+}

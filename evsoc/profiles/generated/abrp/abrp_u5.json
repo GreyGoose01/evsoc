@@ -1,0 +1,189 @@
+{
+ "name": "abrp_u5",
+ "description": "Aiways U5",
+ "source": "https://github.com/iternio/ev-obd-pids/blob/main/aiways/u5.json",
+ "license": "Apache-2.0",
+ "vehicles": [
+  {
+   "make": "Aiways",
+   "model": "U5",
+   "years": [
+    2020,
+    null
+   ]
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s3_221002",
+   "at": [
+    "ATSP6",
+    "ATAL",
+    "ATAT1",
+    "ATST64",
+    "ATSH703"
+   ],
+   "request": "221002"
+  },
+  {
+   "id": "s4_221004",
+   "at": [
+    "ATSP6",
+    "ATAL",
+    "ATAT1",
+    "ATST64",
+    "ATSH703"
+   ],
+   "request": "221004"
+  },
+  {
+   "id": "s5_221005",
+   "at": [
+    "ATSP6",
+    "ATAL",
+    "ATAT1",
+    "ATST64",
+    "ATSH703"
+   ],
+   "request": "221005"
+  },
+  {
+   "id": "s6_221006",
+   "at": [
+    "ATSP6",
+    "ATAL",
+    "ATAT1",
+    "ATST64",
+    "ATSH703"
+   ],
+   "request": "221006"
+  },
+  {
+   "id": "s7_221009",
+   "at": [
+    "ATSP6",
+    "ATAL",
+    "ATAT1",
+    "ATST64",
+    "ATSH703"
+   ],
+   "request": "221009"
+  },
+  {
+   "id": "s9_221202",
+   "at": [
+    "ATSP6",
+    "ATAL",
+    "ATAT1",
+    "ATST64",
+    "ATSH703"
+   ],
+   "request": "221202"
+  },
+  {
+   "id": "s10_221012",
+   "at": [
+    "ATSP6",
+    "ATAL",
+    "ATAT1",
+    "ATST64",
+    "ATSH703"
+   ],
+   "request": "221012"
+  },
+  {
+   "id": "s11_22DF05",
+   "at": [
+    "ATSP6",
+    "ATAL",
+    "ATAT1",
+    "ATST64",
+    "ATSH703"
+   ],
+   "request": "22DF05"
+  }
+ ],
+ "fields": {
+  "current": {
+   "step": "s5_221005",
+   "decode": {
+    "type": "equation",
+    "expr": "(((signed(A)*256)+B)-7000)/10"
+   },
+   "min": -2000.0,
+   "max": 2000.0,
+   "unit": "A"
+  },
+  "voltage": {
+   "step": "s4_221004",
+   "decode": {
+    "type": "equation",
+    "expr": "((signed(A)*256)+B)/10"
+   },
+   "min": 300.0,
+   "max": 500.0,
+   "unit": "V"
+  },
+  "batt_temp": {
+   "step": "s3_221002",
+   "decode": {
+    "type": "equation",
+    "expr": "A-40"
+   },
+   "min": -40.0,
+   "max": 100.0,
+   "unit": "°C"
+  },
+  "soh": {
+   "step": "s10_221012",
+   "decode": {
+    "type": "equation",
+    "expr": "A"
+   },
+   "min": 50.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soc": {
+   "step": "s6_221006",
+   "decode": {
+    "type": "equation",
+    "expr": "A"
+   },
+   "min": -5.0,
+   "max": 105.0,
+   "unit": "%"
+  },
+  "soe": {
+   "step": "s7_221009",
+   "decode": {
+    "type": "equation",
+    "expr": "A*6.3"
+   },
+   "min": 0.0,
+   "max": 65.0,
+   "unit": ""
+  },
+  "odometer": {
+   "step": "s11_22DF05",
+   "decode": {
+    "type": "equation",
+    "expr": "(A*65536+B*256+C)/10"
+   },
+   "min": 0.0,
+   "max": 1000000.0,
+   "unit": "km"
+  },
+  "vehicle_reported_speed": {
+   "step": "s9_221202",
+   "decode": {
+    "type": "equation",
+    "expr": "((A*256)+b)/100"
+   },
+   "min": 0.0,
+   "max": 200.0,
+   "unit": ""
+  }
+ }
+}

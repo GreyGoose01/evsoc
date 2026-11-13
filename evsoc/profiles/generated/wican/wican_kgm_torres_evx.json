@@ -1,0 +1,37 @@
+{
+ "name": "wican_kgm_torres_evx",
+ "description": "KGM: Torres EVX",
+ "source": "https://github.com/meatpiHQ/wican-fw/tree/main/vehicle_profiles",
+ "license": "GPL-3.0",
+ "vehicles": [
+  {
+   "make": "KGM (SsangYong)",
+   "model": "Torres EVX",
+   "years": null
+  }
+ ],
+ "init": [],
+ "steps": [
+  {
+   "id": "s1_22FD0D",
+   "at": [
+    "ATSP6",
+    "ATSH7E0",
+    "ATST96"
+   ],
+   "request": "22FD0D"
+  }
+ ],
+ "fields": {
+  "soc": {
+   "step": "s1_22FD0D",
+   "decode": {
+    "type": "wican",
+    "expr": "[B9:B10]/10"
+   },
+   "min": 0.0,
+   "max": 100.0,
+   "unit": "%"
+  }
+ }
+}
