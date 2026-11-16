@@ -219,7 +219,7 @@ def test_desktop_entry_and_app_window(tmp_path, monkeypatch):
     monkeypatch.setenv("XDG_DATA_HOME", str(tmp_path))
     entry, icon = g.install_desktop("/opt/evsoc/.venv/bin/evsoc")
     text = entry.read_text()
-    assert "Exec=/opt/evsoc/.venv/bin/evsoc gui --fenster" in text and "Terminal=false" in text and f"Icon={icon}" in text
+    assert "Exec=/opt/evsoc/.venv/bin/evsoc gui --window" in text and "Terminal=false" in text and f"Icon={icon}" in text
     assert icon.read_text().startswith("<svg")
     assert set(g.remove_desktop()) == {entry, icon} and g.remove_desktop() == []
 
@@ -230,6 +230,18 @@ def test_desktop_entry_and_app_window(tmp_path, monkeypatch):
     monkeypatch.setattr(g.shutil, "which", lambda name: None)
     monkeypatch.setattr(g.webbrowser, "open", lambda url: started.append(url))
     assert g.open_window("http://127.0.0.1:1/") == "default browser" and started[-1] == "http://127.0.0.1:1/"
+
+
+def test_default_browser_does_not_write_into_the_terminal(monkeypatch):
+    import evsoc.gui as g
+    started = []
+    monkeypatch.setattr(g.sys, "platform", "linux")
+    monkeypatch.setattr(g.shutil, "which", lambda name: "/usr/bin/xdg-open" if name == "xdg-open" else None)
+    monkeypatch.setattr(g.subprocess, "Popen", lambda cmd, **kw: started.append((cmd, kw)))
+    g.open_url("http://127.0.0.1:1/")
+    cmd, kw = started[0]
+    assert cmd == ["/usr/bin/xdg-open", "http://127.0.0.1:1/"]
+    assert kw["stdout"] is g.subprocess.DEVNULL and kw["stderr"] is g.subprocess.DEVNULL and kw["start_new_session"]
 
 
 def test_window_mode_stops_when_the_page_is_gone(gui):
@@ -266,3 +278,23 @@ def test_wake_test_and_reading_on_demand(gui, reports):
             break
         time.sleep(0.1)
     assert call(base, "/api/status")[1]["monitor"]["state"]["checked"] != first
+
+
+def test_closing_the_page_quits_after_a_short_grace(gui):
+    from evsoc.gui import page_gone
+    server, base = gui
+    call(base, "/api/status")
+    assert not page_gone(server)
+    assert call(base, "/api/bye", {})[0] == 200
+    assert not page_gone(server)                     # a reload asks again within the grace period
+    server.session.page_closed -= 11
+    assert page_gone(server)
+    call(base, "/api/status")                        # page came back (reload)
+    assert server.session.page_closed is None and not page_gone(server)
+    server.session.last_request -= 200               # closed without goodbye: silent for 3 minutes
+    assert page_gone(server)
+    server.session.job["running"] = True             # never while work is in progress
+    call(base, "/api/bye", {})
+    server.session.page_closed -= 60
+    assert not page_gone(server)
+    server.session.job["running"] = False

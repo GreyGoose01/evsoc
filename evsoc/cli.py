@@ -517,15 +517,20 @@ def cmd_gui(args) -> int:
     server = serve(open_adapter, host=host, port=port, open_browser=not (args.no_browser or args.window),
                    wired_only=WIRED_ONLY, token=token)
     print(f"evsoc interface: {server.url}")
+    local = host in ("127.0.0.1", "localhost", "::1")
     if args.window:
+        from .gui import open_window
+        print(f"Window: {open_window(server.url)}.")
+    if args.window or (local and not args.no_browser and not args.keep_running):
         import threading
 
-        from .gui import idle_seconds, open_window
-        print(f"Window: {open_window(server.url)}. evsoc quits when the window has been closed for 3 minutes.")
+        from .gui import page_gone
+        print("evsoc quits when the page is closed (not while continuous operation or a test is running; --keep-running to stay).")
 
         def watch() -> None:
-            while idle_seconds(server) < 180:
-                time.sleep(5)
+            while not page_gone(server):
+                time.sleep(2)
+            print("Page closed, quitting.")
             server.shutdown()
 
         threading.Thread(target=watch, daemon=True).start()
@@ -853,6 +858,7 @@ def main(argv: list[str] | None = None) -> int:
                    help="127.0.0.1 = this computer only (default); interface name like eth0 = only over this cable; 0.0.0.0 = all networks")
     p.add_argument("--no-browser", action="store_true", help="do not open the browser automatically")
     p.add_argument("--token", help="fixed access key (default: new on every start); also via EVSOC_GUI_TOKEN")
+    p.add_argument("--keep-running", action="store_true", help="keep running when the page is closed")
     p.add_argument("--window", "--fenster", action="store_true",
                    help="open as a window of its own (Chromium/Chrome, else the default browser) and quit when it is closed")
     p.set_defaults(fn=cmd_gui)

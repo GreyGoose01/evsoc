@@ -7,7 +7,8 @@ Standard library only. The page (evsoc/web/index.html) talks to a JSON API:
   POST /api/connect {url}, /api/disconnect, /api/read {profile|car, all, battery_kwh},
        /api/monitor/start {...}, /api/monitor/stop, /api/monitor/wake,
        /api/probe/start {car, notes, all, raw, diagnose}, /api/probe/load {report|name, notes},
-       /api/raw {commands}, /api/busscan, /api/waketest/start {url, profile, car, minutes}, /api/sniff/start {url, seconds, values}, /api/sniff/analyze {text, values}
+       /api/raw {commands}, /api/busscan, /api/waketest/start {url, profile, car, minutes}, /api/sniff/start {url, seconds, values}, /api/sniff/analyze {text, values},
+       /api/bye (the page is being closed)
 
 Long work (test drive, listening in) runs as one background job; the page polls /api/job.
 Reports of test drives are also saved to ~/evsoc-reports (or $EVSOC_REPORTS).
@@ -25,6 +26,7 @@ import re
 import secrets
 import shutil
 import subprocess
+import sys
 import tempfile
 import threading
 import time
@@ -88,6 +90,7 @@ class Session:
         self._job_thread: threading.Thread | None = None
         self.report: dict | None = None   # last test drive (evsoc probe)
         self.last_request = time.monotonic()
+        self.page_closed: float | None = None  # when the page said goodbye (tab or window closed)
 
     def say(self, msg: str) -> None:
         self.log.append(f"{time.strftime('%H:%M:%S')}  {msg}")
@@ -657,6 +660,7 @@ def make_handler(session: Session, token: str, allowed_hosts: set[str], page_nee
                 return
             q = {k: v[0] for k, v in parse_qs(u.query).items()}
             session.last_request = time.monotonic()
+            session.page_closed = None
             try:
                 if u.path == "/api/info":
                     self._json(info(wired_only))
@@ -703,7 +707,11 @@ def make_handler(session: Session, token: str, allowed_hosts: set[str], page_nee
                     return
                 body = json.loads(self.rfile.read(length) or b"{}")
                 session.last_request = time.monotonic()
-                if u.path == "/api/connect":
+                session.page_closed = None
+                if u.path == "/api/bye":  # the page is being closed (or reloaded: then it asks again at once)
+                    session.page_closed = time.monotonic()
+                    self._json({"ok": True})
+                elif u.path == "/api/connect":
                     self._json(session.connect(str(body.get("url", "")).strip()))
                 elif u.path == "/api/disconnect":
                     session.disconnect()
@@ -787,7 +795,7 @@ def serve(open_adapter, host: str = "127.0.0.1", port: int = 8787, open_browser:
         except OSError:
             pass
     if open_browser:
-        threading.Timer(0.5, webbrowser.open, args=(url,)).start()
+        threading.Timer(0.5, open_url, args=(url,)).start()
     return server
 
 
@@ -803,8 +811,22 @@ def open_window(url: str) -> str:
             subprocess.Popen([binary, f"--app={url}", "--window-size=1280,860"], stdout=subprocess.DEVNULL,
                              stderr=subprocess.DEVNULL, start_new_session=True)
             return name
-    webbrowser.open(url)
+    open_url(url)
     return "default browser"
+
+
+def open_url(url: str) -> None:
+    """Open the page in the default browser without letting the browser write into our terminal
+    (Chromium prints "Opening in existing browser session." and zygote errors otherwise)."""
+    opener = shutil.which("xdg-open") if sys.platform.startswith("linux") else shutil.which("open") if sys.platform == "darwin" else None
+    if opener:
+        try:
+            subprocess.Popen([opener, url], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL, start_new_session=True)
+            return
+        except OSError:
+            pass
+    webbrowser.open(url)
 
 
 def idle_seconds(server) -> float:
@@ -815,6 +837,19 @@ def idle_seconds(server) -> float:
     return time.monotonic() - s.last_request
 
 
+def page_gone(server, grace: float = 10, timeout: float = 180) -> bool:
+    """True when nobody uses the interface any more: the page said goodbye `grace` seconds ago
+    and has not come back (a reload asks again at once), or it has been silent for `timeout`
+    seconds (closed without goodbye; background tabs poll only about once a minute).
+    Never while continuous operation or a job is running."""
+    if idle_seconds(server) == 0.0:
+        return False
+    closed = server.session.page_closed
+    if closed is not None and time.monotonic() - closed >= grace:
+        return True
+    return idle_seconds(server) >= timeout
+
+
 DESKTOP_ENTRY = """[Desktop Entry]
 Type=Application
 Name=evsoc
@@ -822,7 +857,7 @@ GenericName=EV battery state
 GenericName[de]=Ladestand und Batteriewerte von E-Autos
 Comment=Read state of charge, battery values and fault memory through the OBD socket (read only)
 Comment[de]=Ladestand, Batteriewerte und Fehlerspeicher über die OBD-Buchse lesen (nur lesend)
-Exec={exec} gui --fenster
+Exec={exec} gui --window
 Icon={icon}
 Terminal=false
 Categories=Utility;Electronics;
