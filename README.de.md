@@ -31,6 +31,8 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[all]"
 .venv/bin/evsoc read -a /dev/cu.OBDLinkMXPlus       # echtes Auto
 ```
 
+**Ohne git:** `evsoc-<version>-py3-none-any.whl` aus dem [neuesten Release](https://github.com/GreyGoose01/evsoc/releases/latest) herunterladen und mit `pipx install "./evsoc-<version>-py3-none-any.whl[all]"` installieren (oder `pip install` in einer virtuellen Umgebung). Mit `SHA256SUMS` im Release lässt sich der Download prüfen.
+
 ```
 Lese Fahrgestellnummer (VIN) ...
 Probiere 43 Profile ...

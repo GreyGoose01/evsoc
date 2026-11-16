@@ -11,7 +11,7 @@ from collections import Counter
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from . import enet
+from . import __version__, enet
 from .elm import AdapterError, ElmAdapter
 from .profiles import Profile, load_all
 from .reader import Reading, autodetect, read, run_init
@@ -783,6 +783,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--wired-only", "--nur-kabel", action="store_true",
                         help="wired adapters only (USB, CAN, ENET), no WiFi/Bluetooth; also via EVSOC_WIRED_ONLY=1")
+    parser.add_argument("--version", action="version", version=f"evsoc {__version__}")
     parser.add_argument("--lang", choices=["en", "de"],
                         help="output language: en or de (default: system language; also via EVSOC_LANG)")
     sub = parser.add_subparsers(dest="cmd", required=True)

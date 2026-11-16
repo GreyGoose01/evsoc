@@ -36,6 +36,8 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[all]"
 .venv/bin/evsoc read -a /dev/ttyUSB0                # a real car
 ```
 
+**Without git:** download `evsoc-<version>-py3-none-any.whl` from the [latest release](https://github.com/GreyGoose01/evsoc/releases/latest) and install it with `pipx install "./evsoc-<version>-py3-none-any.whl[all]"` (or `pip install` in a virtual environment). `SHA256SUMS` in the release lets you check the download.
+
 ```
 Reading the vehicle identification number (VIN) ...
 Trying 43 profiles ...

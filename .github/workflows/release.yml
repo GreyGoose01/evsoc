@@ -1,0 +1,59 @@
+# Builds the Python package (wheel + source archive) and attaches it to a GitHub release.
+# Start it with "Run workflow" in the Actions tab (it tags v<version> itself),
+# or push a tag like v0.1.0. The version comes from evsoc/__init__.py.
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Lint and tests
+        run: |
+          pip install -e ".[all,dev]" build
+          ruff check .
+          make -C firmware
+          pytest -q
+
+      - name: Version and tag
+        id: version
+        run: |
+          version=$(sed -n 's/^__version__ = "\(.*\)"/\1/p' evsoc/__init__.py)
+          if [ "$GITHUB_REF_TYPE" = "tag" ] && [ "$GITHUB_REF_NAME" != "v$version" ]; then
+            echo "tag $GITHUB_REF_NAME does not match version $version"; exit 1
+          fi
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+
+      - name: Build package
+        run: |
+          python -m build
+          cd dist && sha256sum * > SHA256SUMS
+
+      - name: Check the package installs and runs
+        run: |
+          python -m venv /tmp/try
+          /tmp/try/bin/pip install dist/*.whl
+          cd /tmp && /tmp/try/bin/evsoc --version && /tmp/try/bin/evsoc read -a mock://corsa-e
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          gh release create "$TAG" dist/*.whl dist/*.tar.gz dist/SHA256SUMS \
+            --target "$GITHUB_SHA" \
+            --title "evsoc ${TAG#v}" \
+            --generate-notes
