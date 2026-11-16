@@ -20,6 +20,8 @@ evsoc gui --window     # as its own window (Chromium/Chrome, otherwise the defau
 
 The interface runs locally on your computer, without internet and without extra packages. It covers all commands, the terminal is not needed.
 
+When you close the tab or window, evsoc quits a few seconds later, but not while continuous operation (`evsoc monitor`) or a test is running. `--keep-running` keeps it running, `--no-browser` does not open a page (and does not quit by itself).
+
 ### Starting without a terminal (Linux)
 
 ```bash
@@ -27,7 +29,7 @@ evsoc desktop          # once: adds evsoc to the application menu
 evsoc desktop --remove
 ```
 
-Afterwards "evsoc" is in the application menu (GNOME, KDE, Xfce …). The entry starts `evsoc gui --window`. With Chromium, Chrome, Brave, Edge or Vivaldi a window of its own without an address bar opens, otherwise a tab in the default browser. evsoc quits by itself when the window has been closed for three minutes and nothing is running.
+Afterwards "evsoc" is in the application menu (GNOME, KDE, Xfce …). The entry starts `evsoc gui --window`. With Chromium, Chrome, Brave, Edge or Vivaldi a window of its own without an address bar opens, otherwise a tab in the default browser. evsoc quits by itself a few seconds after the window is closed, unless continuous operation or a test is running.
 
 For USB adapters your user must be allowed to access the serial port: `sudo usermod -aG dialout $USER`, then log out and in again.
 

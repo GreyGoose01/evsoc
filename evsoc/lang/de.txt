@@ -113,7 +113,10 @@ New PIN (at least 4 digits): || Neue PIN (mind. 4 Ziffern):
 
 # ---- gui / run / desktop ----------------------------------------------------------------------------
 evsoc interface: {} || evsoc-Oberfläche: {}
-Window: {}. evsoc quits when the window has been closed for 3 minutes. || Fenster: {}. evsoc beendet sich, wenn das Fenster 3 Minuten geschlossen ist.
+Window: {}. || Fenster: {}.
+evsoc quits when the page is closed (not while continuous operation or a test is running; --keep-running to stay). || evsoc beendet sich, wenn die Seite geschlossen wird (nicht während Dauerbetrieb oder ein Test läuft; --keep-running hält es am Laufen).
+Page closed, quitting. || Seite geschlossen, evsoc beendet sich.
+keep running when the page is closed || weiterlaufen, wenn die Seite geschlossen wird
 default browser || Standardbrowser
 Reachable via {} ({}). || Erreichbar über {} ({}).
 Note: reachable on the network. Access only with the link above (it contains the key), without encryption (HTTP). Use only on your own network. || Achtung: im Netzwerk erreichbar. Zugang nur mit dem Link oben (enthält den Schlüssel), ohne Verschlüsselung (HTTP). Nur im eigenen Netz verwenden.

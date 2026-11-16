@@ -15,10 +15,12 @@ Das Gerät mit `evsoc run` ist in [raspberry-pi.md](raspberry-pi.md) beschrieben
 
 ```bash
 evsoc gui              # im Browser, http://127.0.0.1:8787
-evsoc gui --fenster    # als eigenes Fenster (Chromium/Chrome, sonst Standardbrowser)
+evsoc gui --window     # als eigenes Fenster (Chromium/Chrome, sonst Standardbrowser)
 ```
 
 Die Oberfläche läuft lokal auf deinem Rechner, ohne Internet und ohne zusätzliche Pakete. Sie deckt alle Befehle ab, das Terminal ist nicht nötig.
+
+Schließt du den Tab oder das Fenster, beendet sich evsoc ein paar Sekunden später, aber nicht, solange Dauerbetrieb (`evsoc monitor`) oder ein Test läuft. `--keep-running` hält es am Laufen, `--no-browser` öffnet keine Seite (und beendet sich dann nicht selbst).
 
 ### Start ohne Terminal (Linux)
 
@@ -27,7 +29,7 @@ evsoc desktop          # einmalig: trägt evsoc ins Anwendungsmenü ein
 evsoc desktop --entfernen
 ```
 
-Danach steht „evsoc“ im Anwendungsmenü (GNOME, KDE, Xfce …). Der Eintrag startet `evsoc gui --fenster`. Mit Chromium, Chrome, Brave, Edge oder Vivaldi öffnet sich ein eigenes Fenster ohne Adressleiste, sonst ein Tab im Standardbrowser. evsoc beendet sich selbst, wenn das Fenster drei Minuten geschlossen ist und nichts mehr läuft.
+Danach steht „evsoc“ im Anwendungsmenü (GNOME, KDE, Xfce …). Der Eintrag startet `evsoc gui --window`. Mit Chromium, Chrome, Brave, Edge oder Vivaldi öffnet sich ein eigenes Fenster ohne Adressleiste, sonst ein Tab im Standardbrowser. evsoc beendet sich ein paar Sekunden nach dem Schließen des Fensters, außer Dauerbetrieb oder ein Test läuft.
 
 Für USB-Adapter muss dein Benutzer auf die serielle Schnittstelle zugreifen dürfen: `sudo usermod -aG dialout $USER`, danach ab- und anmelden.
 

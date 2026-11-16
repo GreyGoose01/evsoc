@@ -802,6 +802,16 @@ async function refresh() {
   } catch (e) { /* server gone? keep trying */ }
 }
 
+// tell evsoc when the tab or window is closed, so that it can quit. Hiding the page (also when
+// switching tabs) says goodbye too, because closing does that first; a page that is still open
+// keeps asking for the status and so cancels the goodbye straight away.
+function bye() {
+  try { fetch("/api/bye", { method: "POST", keepalive: true, body: "{}",
+                             headers: { "X-Evsoc-Token": TOKEN, "Content-Type": "application/json" } }); } catch (e) { /* closing anyway */ }
+}
+addEventListener("pagehide", bye);
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") bye(); });
+
 (async () => {
   show(location.hash.slice(1) || "start");
   try {
